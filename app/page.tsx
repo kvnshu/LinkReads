@@ -1,8 +1,6 @@
-import Navbar from './nav'
-export default function Home() {
+export default function HomePage() {
     return (
-        <div className="main ">
-            <Navbar />
+        <div className="">
             <div id="homepage" className="min-h-screen px-32">
                 <div id="hero-container" className="">
                     <div className="">
