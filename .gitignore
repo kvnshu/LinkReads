@@ -7,7 +7,7 @@
 
 # testing
 /coverage
-env.local
+.env.local
 
 # next.js
 /.next/
@@ -15,7 +15,7 @@ env.local
 
 # production
 /build
-env.production
+.env.production
 
 # misc
 .DS_Store
