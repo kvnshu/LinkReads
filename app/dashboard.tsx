@@ -2,7 +2,7 @@ import { getServerSession } from "next-auth/next"
 import { options } from "./api/auth/[...nextauth]/options"
 import React from "react"
 
-// async function getNotes(){
+// async function getNotes(){   
 //     const res = await fetch('');
 //     const data = await res.json();
 //     return data?.items as any

@@ -15,10 +15,9 @@ export default function RootLayout({
 }) {
     return (
         <html lang="en">
-            <body >
+            <body className="h-screen min-h-screen">
                 <AuthProvider>
-                    <main>
-                        <Navbar />
+                    <main className="">
                         {children}
                     </main>
                 </AuthProvider>

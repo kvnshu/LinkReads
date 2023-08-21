@@ -1,29 +1,13 @@
-import { options } from "./api/auth/[...nextauth]/options"
-import Login from './login'
-import { getServerSession } from "next-auth/next"
-import Dashboard from './dashboard'
 
 export default async function HomePage() {
-    const session = await getServerSession(options)
-    // console.log(session)
     return (
-        <div className="min-h-screen px-32">
-            {
-                session ? (
-                    <Dashboard/>
-                ) : (
-                    <div id="hero">
-                        <div id="hero-container" className="">
-                            <div className="">
-                                <h1 className="font-sans font-bold text-xl">A platform for digital readers</h1>
-                                <h2 className="font-sans font-medium text-lg">Track what you read online, and see what your friends are reading</h2>
-                            </div>
-                            
-                            <Login />
-                        </div>
-                    </div>
-                )}
-            
+        <div id="hero-container" className="bg-gray-100 min-h-screen flex flex-col items-center justify-center">
+            <div className="">
+                <h1 className="font-sans font-bold text-xl text-4xl mb-6">LinkReads</h1>
+                <h2 className="font-sans font-medium text-lg text-gray-600 text-lg mb-8">A platform for digital readers</h2>
+                <h3 className="font-sans font-standard text-lg text-gray-600 text-lg mb-8">Track what you read online, and see what your friends are reading</h3>
+                <a href="https://iaq5gecg60v.typeform.com/to/TRT9v0Ad" className="text-xl font-semibold mb-4">Join the waitlist</a>
+            </div>
         </div>
     )
 }
