@@ -1,6 +1,7 @@
 import './globals.css'
 import type { Metadata } from 'next'
 import Navbar from './nav'
+import AuthProvider from './context/AuthProvider'
 
 export const metadata: Metadata = {
     title: 'LinkReads',
@@ -15,10 +16,12 @@ export default function RootLayout({
     return (
         <html lang="en">
             <body >
-                <main>
-                    <Navbar />
-                    {children}
-                </main>
+                <AuthProvider>
+                    <main>
+                        <Navbar />
+                        {children}
+                    </main>
+                </AuthProvider>
             </body>
         </html>
     )
