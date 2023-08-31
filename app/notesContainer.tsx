@@ -3,7 +3,7 @@ import React, { useState } from "react"
 
 export default function NotesContainer() {
     const [formData, setFormData] = useState({
-        url: ""
+        note_url: ""
     })
 
     const handleInput = (e: React.ChangeEvent<HTMLInputElement>): void => {
@@ -20,23 +20,20 @@ export default function NotesContainer() {
         e.preventDefault()
 
         const formURL = (e.target as HTMLFormElement).action
-        const data = new FormData()
 
-        Object.entries(formData).forEach(([key, value]) => {
-            data.append(key, value);
-        })
-
-        // console.log(data.get('url'))
+        const data = {
+            note_url: formData.note_url
+        }
 
         fetch(formURL, {
             method: "POST",
-            body: data,
+            body: JSON.stringify(data),
             headers: {
                 'accept': 'application/json',
             },
         }).then(() => {
             setFormData({
-                url: "",
+                note_url: "",
             })
         })
     }
@@ -53,7 +50,7 @@ export default function NotesContainer() {
             </div>
             <div id="notes-form">
                 <form method="POST" action="/api/note" onSubmit={submitForm}>
-                    <input type="text" name="url" onChange={handleInput} value={formData.url} placeholder="www.example.com" />
+                    <input type="text" name="note_url" onChange={handleInput} value={formData.note_url} placeholder="www.example.com" />
                     <button type="submit" className="bg-blue-100 rounded-full px-4">Add Note</button>
                 </form>
             </div >

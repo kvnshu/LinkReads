@@ -1,6 +1,11 @@
-import mongoose, { Schema, models } from 'mongoose'
+import mongoose, { Schema, Types, models } from 'mongoose'
 
-const noteSchema = new Schema({
+interface INote {
+    user_id: Types.ObjectId,
+    url: string
+}
+
+const noteSchema = new Schema<INote>({
     user_id: { type: Schema.Types.ObjectId, ref: 'User' },
     url: {
         type: String,
@@ -8,6 +13,6 @@ const noteSchema = new Schema({
     },
 }, { timestamps: true })
 
-const Note = models.Note || mongoose.model('Note', noteSchema)
+const Note = models.Note || mongoose.model<INote>('Note', noteSchema)
 
 export default Note;

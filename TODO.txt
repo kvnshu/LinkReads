@@ -1,0 +1,4 @@
+[] Display user's notes
+
+[] save mongoose session for efficiency?
+[] fix routing in user routing to be domain-independent
