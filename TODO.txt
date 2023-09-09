@@ -1,6 +1,2 @@
-[] fix dev environment
-[] Display user's notes
-- how to fetch mongo data on the server side?
-
 [] save mongoose session for efficiency?
-[] fix routing in user routing to be domain-independent (in getNotes())
+[] fix routing in user routing to be domain-independent (in getNotes(), remove localhost)

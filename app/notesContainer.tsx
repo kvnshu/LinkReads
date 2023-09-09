@@ -1,8 +1,8 @@
 import CreateNote from './createNote'
+import { headers } from 'next/headers'
 
 export default async function NotesContainer() {
     const notes = await getNotes()
-
     return (
         <div>
             <h1>Notes</h1>
@@ -10,7 +10,7 @@ export default async function NotesContainer() {
             <div id="notes-view-container">
                 {
                     notes?.map((note) => {
-                        return <Note key={note.id} note={note} />
+                        return <Note key={note._id} note={note} />
                     })
                 }
             </div>
@@ -19,19 +19,21 @@ export default async function NotesContainer() {
 }
 
 async function getNotes() {
-    const res = await fetch("localhost://3000/api/note", {
-        cache: 'no-store'
-    })
+    const res = await fetch("http://localhost:3000/api/note", {
+        cache: 'no-store',
+        method: 'GET',
+        headers: headers()
 
+    })
     const data = await res.json()
     return data as any[]
 }
 
 function Note({ note }: any) {
-    const { note_url } = note || {};
+    const { url } = note || {};
     return (
         <div>
-            <p>{note_url}</p>
+            <p>URL: {url}</p>
         </div>
     )
 }

@@ -4,20 +4,21 @@ import User from '@/models/user'
 import { NextResponse } from 'next/server'
 import { getServerSession } from "next-auth/next"
 import { ObjectId } from 'mongodb'
-
+import { options } from "@/app/api/auth/[...nextauth]/options"
 
 export async function GET(req: Request){
+    const session = await getServerSession(options)
+    // console.log("Session Data:", session)
     await connectMongoDB()
-    const session = await getServerSession()
     const user = await User.findOne({ email: session?.user?.email })
-    const user_id = user._id
+    const user_id = user?._id
     const data = await Note.find({user_id: user_id})
     return NextResponse.json(data, {status: 200})
 }
 
 export async function POST(req: Request) {
     const { note_url } = await req.json()
-    const session = await getServerSession()
+    const session = await getServerSession(options)
     await connectMongoDB()
     const user = await User.findOne({ email: session?.user?.email })
     // create and save note
