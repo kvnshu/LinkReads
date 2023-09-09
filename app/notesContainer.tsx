@@ -1,62 +1,37 @@
-'use client'
-import React, { useState } from "react"
+import CreateNote from './createNote'
 
-export default function NotesContainer() {
-    const [formData, setFormData] = useState({
-        note_url: ""
-    })
-
-    const handleInput = (e: React.ChangeEvent<HTMLInputElement>): void => {
-        const fieldName = e.target.name;
-        const fieldValue = e.target.value;
-
-        setFormData((prevState) => ({
-            ...prevState,
-            [fieldName]: fieldValue
-        }));
-    }
-
-    const submitForm = (e: React.FormEvent): void => {
-        e.preventDefault()
-
-        const formURL = (e.target as HTMLFormElement).action
-
-        const data = {
-            note_url: formData.note_url
-        }
-
-        fetch(formURL, {
-            method: "POST",
-            body: JSON.stringify(data),
-            headers: {
-                'accept': 'application/json',
-            },
-        }).then(() => {
-            setFormData({
-                note_url: "",
-            })
-        })
-    }
+export default async function NotesContainer() {
+    const notes = await getNotes()
 
     return (
         <div>
             <h1>Notes</h1>
+            <CreateNote />
             <div id="notes-view-container">
-                {/* {
+                {
                     notes?.map((note) => {
-                        return <Note key={note.id} note={note}/>
+                        return <Note key={note.id} note={note} />
                     })
-                } */}
+                }
             </div>
-            <div id="notes-form">
-                <form method="POST" action="/api/note" onSubmit={submitForm}>
-                    <input type="text" name="note_url" onChange={handleInput} value={formData.note_url} placeholder="www.example.com" />
-                    <button type="submit" className="bg-blue-100 rounded-full px-4">Add Note</button>
-                </form>
-            </div >
         </div >
     )
 }
+
+async function getNotes() {
+    const res = await fetch("localhost://3000/api/note", {
+        cache: 'no-store'
+    })
+
+    const data = await res.json()
+    return data as any[]
+}
+
+function Note({ note }: any) {
+    const { note_url } = note || {};
+    return (
+        <div>
+            <p>{note_url}</p>
         </div>
     )
 }
