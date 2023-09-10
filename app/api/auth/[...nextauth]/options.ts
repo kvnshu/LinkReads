@@ -16,7 +16,7 @@ export const options: NextAuthOptions = {
                 const { name, email } = user
                 try {
                     await connectMongoDB();
-                    const userExists = await User.findOne({ email });
+                    const userExists = await User.findOne({ email: email });
                     if (!userExists) {
                         const res = await fetch('http://localhost:3000/api/user', {
                             method: "POST",
