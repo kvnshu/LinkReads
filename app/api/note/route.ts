@@ -6,14 +6,14 @@ import { getServerSession } from "next-auth/next"
 import { ObjectId } from 'mongodb'
 import { options } from "@/app/api/auth/[...nextauth]/options"
 
-export async function GET(req: Request){
+export async function GET() {
     const session = await getServerSession(options)
     // console.log("Session Data:", session)
     await connectMongoDB()
     const user = await User.findOne({ email: session?.user?.email })
     const user_id = user?._id
-    const data = await Note.find({user_id: user_id})
-    return NextResponse.json(data, {status: 200})
+    const data = await Note.find({ user_id: user_id })
+    return NextResponse.json(data, { status: 200 })
 }
 
 export async function POST(req: Request) {
@@ -27,7 +27,24 @@ export async function POST(req: Request) {
     await note.save()
     // update user
     user.notes.push(note._id as ObjectId)
-    await user.save()  
+    await user.save()
     console.log(`Note with url ${note_url} successfully added by ${session?.user?.email}.`)
     return NextResponse.json({ message: `Note with url ${note_url} successfully added by ${session?.user?.email}.` }, { status: 201 })
+}
+
+export async function DELETE(req: Request) {
+    const { note_id } = await req.json()
+    console.log("Note_id:", note_id)
+    await connectMongoDB();
+
+    const note = await Note.findById(note_id)
+    await User.findByIdAndUpdate(note.user_id, {
+        $pull: { notes: note._id }
+    })
+    console.log("Note deleted from user.")
+    
+    await Note.findByIdAndDelete(note_id)
+    console.log("Note deleted.")
+    
+    return NextResponse.json({ message: "Note deleted" }, { status: 200 });
 }
