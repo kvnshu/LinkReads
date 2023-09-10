@@ -38,13 +38,13 @@ export async function DELETE(req: Request) {
     await connectMongoDB();
 
     const note = await Note.findById(note_id)
+    const note_url = note.url
+    const user_id = note.user_id
     await User.findByIdAndUpdate(note.user_id, {
         $pull: { notes: note._id }
     })
-    console.log("Note deleted from user.")
-    
     await Note.findByIdAndDelete(note_id)
-    console.log("Note deleted.")
-    
+
+    console.log(`Note with url ${note_url} from user with id ${user_id} deleted from database.`)
     return NextResponse.json({ message: "Note deleted" }, { status: 200 });
 }
