@@ -1,0 +1,11 @@
+Implement schemas
+- tables
+- triggers?
+
+Style Hero
+Style Header
+Implement feed 
+Implement reading list
+Style feed
+Style reading list
+Change /login colors
