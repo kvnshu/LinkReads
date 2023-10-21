@@ -1,3 +1,9 @@
+[] Replace MongoDB with RDBMS
+- implement Supabase
+- delete Mongo libraries
+[] implement ui for landing page
+[] implement ui for dashboard
+[] research ways to decrease latency of creating/deleting notes
 [] implement "completed" feature for notes
 - update schema
 - add filter in noteContainer
