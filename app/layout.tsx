@@ -1,28 +1,22 @@
 import './globals.css'
-import type { Metadata } from 'next'
-import Navbar from './nav'
-import { NextAuthProvider } from './context/AuthProvider'
 
-export const metadata: Metadata = {
-    title: 'LinkReads',
-    description: 'Platform for digital readers',
+export const metadata = {
+  title: 'LinkReads',
+  // description: 'Goodreads for links',
 }
 
 export default function RootLayout({
-    children,
+  children,
 }: {
-    children: React.ReactNode
+  children: React.ReactNode
 }) {
-    return (
-        <html lang="en">
-            <body >
-                <NextAuthProvider>
-                    <Navbar />
-                    <main>
-                        {children}
-                    </main>
-                </NextAuthProvider>
-            </body>
-        </html>
-    )
+  return (
+    <html lang="en">
+      <body>
+        <main className="min-h-screen bg-background flex flex-col items-center">
+          {children}
+        </main>
+      </body>
+    </html>
+  )
 }
