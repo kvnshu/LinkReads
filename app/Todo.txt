@@ -1,6 +1,4 @@
-Implement schemas
-- tables
-- triggers?
+Install NextUI
 
 Style Hero
 Style Header
