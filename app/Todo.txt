@@ -4,8 +4,13 @@ Implement schemas
 
 Style Hero
 Style Header
+
+Connect API to searchbar
+
 Implement feed 
-Implement reading list
 Style feed
+
+Implement reading list
 Style reading list
+
 Change /login colors
