@@ -1,4 +1,5 @@
 import './globals.css'
+import {Providers} from "./providers";
 
 export const metadata = {
   title: 'LinkReads',
@@ -11,12 +12,14 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en">
+    <html lang="en" className="light">
       <body>
-        <main className="min-h-screen bg-background flex flex-col items-center">
-          {children}
-        </main>
+        <Providers>
+          <main className="min-h-screen bg-background flex flex-col items-center">
+            {children}
+          </main>
+        </Providers>
       </body>
-    </html>
+    </html >
   )
 }
