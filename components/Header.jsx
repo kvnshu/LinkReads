@@ -7,7 +7,7 @@ import {
   NavbarContent,
   NavbarItem,
 } from "@nextui-org/navbar";
-import { Avatar } from "@nextui-org/avatar";
+import { Avatar, } from "@nextui-org/avatar";
 
 export default function Header({ user }) {
   return (
