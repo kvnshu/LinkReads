@@ -1,20 +1,40 @@
 import LogoutButton from './LogoutButton'
 import LoginButton from './LoginButton'
+import React from "react";
+import {
+  Navbar,
+  NavbarBrand,
+  NavbarContent,
+  NavbarItem,
+} from "@nextui-org/navbar";
+import { Avatar, } from "@nextui-org/avatar";
 
-
-export default async function Header({ user }) {
+export default function Header({ user }) {
   return (
-    <nav className="w-full flex justify-center h-16">
-      <div className="w-full max-w-4xl flex justify-between items-center p-3 text-sm text-foreground border border-2" >
-        {user ? (
-          <div className="flex items-center gap-4">
-            Hey, {user.email}!
-            <LogoutButton />
-          </div>
-        ) : (
-          <LoginButton />
-        )}
-      </div>
-    </nav>
+    <Navbar position="static">
+      <NavbarBrand>
+        <a href="/">
+          <p className="font-bold text-inherit">LinkReads</p>
+        </a>
+      </NavbarBrand>
+      {(user) ? (
+        <NavbarContent as="div" justify="end">
+          <Avatar
+            isBordered
+            // as="button"
+            className="transition-transform"
+            color="secondary"
+            size="sm"
+          />
+          <LogoutButton />
+        </NavbarContent>
+      ) : (
+        <NavbarContent justify="end">
+          <NavbarItem>
+            <LoginButton />
+          </NavbarItem>
+        </NavbarContent >
+      )}
+    </Navbar >
   )
 }

@@ -1,7 +1,5 @@
-Install NextUI
-
 Style Hero
-Style Header
+Style Login
 
 Connect API to searchbar
 
