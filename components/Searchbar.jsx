@@ -1,14 +1,7 @@
-"use client";
 import React, { useState } from "react";
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 
-// import { Input } from "@nextui-org/input";
-
-// import { useRouter } from "next/navigation";
-
-
-export default function SearchBar({ listSaves, setListSaves }) {
-  const [loading, setLoading] = useState(false);
+export default function SearchBar({ listSaves, setListSaves, user }) {
   const [searchText, setSearchText] = useState("");
   const supabase = createClientComponentClient();
 
@@ -29,29 +22,39 @@ export default function SearchBar({ listSaves, setListSaves }) {
         .select();
 
       if (errorLinks) {
+        console.log('Failed to add link.')
         throw errorLinks;
       }
 
       // update saves table
-      // how to get user_id of current user?
       const newSave = {
-        user_id: '9fb37e67-f61b-43e8-9023-6d067caad344',
+        user_id: user.id,
         link_id: dataLinks[0].id,
       };
       const { data: dataSaves, error: errorSaves } = await supabase
         .from('saves')
         .insert(newSave)
-        .select();
+        .select(`
+          links (
+            url,
+            created_at
+          )
+        `)
+        .limit(1)
+        .single();
 
       if (errorSaves) {
+        console.log(`Failed to add save.`)
         throw errorSaves;
       }
 
       const listItem = {
-        url: dataLinks.url
+        url: dataLinks.url,
+        created_at: dataSaves.created_at
       }
 
-      const newListSaves = [newSave, ...listSaves]
+
+      const newListSaves = [dataSaves, ...listSaves]
       setListSaves(newListSaves);
       console.log(`Added ${searchText} to reading list.`);
       setSearchText("");

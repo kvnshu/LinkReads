@@ -1,10 +1,11 @@
-'use client'
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, } from "react";
 import Searchbar from "../components/Searchbar"
 import { Button } from "@nextui-org/button";
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
+import { list } from "postcss";
 
-export default function ReadingList() {
+export default function ReadingList({ session }) {
+  const { user } = session;
   const [listSaves, setListSaves] = useState([])
   const supabase = createClientComponentClient()
 
@@ -12,18 +13,34 @@ export default function ReadingList() {
     async function loadSaves() {
       const { data, error } = await supabase
         .from('saves')
-        .select()
-        
+        .select(`
+          id,
+          links (
+            url,
+            created_at
+          )
+        `)
+        .eq('user_id', user?.id)
+        .order('created_at', { ascending: false })
+
       if (error) {
         throw error
       }
-      setListSaves(data)
+      setListSaves(data);
     }
-
     loadSaves();
-  }, [])
+  }, [session])
 
-  function deleteSave(index) {
+  async function deleteSave(index) {
+    const save = listSaves[index]
+    console.log(`Deleting ${save.links.id} from reading list.`)
+    const { error } = await supabase
+      .from('saves')
+      .delete()
+      .eq('id', save.id)
+    if (error){
+      throw error;
+    }
     const newListSaves = [...listSaves.slice(0, index), ...listSaves.slice(index + 1)];
     setListSaves(newListSaves)
   }
@@ -33,13 +50,14 @@ export default function ReadingList() {
       <Searchbar
         listSaves={listSaves}
         setListSaves={setListSaves}
+        user={user}
       />
       <div id="list-container">
         {
           listSaves.map((save, i) =>
             <div key={i}>
               <p>
-                {save.url}
+                {save.links.url}
               </p>
               <Button
                 onClick={() => deleteSave(i)}
