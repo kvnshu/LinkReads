@@ -1,3 +1,11 @@
+Implement reading list
+[] update query in ReadingList:useEffect (join with links)
+[] update query in Searchbar:handleSubmit (join with links)
+[] why isn't save utilizing dataLinks.id
+Style reading list
+
+
+Style Landing Page
 Style Hero
 Style Login
 
@@ -6,7 +14,9 @@ Connect API to searchbar
 Implement feed 
 Style feed
 
-Implement reading list
-Style reading list
+
+Implement profile Page
+[] name
+[] all listLinks
 
 Change /login colors

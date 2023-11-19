@@ -1,11 +1,12 @@
 import React from "react";
-import Searchbar from "../components/Searchbar"
+import ReadingList from "../components/ReadingList"
 
 export default function Dashboard(){
   return (
     <div>
       Dashboard
-      <Searchbar/>
+      
+      <ReadingList/>
     </div>
   )
 }
