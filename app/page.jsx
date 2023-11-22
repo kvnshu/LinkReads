@@ -10,16 +10,12 @@ export default async function Index() {
 
   return (
     <div className="container min-h-screen flex items-center flex-col">
-      <Header
-        user={session?.user}
-      />
+      <Header />
       {
         session ? (
           <Dashboard session={session} />
         ) : (
-          <div>
-            <LandingPage />
-          </div>
+          <LandingPage />
         )
       }
     </div>

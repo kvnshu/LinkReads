@@ -9,9 +9,14 @@ import {
 } from "@nextui-org/navbar";
 import { Avatar } from "@nextui-org/avatar";
 // import { Link } from '@nextui-org/link';
-import Link from 'next/link'
+import Link from 'next/link';
+import { createServerComponentClient } from '@supabase/auth-helpers-nextjs';
+import { cookies } from 'next/headers';
 
-export default function Header({ user }) {
+export default async function Header() {
+  const supabase = createServerComponentClient({ cookies })
+  const { data: { user }, error } = await supabase.auth.getUser()
+
   return (
     <Navbar position="static">
       <NavbarBrand>
