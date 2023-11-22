@@ -2,18 +2,24 @@ Reading list
 [] redesign ui/ux for deleting a save
 
 Updates
-[] fix query for feed to be just the logname users following and only of followed
-[] style card and humanize timestamp
+[] style card
 [] implment following activity?
 
-Implement profile Page
-[] followers
-[] following
-[] all saves
-[] add name
+Profile Page
+[] list of followers
+[] list of following
+[] list of all saves
+
+user
+[] field for fullname
+[] field for twitter
+[] field for github
 
 Dash
 [] redesign ui (keep search centered, reading list and updates into 2 columns)
+
+app
+[] move supabase queries to services directory https://github.com/search?q=repo%3Aharshmangalam%2Fsupabook%20fetchProfileDetails&type=code
 
 Vercel
 [] fix deployment

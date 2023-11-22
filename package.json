@@ -10,6 +10,7 @@
     "@supabase/auth-helpers-nextjs": "latest",
     "@supabase/supabase-js": "latest",
     "autoprefixer": "10.4.15",
+    "date-fns": "^2.30.0",
     "framer-motion": "^10.16.4",
     "next": "latest",
     "postcss": "8.4.29",
