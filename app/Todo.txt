@@ -1,5 +1,4 @@
 Reading list
-[] implement save completion
 [] redesign ui/ux for deleting a save
 
 Updates
