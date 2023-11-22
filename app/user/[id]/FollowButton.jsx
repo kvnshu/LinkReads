@@ -73,10 +73,18 @@ export default function FollowButton({ user, profileId, supabase }) {
         loading ? (
           <></>
         ) : (
-          <Button
-            onClick={handleFollowToggle}>
-            {isFollowing ? 'Unfollow' : 'Follow'}
-          </Button>
+          <>
+            {
+              user.id !== profileId ? (
+                <Button
+                  onClick={handleFollowToggle}>
+                  {isFollowing ? 'Unfollow' : 'Follow'}
+                </Button>
+              ) : (
+                <></>
+              )
+            }
+          </>
         )
       }
     </div>
