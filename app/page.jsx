@@ -1,24 +1,14 @@
-'use client'
-import React, { useEffect, useState } from "react"
-import Header from "../components/Header"
-import LandingPage from "../components/LandingPage"
-import Dashboard from "../components/Dashboard"
-import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
+import Header from "@/components/Header"
+import LandingPage from "./LandingPage"
+import Dashboard from "./Dashboard"
+import { createServerComponentClient } from '@supabase/auth-helpers-nextjs'
 
-export default function Index() {
-  const [session, setSession] = useState(null);
-  const supabase = createClientComponentClient();
+export default async function Index() {
+  const supabase = createServerComponentClient({ cookies })
 
-  useEffect(() => {
-    supabase.auth.getSession().then(({ data: { session } }) => {
-      setSession(session)
-    })
-
-    supabase.auth.onAuthStateChange((_event, session) => {
-      setSession(session)
-    })
-  }, [])
-
+  const {
+    data: { session },
+  } = supabase.auth.getSession()
 
   return (
     <div className="container min-h-screen flex items-center flex-col">
