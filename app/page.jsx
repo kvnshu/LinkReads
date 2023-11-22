@@ -10,15 +10,17 @@ export default async function Index() {
   const { data: { session }, error } = await supabase.auth.getSession()
 
   return (
-    <div className="container min-h-screen flex items-center flex-col">
+    <div className="bg-background min-h-screen flex flex-col">
       <Header />
-      {
-        session ? (
-          <Dashboard session={session} />
-        ) : (
-          <LandingPage />
-        )
-      }
+      <main className="grow flex items-center justify-center">
+        {
+          session ? (
+            <Dashboard session={session} />
+          ) : (
+            <LandingPage />
+          )
+        }
+      </main>
     </div>
   )
 }

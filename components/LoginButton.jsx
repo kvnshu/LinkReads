@@ -21,7 +21,7 @@ export default function LoginButton() {
         color="primary"
         variant="flat"
         isLoading={isLoading}>
-        Login
+        Log in
       </Button>
     </div>
   )

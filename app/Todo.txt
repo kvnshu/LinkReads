@@ -1,5 +1,9 @@
 Landing Page
-[] redesign ui
+[] redesign theme
+
+Login
+[] reimplement with nextui
+[] redesign
 
 Dash
 [] redesign ui (keep search centered, reading list and updates into 2 columns)

@@ -12,9 +12,7 @@ export default function RootLayout({ children }) {
     <html lang="en" className="light">
       <body>
         <Providers>
-          <main className="min-h-screen bg-background flex flex-col items-center">
-            {children}
-          </main>
+          {children}
         </Providers>
       </body>
     </html >
