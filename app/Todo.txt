@@ -1,10 +1,16 @@
-Implement reading list
-[] update query in ReadingList:useEffect (join with links)
-[] update query in Searchbar:handleSubmit (join with links)
-[] why isn't save utilizing dataLinks.id
+Feed
+[] fix query for feed to be just the logname users following and only of followed
+[] style card and humanize timestamp
+
+Reading list
+[] implement read and read_at
+
+Implement profile Page
+[] followers
+[] following
+[] all saves
+
 Style reading list
-
-
 Style Landing Page
 Style Hero
 Style Login
@@ -13,10 +19,5 @@ Connect API to searchbar
 
 Implement feed 
 Style feed
-
-
-Implement profile Page
-[] name
-[] all listLinks
 
 Change /login colors
