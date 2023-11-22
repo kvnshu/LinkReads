@@ -1,7 +1,7 @@
 'use client'
 import React, { useEffect, useState } from 'react'
 import { createClientComponentClient } from '@supabase/auth-helpers-nextjs'
-import FeedCard from './FeedCard'
+import FeedItem from './FeedItem'
 
 export default function Feed({ session }) {
   const [reads, setReads] = useState([])
@@ -36,7 +36,7 @@ export default function Feed({ session }) {
     <div>
       <div>Feed</div>
       {
-        reads.map((read, i) => <FeedCard key={i} data={read} />)
+        reads.map((read, i) => <FeedItem key={i} data={read} />)
       }
     </div>
   )

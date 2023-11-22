@@ -1,6 +1,6 @@
 import React from 'react'
 
-export default function FeedCard({ data }) {
+export default function FeedItem({ data }) {
   return (
     <div>
       <p>{`${data.user_id} finished reading ${data.links.url}`}</p>
