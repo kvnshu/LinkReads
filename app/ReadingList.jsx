@@ -1,8 +1,8 @@
+'use client';
 import React, { useState, useEffect, } from "react";
-import Searchbar from "../components/Searchbar"
+import Searchbar from "./Searchbar"
 import { Button } from "@nextui-org/button";
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
-import { list } from "postcss";
 
 export default function ReadingList({ session }) {
   const { user } = session;
