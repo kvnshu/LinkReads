@@ -1,23 +1,23 @@
-Feed
+Reading list
+[] implement save completion
+[] redesign ui/ux for deleting a save
+
+Updates
 [] fix query for feed to be just the logname users following and only of followed
 [] style card and humanize timestamp
-
-Reading list
-[] implement read and read_at
+[] implment following activity?
 
 Implement profile Page
 [] followers
 [] following
 [] all saves
+[] add name
 
-Style reading list
-Style Landing Page
-Style Hero
-Style Login
+Dash
+[] redesign ui (keep search centered, reading list and updates into 2 columns)
 
-Connect API to searchbar
+Vercel
+[] fix deployment
 
-Implement feed 
-Style feed
-
-Change /login colors
+Login
+[] Change /login colors
