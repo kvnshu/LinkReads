@@ -1,5 +1,10 @@
 import Link from 'next/link'
 import Messages from './messages'
+import { Suspense } from 'react'
+
+function SearchBarFallback() {
+  return <>Loading...</>
+}
 
 export default function Login() {
   return (
@@ -58,7 +63,9 @@ export default function Login() {
         >
           Sign Up
         </button>
-        <Messages />
+        <Suspense fallback={<SearchBarFallback />}>
+          <Messages />
+        </Suspense>
       </form>
     </div>
   )
