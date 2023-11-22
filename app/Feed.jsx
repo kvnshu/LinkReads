@@ -17,7 +17,7 @@ export default function Feed({ session }) {
               url
             ),
             user_id,
-            read_at
+            read_at 
           `);
 
         if (error) {
