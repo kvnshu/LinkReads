@@ -2,10 +2,11 @@ import React from 'react'
 import { Button } from "@nextui-org/button";
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 // Popover
-
+import { truncateUrl } from "@/services/truncateUrl"
 
 export default function ReadingListItem({ index, data, listSaves, setListSaves }) {
   const supabase = createClientComponentClient()
+
 
   async function deleteSave(index) {
     const save = listSaves[index]
@@ -25,12 +26,12 @@ export default function ReadingListItem({ index, data, listSaves, setListSaves }
     const save = listSaves[index]
     console.log(`Completed ${save.links.url} from reading list.`)
     const { error } = await supabase
-    .from('saves')
-    .update({
-      read: true,
-      read_at:  new Date().toISOString()
-    })
-    .eq('id', save.id)
+      .from('saves')
+      .update({
+        read: true,
+        read_at: new Date().toISOString()
+      })
+      .eq('id', save.id)
     if (error) {
       console.log(error);
     }
@@ -43,7 +44,7 @@ export default function ReadingListItem({ index, data, listSaves, setListSaves }
   return (
     <div >
       <p>
-        {data.links.url}
+        {truncateUrl(data.links.url, 40)}
       </p>
       <Button
         onClick={() => deleteSave(index)}
