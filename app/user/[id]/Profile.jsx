@@ -44,7 +44,6 @@ export default function Profile({ user, profileId }) {
             <FollowButton
               user={user}
               profileId={profileId}
-              supabase={supabase}
             />
           </div>
         )

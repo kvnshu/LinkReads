@@ -1,6 +1,7 @@
 import React from 'react'
 import Link from 'next/link';
 import { formatDistanceToNow, parseISO } from "date-fns";
+import { truncateUrl } from '@/services/truncateUrl';
 
 export default function FeedItem({ data }) {
   function parseAndHumanizeDate(dateString) {

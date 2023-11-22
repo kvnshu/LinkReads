@@ -10,6 +10,7 @@ Dash
 
 Reading list
 [] redesign ui/ux for list items
+[] icons: https://icons8.com/
 
 Updates
 [] redesign ui card
@@ -28,6 +29,4 @@ User
 
 app
 [] move supabase queries to services directory https://github.com/search?q=repo%3Aharshmangalam%2Fsupabook%20fetchProfileDetails&type=code
-
-Login
-[] Change /login colors
+[] https://www.realtimecolors.com/?colors=050315-fbfbfe-27cece-dedcff-433bff&fonts=Poppins-Poppins

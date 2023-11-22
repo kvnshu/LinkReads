@@ -1,6 +1,6 @@
+import { Suspense } from 'react'
 import Link from 'next/link'
 import Messages from './messages'
-import { Suspense } from 'react'
 
 function SearchBarFallback() {
   return <>Loading...</>
