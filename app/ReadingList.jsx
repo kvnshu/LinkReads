@@ -11,22 +11,26 @@ export default function ReadingList({ session }) {
 
   useEffect(() => {
     async function loadSaves() {
-      const { data, error } = await supabase
-        .from('saves')
-        .select(`
-          id,
-          links (
-            url,
-            created_at
-          )
-        `)
-        .eq('user_id', user?.id)
-        .order('created_at', { ascending: false })
+      try {
+        const { data, error } = await supabase
+          .from('saves')
+          .select(`
+            id,
+            links (
+              url,
+              created_at
+            )
+          `)
+          .eq('user_id', user?.id)
+          .order('created_at', { ascending: false })
 
-      if (error) {
-        throw error
+        if (error) {
+          throw error
+        }
+        setListSaves(data);
+      } catch (error) {
+        console.log(error)
       }
-      setListSaves(data);
     }
     loadSaves();
   }, [session])
@@ -38,8 +42,8 @@ export default function ReadingList({ session }) {
       .from('saves')
       .delete()
       .eq('id', save.id)
-    if (error){
-      throw error;
+    if (error) {
+      console.log(error);
     }
     const newListSaves = [...listSaves.slice(0, index), ...listSaves.slice(index + 1)];
     setListSaves(newListSaves)
