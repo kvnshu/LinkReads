@@ -11,7 +11,7 @@ export default function FeedItem({ data }) {
   return (
     <div>
       <p>
-        <Link href={`/user/${data.user_id}`}>Someone you follow</Link>{` finished reading ${data.links.url}`}
+        <Link href={`/user/${data.user_id}`}>{data.profiles.email}</Link>{` finished reading ${data.links.url}`}
       </p>
       <p>{`${parseAndHumanizeDate(data.read_at)}`}</p>
     </div>

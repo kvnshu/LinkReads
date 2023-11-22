@@ -19,20 +19,23 @@ export default function Feed({ session }) {
             user_id,
             read_at,
             profiles (
-              id,
+              email,
               followings!followings_user_id2_fkey (
                 user_id1,
                 user_id2
               )
             )
           `)
-        .eq('profiles.followings.user_id1', session.user.id)
-        .eq('read', true)
-        .order('read_at', { ascending: false })
+          .not('profiles', 'is', null)
+          .not('profiles.followings', 'is', null)
+          .eq('profiles.followings.user_id1', session.user.id)
+          .eq('read', true)
+          .order('read_at', { ascending: false });
+
         if (error) {
           throw error
         }
-        setReads(data)
+        setReads(data);
       } catch (error) {
         console.log(error)
       }
