@@ -7,7 +7,9 @@ import {
   NavbarContent,
   NavbarItem,
 } from "@nextui-org/navbar";
-import { Avatar, } from "@nextui-org/avatar";
+import { Avatar } from "@nextui-org/avatar";
+// import { Link } from '@nextui-org/link';
+import Link from 'next/link'
 
 export default function Header({ user }) {
   return (
@@ -19,6 +21,9 @@ export default function Header({ user }) {
       </NavbarBrand>
       {(user) ? (
         <NavbarContent as="div" justify="end">
+          <Link href={`/user/${user?.id}`}>
+            Profile
+          </Link>
           <Avatar
             isBordered
             // as="button"
