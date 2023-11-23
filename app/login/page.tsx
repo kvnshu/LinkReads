@@ -1,6 +1,11 @@
 import { Suspense } from 'react'
 import Link from 'next/link'
+import Image from 'next/image'
+import { Button } from "@nextui-org/button";
+import { Input } from "@nextui-org/input";
 import Messages from './messages'
+import ArrowBack from "@/app/public/arrow_back.svg"
+import LogoPrimary from '@/components/LogoPrimary';
 
 function SearchBarFallback() {
   return <>Loading...</>
@@ -8,65 +13,67 @@ function SearchBarFallback() {
 
 export default function Login() {
   return (
-    <div className="flex-1 flex flex-col w-full px-8 sm:max-w-md justify-center gap-2">
+    <main className="flex-1 flex flex-col justify-center place-items-center w-screen px-8">
       <Link
         href="/"
         className="absolute left-8 top-8 py-2 px-4 rounded-md no-underline text-foreground bg-btn-background hover:bg-btn-background-hover flex items-center group text-sm"
       >
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="24"
-          height="24"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="2"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          className="mr-2 h-4 w-4 transition-transform group-hover:-translate-x-1"
+        <Image
+          priority
+          src={ArrowBack}
+          alt="Back"
+          className="transition-transform group-hover:-translate-x-1"
+        />
+        <span
+          className="align-middle"
         >
-          <polyline points="15 18 9 12 15 6" />
-        </svg>{' '}
-        Back
+          Back
+        </span>
       </Link>
-
-      <form
-        className="flex-1 flex flex-col w-full justify-center gap-2 text-foreground"
-        action="/auth/sign-in"
-        method="post"
-      >
-        <label className="text-md" htmlFor="email">
-          Email
-        </label>
-        <input
-          className="rounded-md px-4 py-2 bg-inherit border mb-6"
-          name="email"
-          placeholder="you@example.com"
-          required
-        />
-        <label className="text-md" htmlFor="password">
-          Password
-        </label>
-        <input
-          className="rounded-md px-4 py-2 bg-inherit border mb-6"
-          type="password"
-          name="password"
-          placeholder="••••••••"
-          required
-        />
-        <button className="bg-green-700 rounded px-4 py-2 text-white mb-2">
-          Sign In
-        </button>
-        <button
-          formAction="/auth/sign-up"
-          className="border border-gray-700 rounded px-4 py-2 text-black mb-2"
+      <div id="form-container" className="flex-1 flex flex-col place-items-center min-w-[30%] py-32 gap-2">
+        <LogoPrimary />
+        <form
+          className="flex-1 flex flex-col w-full justify-center gap-4 text-foreground"
+          action="/auth/sign-in"
+          method="post"
         >
-          Sign Up
-        </button>
-        <Suspense fallback={<SearchBarFallback />}>
-          <Messages />
-        </Suspense>
-      </form>
-    </div>
+          <Input
+            type="email"
+            label="Email"
+            name="email"
+            isRequired
+          />
+          <Input
+            label="Password"
+            type="password" // {isVisible ? "text" : "password"}
+            name="password"
+            isRequired
+          />
+          <div
+            className="flex flex-1 flex-col gap-2"
+          >
+            <Button
+              color="primary"
+              variant="solid"
+              type="submit"
+            >
+              Sign In
+            </Button>
+            <Button
+              formAction="/auth/sign-up"
+              color="default"
+              variant="ghost"
+              type="submit"
+            >
+              Sign Up
+            </Button>
+          </div>
+          <Suspense fallback={<SearchBarFallback />}>
+            <Messages />
+          </Suspense>
+        </form>
+      </div>
+    </main>
+
   )
 }
