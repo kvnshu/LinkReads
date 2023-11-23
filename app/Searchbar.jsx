@@ -1,5 +1,8 @@
 import React, { useState } from "react";
+import { Input } from "@nextui-org/input";
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
+import Image from "next/image";
+import searchIcon from "@/app/public/search.png"
 
 export default function SearchBar({ listSaves, setListSaves, user }) {
   const [searchText, setSearchText] = useState("");
@@ -8,7 +11,6 @@ export default function SearchBar({ listSaves, setListSaves, user }) {
   async function handleSubmit(event) {
     event.preventDefault();
     async function addSave() {
-
       // update links table
       const newLink = {
         url: searchText,
@@ -64,18 +66,30 @@ export default function SearchBar({ listSaves, setListSaves, user }) {
   }
 
   return (
-    <div >
-      <div className="border">
-        <form onSubmit={handleSubmit}>
-          <input
-            name="searchbar"
-            type="text"
-            placeholder="Add a new save..."
-            value={searchText}
-            onChange={e => setSearchText(e.target.value)}
-          />
-        </form>
-      </div>
+    <div className="pt-2 w-[40%]">
+      <form onSubmit={handleSubmit}>
+        <Input
+          name="searchbar"
+          radius="full"
+          type="text"
+          placeholder="Add a new save..."
+          value={searchText}
+          onValueChange={e => setSearchText(e.target.value)}
+          startContent={
+            <SearchIcon/>
+          }
+        />
+      </form>
     </div>
   );
+}
+
+function SearchIcon(){
+  return (
+    <Image
+      src={searchIcon}
+      height={16}
+      width={16}
+    />
+  )
 }
