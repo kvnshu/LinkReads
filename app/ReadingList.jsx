@@ -1,12 +1,9 @@
 'use client';
 import React, { useState, useEffect, } from "react";
-import Searchbar from "./Searchbar"
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import ReadingListItem from "./ReadingListItem"
 
-export default function ReadingList({ session }) {
-  const { user } = session;
-  const [listSaves, setListSaves] = useState([])
+export default function ReadingList({ user, listSaves, setListSaves }) {
   const supabase = createClientComponentClient()
 
   useEffect(() => {
@@ -34,15 +31,11 @@ export default function ReadingList({ session }) {
       }
     }
     loadSaves();
-  }, [session])
+  }, [user])
 
   return (
     <div>
-      <Searchbar
-        listSaves={listSaves}
-        setListSaves={setListSaves}
-        user={user}
-      />
+      
       <div id="reading-list-container">
         {
           listSaves.map((save, i) =>  
