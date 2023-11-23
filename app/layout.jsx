@@ -3,7 +3,7 @@ import { Providers } from "./providers";
 
 export const metadata = {
   title: 'LinkReads',
-  // description: 'Goodreads for links',
+  description: 'Goodreads for the internet.',
 }
 
 
