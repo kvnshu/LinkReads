@@ -12,7 +12,7 @@ export default async function Index() {
   return (
     <div className="bg-background min-h-screen flex flex-col">
       <Header />
-      <main className="grow flex items-center justify-center">
+      <main className="h-full">
         {
           session ? (
             <Dashboard session={session} />
