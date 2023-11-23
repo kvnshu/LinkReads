@@ -12,6 +12,7 @@ import { Avatar } from "@nextui-org/avatar";
 import Link from 'next/link';
 import { createServerComponentClient } from '@supabase/auth-helpers-nextjs';
 import { cookies } from 'next/headers';
+import LogoPrimary from './LogoPrimary';
 
 export default async function Header() {
   const supabase = createServerComponentClient({ cookies })
@@ -20,9 +21,7 @@ export default async function Header() {
   return (
     <Navbar position="static">
       <NavbarBrand>
-        <a href="/">
-          <p className="font-bold text-inherit">LinkReads</p>
-        </a>
+        <LogoPrimary />
       </NavbarBrand>
       {(user) ? (
         <NavbarContent as="div" justify="end">
