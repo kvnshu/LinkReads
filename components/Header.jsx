@@ -7,9 +7,8 @@ import {
   NavbarContent,
   NavbarItem,
 } from "@nextui-org/navbar";
-import { Avatar } from "@nextui-org/avatar";
-// import { Link } from '@nextui-org/link';
-import Link from 'next/link';
+import { Link } from '@nextui-org/link';
+// import Link from 'next/link';
 import { createServerComponentClient } from '@supabase/auth-helpers-nextjs';
 import { cookies } from 'next/headers';
 import LogoPrimary from './LogoPrimary';
@@ -28,13 +27,6 @@ export default async function Header() {
           <Link href={`/user/${user?.id}`}>
             Profile
           </Link>
-          <Avatar
-            isBordered
-            // as="button"
-            className="transition-transform"
-            color="secondary"
-            size="sm"
-          />
           <LogoutButton />
         </NavbarContent>
       ) : (
