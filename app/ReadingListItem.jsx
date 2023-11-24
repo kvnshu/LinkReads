@@ -1,14 +1,16 @@
-import React from 'react'
-import { Button } from "@nextui-org/button";
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
-// Popover
+import { Button } from "@nextui-org/button";
+import { Card, CardBody } from '@nextui-org/card';
+import { Checkbox } from "@nextui-org/checkbox";
+import Image from "next/image";
+import DeleteIcon from "@/app/public/delete_FILL0_wght400_GRAD0_opsz24.svg"
 import { truncateUrl } from "@/services/truncateUrl"
+
 
 export default function ReadingListItem({ index, data, listSaves, setListSaves }) {
   const supabase = createClientComponentClient()
 
-
-  async function deleteSave(index) {
+  async function deleteSave() {
     const save = listSaves[index]
     console.log(`Deleting ${save.links.url} from reading list.`)
     const { error } = await supabase
@@ -22,7 +24,7 @@ export default function ReadingListItem({ index, data, listSaves, setListSaves }
     setListSaves(newListSaves)
   }
 
-  async function completeSave(index) {
+  async function completeSave() {
     const save = listSaves[index]
     console.log(`Completed ${save.links.url} from reading list.`)
     const { error } = await supabase
@@ -39,23 +41,24 @@ export default function ReadingListItem({ index, data, listSaves, setListSaves }
     setListSaves(newListSaves)
   }
 
-
-
   return (
-    <div >
-      <p>
-        {truncateUrl(data.links.url, 40)}
-      </p>
-      <Button
-        onClick={() => deleteSave(index)}
-      >
-        Delete
-      </Button>
-      <Button
-        onClick={() => completeSave(index)}
-      >
-        Done
-      </Button>
-    </div>
+    <Card className="">
+      <CardBody className='flex flex-row justify-between gap-2'>
+        <div className="flex">
+          <Checkbox
+            onValueChange={completeSave}
+          ></Checkbox>
+          <p>
+            {truncateUrl(data.links.url, 40)}
+          </p>
+        </div>
+        <Image
+          onClick={deleteSave}
+          src={DeleteIcon}
+          alt="delete"
+          className="justify-self-end hover:opacity-40"
+        />
+      </CardBody>
+    </Card>
   )
 }
