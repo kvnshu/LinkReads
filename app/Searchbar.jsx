@@ -74,7 +74,7 @@ export default function SearchBar({ listSaves, setListSaves, user }) {
           type="text"
           placeholder="Add a new save..."
           value={searchText}
-          onValueChange={e => setSearchText(e.target.value)}
+          onValueChange={setSearchText}
           startContent={
             <SearchIcon/>
           }
@@ -88,6 +88,7 @@ function SearchIcon(){
   return (
     <Image
       src={searchIcon}
+      alt="search"
       height={16}
       width={16}
     />
