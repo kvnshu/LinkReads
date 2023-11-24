@@ -40,16 +40,17 @@ export default function Feed({ session }) {
         console.log(error)
       }
     }
-
     getReads()
   }, [])
 
   return (
-    <div>
+    <div className='w-1/3'>
       <div>Feed</div>
-      {
-        reads.map((read, i) => <FeedItem key={i} data={read} />)
-      }
+      <div className="flex flex-col gap-4">
+        {
+          reads.map((read, i) => <FeedItem key={i} data={read} />)
+        }
+      </div>
     </div>
   )
 }
