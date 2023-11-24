@@ -1,5 +1,4 @@
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
-import { Button } from "@nextui-org/button";
 import { Card, CardBody } from '@nextui-org/card';
 import { Checkbox } from "@nextui-org/checkbox";
 import Image from "next/image";
@@ -49,7 +48,7 @@ export default function ReadingListItem({ index, data, listSaves, setListSaves }
             onValueChange={completeSave}
           ></Checkbox>
           <p>
-            {truncateUrl(data.links.url, 40)}
+            {truncateUrl(data.links.url, 36)}
           </p>
         </div>
         <Image
