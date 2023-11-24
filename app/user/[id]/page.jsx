@@ -15,10 +15,12 @@ export default async function UserProfile({ params }) {
       <Header
         user={user}
       />
-      <Profile
-        user={user}
-        profileId={params.id}
-      />
+      <main className="h-full w-screen">
+        <Profile
+          user={user}
+          profileId={params.id}
+        />
+      </main>
     </div>
   )
 }

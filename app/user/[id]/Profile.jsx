@@ -22,7 +22,7 @@ export default function Profile({ user, profileId }) {
         if (profileError) {
           throw profileError
         }
-        setProfile(profileData)        
+        setProfile(profileData)
       } catch (error) {
         console.log('Error loading profile.')
         console.log(error)
@@ -34,20 +34,22 @@ export default function Profile({ user, profileId }) {
   }, [])
 
   return (
-    <div>
-      {
-        loading ? (
-          <p>Loading Profile...</p>
-        ) : (
-          <div>
-            <p>{profile.email}</p>
-            <FollowButton
-              user={user}
-              profileId={profileId}
-            />
-          </div>
-        )
-      }
+    <div id="profile-container" className="flex flex-col content-center items-center gap-4">
+      <div id="profile-name" className="w-4/5 text-center">
+        {
+          loading ? (
+            <p>Loading Profile...</p>
+          ) : (
+            <div>
+              <p>{profile.email}</p>
+            </div>
+          )
+        }
+      </div>
+      <FollowButton
+        user={user}
+        profileId={profileId}
+      />
     </div>
   )
 }
