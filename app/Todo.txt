@@ -1,31 +1,22 @@
-Landing Page
-[] redesign theme
-
-Login
-[] reimplement with nextui
-[] redesign
-
-Dash
-[] redesign ui (keep search centered, reading list and updates into 2 columns)
-
-Reading list
-[] redesign ui/ux for list items
-[] icons: https://icons8.com/
-
-Updates
-[] redesign ui card
-[] implment following activity?
-
 Profile Page
 [] list of followers
 [] list of following
 [] list of all saves
 
+Dash
+[] prevent horizontal scrolling
+[] implement linking on urls
+
+Header
+[] remove icon
+
+Feed
+[] implement following activity?
+
 User
 [] field for fullname
 [] field for twitter
 [] field for github
-
 
 app
 [] move supabase queries to services directory https://github.com/search?q=repo%3Aharshmangalam%2Fsupabook%20fetchProfileDetails&type=code
