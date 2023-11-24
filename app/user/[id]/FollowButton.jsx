@@ -12,6 +12,9 @@ export default function FollowButton({ user, profileId }) {
     async function getIsFollowing() { 
       try {
         // fetch if logUser is following user
+        if (!user){
+          return
+        }
         const { data: followingData, error: followingError } = await supabase
           .from('followings')
           .select()
@@ -77,7 +80,7 @@ export default function FollowButton({ user, profileId }) {
         ) : (
           <>
             {
-              user.id !== profileId ? (
+              user && user?.id !== profileId ? (
                 <Button
                   onClick={handleFollowToggle}>
                   {isFollowing ? 'Unfollow' : 'Follow'}
