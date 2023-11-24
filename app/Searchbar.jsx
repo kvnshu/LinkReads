@@ -37,6 +37,7 @@ export default function SearchBar({ listSaves, setListSaves, user }) {
         .from('saves')
         .insert(newSave)
         .select(`
+          id,
           links (
             url,
             created_at
