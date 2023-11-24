@@ -35,7 +35,7 @@ export default function ReadingList({ user, listSaves, setListSaves }) {
 
   return (
     <div className="w-1/3">
-      <p>To Read:</p>
+      <p className="text-center">To Read:</p>
       <div id="reading-list-container" className="flex flex-col gap-4">
         {
           listSaves.map((save, i) =>  

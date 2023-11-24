@@ -73,7 +73,7 @@ export default function SearchBar({ listSaves, setListSaves, user }) {
           name="searchbar"
           radius="full"
           type="text"
-          placeholder="Add a new save..."
+          placeholder="Save a link for later..."
           value={searchText}
           onValueChange={setSearchText}
           startContent={

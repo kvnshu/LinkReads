@@ -45,7 +45,7 @@ export default function Feed({ session }) {
 
   return (
     <div className='w-1/3'>
-      <div>Feed</div>
+      <div className="text-center">Updates:</div>
       <div className="flex flex-col gap-4">
         {
           reads.map((read, i) => <FeedItem key={i} data={read} />)

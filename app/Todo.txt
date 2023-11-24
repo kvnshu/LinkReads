@@ -7,9 +7,6 @@ Dash
 [] prevent horizontal scrolling
 [] implement linking on urls
 
-Header
-[] remove icon
-
 Feed
 [] implement following activity?
 
