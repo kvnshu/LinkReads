@@ -1,3 +1,6 @@
+list
+[] hyperlink original urls
+
 activity
 [] fix checkbox behavior - why is top save getting checked automatically after old top is marked done?
 
@@ -26,3 +29,4 @@ app
 [] move supabase queries to services directory https://github.com/search?q=repo%3Aharshmangalam%2Fsupabook%20fetchProfileDetails&type=code
 [] https://www.realtimecolors.com/?colors=050315-fbfbfe-27cece-dedcff-433bff&fonts=Poppins-Poppins
 [] how to reduce size of first loads on javascript
+[] parse input strings (just host + address)
