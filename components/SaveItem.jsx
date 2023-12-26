@@ -9,10 +9,12 @@ import { truncateUrl } from "@/services/truncateUrl"
 import { formatDistanceToNow, parseISO } from "date-fns";
 
 export default function SaveItem({ i, data, deleteSave, updateIsRead }) {
-  const [isRead, setIsRead] = useState()
+  const [isRead, setIsRead] = useState(data.read)
+
+  // TODO: is this an anti-pattern?
   useEffect(() => {
     setIsRead(data.read)
-  })
+  }, [])
 
   function parseAndHumanizeDate(dateString) {
     const parsedDate = parseISO(dateString);

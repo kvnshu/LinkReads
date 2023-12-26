@@ -28,7 +28,8 @@ export default function Profile({ user, profileId }) {
           throw profileError
         }
         setProfile(profileData)
-
+        
+        // fetch user's saves
         const { data: profileSavesData, error: profileSavesError } = await supabase
           .from('saves')
           .select(`
@@ -69,7 +70,7 @@ export default function Profile({ user, profileId }) {
   }
 
   async function updateIsRead(i, data, isRead) {
-    console.log(`Setting save ${data.links.url} to ${!data.read}`)
+    console.log(`Setting save ${data.links.url} to ${!isRead}`)
     const { error } = await supabase
       .from('saves')
       .update({

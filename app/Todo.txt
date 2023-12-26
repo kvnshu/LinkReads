@@ -1,6 +1,5 @@
 listItem
 [] create undo popup on click
-[] in profile page, checkbox is not updating
 [] in dashboard, the subsequent element is being checked after
 
 login
