@@ -36,6 +36,7 @@ export default function Profile({ user, profileId }) {
           .from('saves')
           .select(`
             id,
+            user_id,
             links (
               url
             ),
@@ -134,11 +135,11 @@ export default function Profile({ user, profileId }) {
           ) : (
             profileSaves.map((save, i) =>
               <SaveItem
-                key={i}
-                index={i}
+                key={save.id}
                 data={save}
                 deleteSave={deleteSave}
                 updateIsRead={updateIsRead}
+                user={user}
               />
             )
           )
