@@ -10,7 +10,6 @@ import { formatDistanceToNow, parseISO } from "date-fns";
 
 export default function SaveItem({ data, deleteSave, updateIsRead, user }) {
   const [isRead, setIsRead] = useState(data.read)
-  console.log(user)
   // TODO: is this an anti-pattern?
   useEffect(() => {
     setIsRead(data.read)

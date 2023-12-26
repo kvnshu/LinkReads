@@ -44,7 +44,7 @@ export default function Profile({ user, profileId }) {
             created_at
           `)
           .eq('user_id', profileId)
-          .order('created_at', { ascending: true })
+          .order('created_at', { ascending: false })
         if (profileSavesError) {
           throw profileSavesError
         }

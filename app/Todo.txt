@@ -10,7 +10,6 @@ explore
 [] show users
 
 Profile Page
-[] sort saves in reverse chronological order
 [] improve ux of following and followers (hyperlink profiles, display names)
 
 Dash
