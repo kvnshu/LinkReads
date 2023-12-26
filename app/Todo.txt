@@ -14,10 +14,7 @@ activity
 [] fix checkbox behavior - why is top save getting checked automatically after old top is marked done?
 
 Profile Page
-[] list of all saves (done or not) with the ability to delete/complete/uncomplete
 [] prevent anon users from deleting saves
-[] list of followers
-[] list of following
 
 Dash
 [] prevent horizontal scrolling
