@@ -2,7 +2,7 @@
 import { useState, useEffect } from "react";
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import FollowButton from "./FollowButton"
-import ProfileSaveItem from "./ProfileSaveItem";
+import SaveItem from "@/components/SaveItem";
 
 export default function Profile({ user, profileId }) {
   const [loading, setLoading] = useState(true)
@@ -40,7 +40,7 @@ export default function Profile({ user, profileId }) {
             created_at
         `)
           .eq('user_id', profileId)
-          .order('created_at', {ascending: true})
+          .order('created_at', { ascending: true })
         if (profileSavesError) {
           throw profileSavesError
         }
@@ -54,6 +54,34 @@ export default function Profile({ user, profileId }) {
     }
     getProfile()
   }, [])
+
+  async function deleteSave(i, data) {
+    console.log(`Deleting ${data.links.url} from reading list.`)
+    const { error } = await supabase
+      .from('saves')
+      .delete()
+      .eq('id', save.id)
+    if (error) {
+      console.log(error);
+    }
+    const newListSaves = [...listSaves.slice(0, i), ...listSaves.slice(i + 1)];
+    setListSaves(newListSaves)
+  }
+
+  async function updateIsRead(i, data, isRead) {
+    console.log(`Setting save ${data.links.url} to ${!data.read}`)
+    const { error } = await supabase
+      .from('saves')
+      .update({
+        read: !isRead,
+        read_at: isRead ? null : new Date().toISOString()
+      })
+      .eq('id', data.id)
+    if (error) {
+      console.log(error);
+    }
+  }
+
 
   return (
     <div id="profile-container" className="flex flex-col content-center items-center gap-4">
@@ -78,12 +106,12 @@ export default function Profile({ user, profileId }) {
             <p>Loading saves...</p>
           ) : (
             profileSaves.map((save, i) =>
-              <ProfileSaveItem
+              <SaveItem
                 key={i}
                 index={i}
                 data={save}
-                profileSaves={profileSaves}
-              setProfileSaves={setProfileSaves}
+                deleteSave={deleteSave}
+                updateIsRead={updateIsRead}
               />
             )
           )

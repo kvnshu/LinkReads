@@ -1,6 +1,8 @@
-list
+listItem
 [] hyperlink original urls
 [] create undo popup on click
+[] in profile page, checkbox is not updating
+[] in dashboard, the subsequent element is being checked after
 
 login
 [] gmail auth
@@ -40,6 +42,5 @@ app
 [] https://www.realtimecolors.com/?colors=050315-fbfbfe-27cece-dedcff-433bff&fonts=Poppins-Poppins
 [] how to reduce size of first loads on javascript
 [] parse input strings (just host + address)
-[] simplify readinglist and profilesaves components (component extension?)
 [] cache results?
 [] make things server components?
