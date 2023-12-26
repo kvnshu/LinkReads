@@ -41,7 +41,8 @@ export default function SearchBar({ listSaves, setListSaves, user }) {
           links (
             url,
             created_at
-          )
+          ),
+          created_at
         `)
         .limit(1)
         .single();
@@ -50,13 +51,7 @@ export default function SearchBar({ listSaves, setListSaves, user }) {
         console.log(`Failed to add save.`)
         throw errorSaves;
       }
-
-      const listItem = {
-        url: dataLinks.url,
-        created_at: dataSaves.created_at
-      }
-
-
+      
       const newListSaves = [dataSaves, ...listSaves]
       setListSaves(newListSaves);
       console.log(`Added ${searchText} to reading list.`);

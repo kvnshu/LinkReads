@@ -8,7 +8,7 @@ import DeleteIcon from "@/app/public/delete_FILL0_wght400_GRAD0_opsz24.svg"
 import { truncateUrl } from "@/services/truncateUrl"
 import { formatDistanceToNow, parseISO } from "date-fns";
 
-export default function SaveItem({ i, data, deleteSave, updateIsRead }) {
+export default function SaveItem({ id, data, deleteSave, updateIsRead }) {
   const [isRead, setIsRead] = useState(data.read)
 
   // TODO: is this an anti-pattern?
@@ -22,7 +22,7 @@ export default function SaveItem({ i, data, deleteSave, updateIsRead }) {
   }
 
   function handleCheck() {
-    updateIsRead(i, data, isRead)
+    updateIsRead(data, isRead)
     setIsRead(!isRead)
   }
 
@@ -32,21 +32,20 @@ export default function SaveItem({ i, data, deleteSave, updateIsRead }) {
         <div className="flex">
           <Checkbox
             isSelected={isRead}
-            onValueChange={handleCheck}
-          >
+            onChange={handleCheck}
+        >
           </Checkbox>
           <Link href={data.links.url}>
             {truncateUrl(data.links.url, 36)}
           </Link>
         </div>
         <Image
-          onClick={() => deleteSave(i, data)}
+          onClick={() => deleteSave(data)}
           src={DeleteIcon}
           alt="delete"
           className="justify-self-end hover:opacity-40"
         />
         <p className="text-xs text-slate-400">Created {parseAndHumanizeDate(data.created_at)}</p>
-
       </CardBody>
     </Card>
   )

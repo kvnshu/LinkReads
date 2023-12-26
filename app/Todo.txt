@@ -1,6 +1,5 @@
 listItem
 [] create undo popup on click
-[] in dashboard, the subsequent element is being checked after
 
 login
 [] gmail auth

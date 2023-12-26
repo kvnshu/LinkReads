@@ -1,5 +1,5 @@
 'use client';
-import React, { useState, useEffect, } from "react";
+import React, { useEffect } from "react";
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import SaveItem from "@/components/SaveItem"
 
@@ -31,23 +31,25 @@ export default function ReadingList({ user, listSaves, setListSaves }) {
       }
     }
     loadSaves();
-  }, [user])
+  }, [])
 
-  async function deleteSave(i, data) {
+  async function deleteSave(data) {
     console.log(`Deleting ${data.links.url} from reading list.`)
+    const newListSaves = listSaves.filter((save) => save.id !== data.id)
+    setListSaves(newListSaves)
     const { error } = await supabase
       .from('saves')
       .delete()
-      .eq('id', save.id)
+      .eq('id', data.id)
     if (error) {
       console.log(error);
     }
-    const newListSaves = [...listSaves.slice(0, i), ...listSaves.slice(i + 1)];
-    setListSaves(newListSaves)
   }
 
-  async function updateIsRead(i, data, isRead) {
+  async function updateIsRead(data, isRead) {
     console.log(`Setting save ${data.links.url} to ${!isRead}`)
+    const newListSaves = listSaves.filter((save) => save.id !== data.id)
+    setListSaves(newListSaves)
     const { error } = await supabase
       .from('saves')
       .update({
@@ -58,8 +60,6 @@ export default function ReadingList({ user, listSaves, setListSaves }) {
     if (error) {
       console.log(error);
     }
-    const newListSaves = [...listSaves.slice(0, i), ...listSaves.slice(i + 1)];
-    setListSaves(newListSaves)
   }
 
   return (
@@ -69,8 +69,8 @@ export default function ReadingList({ user, listSaves, setListSaves }) {
         {
           listSaves.map((save, i) =>
             <SaveItem
-              key={i}
-              i={i}
+              key={save.id}
+
               data={save}
               deleteSave={deleteSave}
               updateIsRead={updateIsRead}

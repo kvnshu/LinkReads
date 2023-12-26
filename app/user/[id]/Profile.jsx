@@ -82,20 +82,20 @@ export default function Profile({ user, profileId }) {
     getProfile()
   }, [])
 
-  async function deleteSave(i, data) {
+  async function deleteSave(data) {
     console.log(`Deleting ${data.links.url} from reading list.`)
     const { error } = await supabase
       .from('saves')
       .delete()
-      .eq('id', save.id)
+      .eq('id', data.id)
     if (error) {
       console.log(error);
     }
-    const newListSaves = [...listSaves.slice(0, i), ...listSaves.slice(i + 1)];
-    setListSaves(newListSaves)
+    const newListSaves = profileSaves.filter((save) => save.id !== data.id)
+    setProfileSaves(newListSaves)
   }
 
-  async function updateIsRead(i, data, isRead) {
+  async function updateIsRead(data, isRead) {
     console.log(`Setting save ${data.links.url} to ${!isRead}`)
     const { error } = await supabase
       .from('saves')
