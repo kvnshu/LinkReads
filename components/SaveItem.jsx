@@ -1,10 +1,11 @@
 'use client'
+import { useEffect, useState } from 'react';
 import { Card, CardBody } from '@nextui-org/card';
+import { Link } from '@nextui-org/link';
 import { Checkbox } from "@nextui-org/checkbox";
 import Image from "next/image";
 import DeleteIcon from "@/app/public/delete_FILL0_wght400_GRAD0_opsz24.svg"
 import { truncateUrl } from "@/services/truncateUrl"
-import { useEffect, useState } from 'react';
 import { formatDistanceToNow, parseISO } from "date-fns";
 
 export default function SaveItem({ i, data, deleteSave, updateIsRead }) {
@@ -32,9 +33,9 @@ export default function SaveItem({ i, data, deleteSave, updateIsRead }) {
             onValueChange={handleCheck}
           >
           </Checkbox>
-          <p>
+          <Link href={data.links.url}>
             {truncateUrl(data.links.url, 36)}
-          </p>
+          </Link>
         </div>
         <Image
           onClick={() => deleteSave(i, data)}
