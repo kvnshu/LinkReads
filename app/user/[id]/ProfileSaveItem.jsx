@@ -1,23 +1,29 @@
 'use client'
+import { useState } from "react";
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import { Card, CardBody } from '@nextui-org/card';
 import { Checkbox } from "@nextui-org/checkbox";
 import Image from "next/image";
 import DeleteIcon from "@/app/public/delete_FILL0_wght400_GRAD0_opsz24.svg"
 import { truncateUrl } from "@/services/truncateUrl"
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
+import { formatDistanceToNow, parseISO } from "date-fns";
 
-
-export default function ReadingListItem({ index, data, listSaves, setListSaves }) {
+export default function ProfileSaveItem({ index, data, profileSaves, setProfileSaves }) {
   const supabase = createClientComponentClient();
-  const [isRead, setIsRead] = useState(false);
-
+  const [isChecked, setIsChecked] = useState(false);
+  
   useEffect(() => {
-    setIsRead(data.read)
-  })
+    setIsChecked(data.read)
+  }, [])
+
+  function parseAndHumanizeDate(dateString) {
+    const parsedDate = parseISO(dateString);
+    return formatDistanceToNow(parsedDate, { addSuffix: true });
+  }
 
   async function deleteSave() {
-    const save = listSaves[index]
+    const save = profileSaves[index]
     console.log(`Deleting ${save.links.url} from reading list.`)
     const { error } = await supabase
       .from('saves')
@@ -26,40 +32,37 @@ export default function ReadingListItem({ index, data, listSaves, setListSaves }
     if (error) {
       console.log(error);
     }
-    const newListSaves = [...listSaves.slice(0, index), ...listSaves.slice(index + 1)];
-    setListSaves(newListSaves)
+    const newListSaves = [...profileSaves.slice(0, index), ...profileSaves.slice(index + 1)];
+    setProfileSaves(newListSaves)
   }
 
-  async function completeSave() {
-    const save = listSaves[index]
-    console.log(`Completed ${save.links.url} from reading list.`)
+  async function toggleSave() {
+    const save = profileSaves[index]
     const { error } = await supabase
       .from('saves')
       .update({
-        read: true,
+        read: !isChecked,
         read_at: new Date().toISOString()
       })
       .eq('id', save.id)
     if (error) {
       console.log(error);
     }
-    const newListSaves = [...listSaves.slice(0, index), ...listSaves.slice(index + 1)];
-    setListSaves(newListSaves)
-    setIsRead(!isRead)
+    setIsChecked(!isChecked)
   }
 
   return (
     <Card className="">
       <CardBody className='flex flex-row justify-between gap-2'>
         <div className="flex">
+          { }
           <Checkbox
-            isSelected={isRead}
-            onValueChange={completeSave}
-          >
-            <p>
-              {truncateUrl(data.links.url, 36)}
-            </p>
-          </Checkbox>
+            isSelected={isChecked}
+            onValueChange={toggleSave}
+          ></Checkbox>
+          <p>
+            {truncateUrl(data.links.url, 36)}
+          </p>
         </div>
         <Image
           onClick={deleteSave}
@@ -67,6 +70,7 @@ export default function ReadingListItem({ index, data, listSaves, setListSaves }
           alt="delete"
           className="justify-self-end hover:opacity-40"
         />
+        <p className="text-xs text-slate-400">Created {parseAndHumanizeDate(data.created_at)}</p>
       </CardBody>
     </Card>
   )

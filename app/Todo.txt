@@ -1,11 +1,21 @@
 list
 [] hyperlink original urls
+[] create undo popup on click
+
+login
+[] gmail auth
+[] improve prompts?
+[] decide if email-password should be kept
+
+explore
+[] show users
 
 activity
 [] fix checkbox behavior - why is top save getting checked automatically after old top is marked done?
 
 Profile Page
 [] list of all saves (done or not) with the ability to delete/complete/uncomplete
+[] prevent anon users from deleting saves
 [] list of followers
 [] list of following
 
@@ -30,3 +40,6 @@ app
 [] https://www.realtimecolors.com/?colors=050315-fbfbfe-27cece-dedcff-433bff&fonts=Poppins-Poppins
 [] how to reduce size of first loads on javascript
 [] parse input strings (just host + address)
+[] simplify readinglist and profilesaves components (component extension?)
+[] cache results?
+[] make things server components?
