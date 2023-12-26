@@ -15,6 +15,8 @@ activity
 
 Profile Page
 [] prevent anon users from deleting saves
+[] sort saves in reverse chronological order
+[] improve ux of following and followers (hyperlink profiles, display names)
 
 Dash
 [] prevent horizontal scrolling
@@ -39,3 +41,4 @@ app
 [] parse input strings (just host + address)
 [] cache results?
 [] make things server components?
+[] add names to profile
