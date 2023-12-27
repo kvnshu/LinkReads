@@ -15,7 +15,7 @@ export default async function UserProfile({ params }) {
       <Header
         user={user}
       />
-      <main className="h-full w-screen">
+      <main className="h-full">
         <Profile
           user={user}
           profileId={params.id}
