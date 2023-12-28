@@ -1,12 +1,11 @@
-import { createRouteHandlerClient } from '@supabase/auth-helpers-nextjs'
-import { cookies } from 'next/headers'
+import { createSupabaseRouteHandlerClient } from '@/utils/supabaseRouteHandler'
 import { NextResponse } from 'next/server'
 
 export const dynamic = 'force-dynamic'
 
-export async function POST(request: Request) {
+export async function POST(request) {
   const requestUrl = new URL(request.url)
-  const supabase = createRouteHandlerClient({ cookies })
+  const supabase = createSupabaseRouteHandlerClient()
 
   await supabase.auth.signOut()
 

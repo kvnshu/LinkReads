@@ -5,7 +5,7 @@ import { Link } from '@nextui-org/link';
 import { Checkbox } from "@nextui-org/checkbox";
 import Image from "next/image";
 import DeleteIcon from "@/app/public/delete_FILL0_wght400_GRAD0_opsz24.svg"
-import { truncateUrl } from "@/services/truncateUrl"
+import { truncateUrl } from "@/utils/truncateUrl"
 import { formatDistanceToNow, parseISO } from "date-fns";
 
 export default function SaveItem({ data, deleteSave, updateIsRead, user }) {

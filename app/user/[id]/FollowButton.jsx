@@ -1,12 +1,12 @@
 'use client'
 import React, { useState, useEffect } from 'react';
 import { Button } from "@nextui-org/button";
-import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
+import { createSupabaseFrontendClient } from '@/utils/supabaseBrowser';
 
 export default function FollowButton({ user, profileId }) {
   const [loading, setLoading] = useState(true);
   const [isFollowing, setIsFollowing] = useState(false);
-  const supabase = createClientComponentClient();
+  const supabase = createSupabaseFrontendClient();
 
   useEffect(() => {
     async function getIsFollowing() { 
