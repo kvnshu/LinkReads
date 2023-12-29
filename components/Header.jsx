@@ -1,6 +1,5 @@
 import LogoutButton from './LogoutButton'
 import LoginButton from './LoginButton'
-import React from "react";
 import {
   Navbar,
   NavbarBrand,
@@ -8,13 +7,11 @@ import {
   NavbarItem,
 } from "@nextui-org/navbar";
 import { Link } from '@nextui-org/link';
-// import Link from 'next/link';
-import { createServerComponentClient } from '@supabase/auth-helpers-nextjs';
-import { cookies } from 'next/headers';
 import LogoPrimary from './LogoPrimary';
+import { createSupabaseServerComponentClient } from '@/utils/supabaseAppRouterServer'
 
 export default async function Header() {
-  const supabase = createServerComponentClient({ cookies })
+  const supabase = createSupabaseServerComponentClient()
   const { data: { user }, error } = await supabase.auth.getUser()
 
   return (

@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 import { Input } from "@nextui-org/input";
-import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import Image from "next/image";
 import searchIcon from "@/app/public/search.png"
+import { createSupabaseFrontendClient } from "@/utils/supabaseBrowser";
 
 export default function SearchBar({ listSaves, setListSaves, user }) {
   const [searchText, setSearchText] = useState("");
-  const supabase = createClientComponentClient();
+  const supabase = createSupabaseFrontendClient();
 
   async function handleSubmit(event) {
     event.preventDefault();

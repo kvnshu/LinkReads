@@ -1,11 +1,11 @@
 'use client'
-import React, { useEffect, useState } from 'react'
-import { createClientComponentClient } from '@supabase/auth-helpers-nextjs'
+import { useEffect, useState } from 'react'
+import { createSupabaseFrontendClient } from '@/utils/supabaseBrowser'
 import FeedItem from './FeedItem'
 
 export default function Feed({ session }) {
   const [reads, setReads] = useState([])
-  const supabase = createClientComponentClient()
+  const supabase = createSupabaseFrontendClient()
 
   useEffect(() => {
     async function getReads() {
