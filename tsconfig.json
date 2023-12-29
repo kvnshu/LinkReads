@@ -23,6 +23,6 @@
       "@/*": ["./*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "app/providers.jsx", "app/page.jsx"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "app/providers.jsx", "app/page.jsx", "middleware.js", "utils/supabaseRouteHandler.js", "app/auth/callback/route.js", "app/auth/sign-in/route.js", "app/auth/sign-out/route.js", "app/auth/sign-up/route.js"],
   "exclude": ["node_modules"]
 }

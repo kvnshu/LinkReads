@@ -1,6 +1,6 @@
 'use client';
 import { useState, useEffect } from "react";
-import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
+import { createSupabaseFrontendClient } from '@/utils/supabaseBrowser'
 import FollowButton from "./FollowButton"
 import SaveItem from "@/components/SaveItem";
 
@@ -11,7 +11,7 @@ export default function Profile({ user, profileId }) {
   const [followings, setFollowings] = useState([])
   const [followers, setFollowers] = useState([])
 
-  const supabase = createClientComponentClient();
+  const supabase = createSupabaseFrontendClient();
 
   useEffect(() => {
     async function getProfile() {

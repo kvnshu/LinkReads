@@ -1,10 +1,10 @@
 'use client';
 import React, { useEffect } from "react";
-import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
+import { createSupabaseFrontendClient } from "@/utils/supabaseBrowser";
 import SaveItem from "@/components/SaveItem"
 
 export default function ReadingList({ user, listSaves, setListSaves }) {
-  const supabase = createClientComponentClient()
+  const supabase = createSupabaseFrontendClient()
 
   useEffect(() => {
     async function loadSaves() {

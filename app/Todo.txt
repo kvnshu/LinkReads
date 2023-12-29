@@ -36,3 +36,5 @@ app
 [] cache results?
 [] make things server components?
 [] add names to profile
+[] restructure files
+[] remove import React from "react";

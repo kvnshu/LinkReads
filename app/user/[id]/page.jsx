@@ -1,14 +1,10 @@
-import { createServerComponentClient } from '@supabase/auth-helpers-nextjs'
-import { cookies } from 'next/headers';
 import Header from "@/components/Header";
 import Profile from "./Profile";
+import { createSupabaseServerComponentClient } from '@/utils/supabaseAppRouterServer';
 
 export default async function UserProfile({ params }) {
-  const supabase = createServerComponentClient({ cookies })
-  // const [userIsFollowing, setUserIsFollowing] = useState(false);
-  const {
-    data: { user },
-  } = await supabase.auth.getUser()
+  const supabase = createSupabaseServerComponentClient()
+  const {data: { user }, error} = await supabase.auth.getUser()
 
   return (
     <div>
