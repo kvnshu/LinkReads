@@ -1,4 +1,5 @@
-import { Suspense } from 'react'
+'use client'
+import { Suspense, useState } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
 import { Button } from "@nextui-org/button";
@@ -6,12 +7,23 @@ import { Input } from "@nextui-org/input";
 import Messages from './messages'
 import ArrowBack from "@/app/public/arrow_back.svg"
 import LogoPrimary from '@/components/LogoPrimary';
+import { createSupabaseFrontendClient } from '@/utils/supabaseBrowser';
 
 function SearchBarFallback() {
   return <>Loading...</>
 }
 
-export default function Login() {
+
+export default async function Login() {
+  async function handleGoogleLogin() {
+    const supabase = createSupabaseFrontendClient()
+    await supabase.auth.signInWithOAuth({
+      provider: 'google',
+      options: {
+        redirectTo: process.env.NEXT_PUBLIC_OAUTH_CALLBACK_URL,
+      },
+    })
+  }
   return (
     <main className="flex-1 flex flex-col justify-center place-items-center w-screen px-8">
       <Link
@@ -73,6 +85,11 @@ export default function Login() {
           </Suspense>
         </form>
       </div>
+      <Button
+        onClick={handleGoogleLogin}
+      >
+        Login with Google
+      </Button>
     </main>
 
   )
