@@ -1,5 +1,5 @@
 import LogoutButton from './LogoutButton'
-import LoginButton from './LoginButton'
+import GoogleLoginButton from '@/components/GoogleLoginButton'
 import {
   Navbar,
   NavbarBrand,
@@ -29,7 +29,7 @@ export default async function Header() {
       ) : (
         <NavbarContent justify="end">
           <NavbarItem>
-            <LoginButton />
+            <GoogleLoginButton />
           </NavbarItem>
         </NavbarContent >
       )}

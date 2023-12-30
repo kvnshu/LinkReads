@@ -21,7 +21,7 @@ export default function RootLayout({ children }) {
               gtag('js', new Date());
 
               gtag('config', 'G-TPXV40DFYJ');
-            `}  
+            `}
           </Script>
         </div>
         <Providers>

@@ -2,9 +2,7 @@ listItem
 [] create undo popup on click
 
 login
-[] gmail auth
-[] improve prompts?
-[] decide if email-password should be kept
+[] utilize google's flow: https://supabase.com/docs/guides/auth/social-login/auth-google#using-the-oauth-flow-for-web
 
 explore
 [] show users
@@ -38,3 +36,7 @@ app
 [] add names to profile
 [] restructure files
 [] remove import React from "react";
+
+Production:
+[] GCP console: update authorized javascript origins
+[] Vercel: set NEXT_PUBLIC_OAUTH_CALLBACK_URL to domain.com/auth/callback
