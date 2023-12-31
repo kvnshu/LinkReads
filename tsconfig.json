@@ -1,7 +1,11 @@
 {
   "compilerOptions": {
     "target": "es5",
-    "lib": ["dom", "dom.iterable", "esnext"],
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext"
+    ],
     "allowJs": true,
     "skipLibCheck": true,
     "strict": true,
@@ -20,9 +24,27 @@
       }
     ],
     "paths": {
-      "@/*": ["./*"]
+      "@/*": [
+        "./*"
+      ]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "app/providers.jsx", "app/page.jsx", "middleware.js", "utils/supabaseRouteHandler.js", "app/auth/callback/route.js", "app/auth/sign-in/route.js", "app/auth/sign-out/route.js", "app/auth/sign-up/route.js"],
-  "exclude": ["node_modules"]
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    ".next/types/**/*.ts",
+    "app/providers.jsx",
+    "app/page.jsx",
+    "middleware.js",
+    "utils/supabaseRouteHandler.js",
+    "app/auth/callback/route.ts",
+    "app/auth/sign-in/route.js",
+    "app/auth/sign-out/route.js",
+    "app/auth/sign-up/route.js",
+    "app/_login/page.jsx"
+  ],
+  "exclude": [
+    "node_modules"
+  ]
 }
