@@ -1,4 +1,3 @@
-import Header from "@/components/Header"
 import LandingPage from "./LandingPage"
 import Dashboard from "./Dashboard"
 import { createSupabaseServerComponentClient } from "@/utils/supabaseAppRouterServer"
@@ -9,7 +8,6 @@ export default async function Index() {
 
   return (
     <div className="bg-background min-h-screen flex flex-col">
-      <Header />
       <main className="h-full">
         {
           session ? (
