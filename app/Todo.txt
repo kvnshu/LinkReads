@@ -1,24 +1,24 @@
-listItem
-[] create undo popup on click
-
-login
-[] utilize google's flow: https://supabase.com/docs/guides/auth/social-login/auth-google#using-the-oauth-flow-for-web
-
 explore
-[] show users
+[] stylize (margins, centering)
 
 Profile Page
-[] improve ux of following and followers (hyperlink profiles, display names)
-
-Dash
-[] prevent horizontal scrolling
+[] improve ui/ux of following and followers (hyperlink profiles, display names)
 
 Feed
 [] if empty, "No updates yet."
 [] implement following activity?
 
+listItem
+[] create undo popup on click
+
+Dash
+[] prevent horizontal scrolling
+
 search
 [] replace search icon with an add icon
+
+login
+[] utilize google's single-tap flow: https://supabase.com/docs/guides/auth/social-login/auth-google#using-the-oauth-flow-for-web
 
 User
 [] field for twitter
@@ -34,6 +34,8 @@ app
 [] add names to profile
 [] restructure files
 [] remove import React from "react";
+[] simplify Profile Page: move Profile component into UserProfile
+[] verify full_name is updated upon login
 
 Production:
 [] GCP console: update authorized javascript origins

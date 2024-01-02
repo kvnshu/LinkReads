@@ -43,7 +43,7 @@
     "app/auth/sign-out/route.js",
     "app/auth/sign-up/route.js",
     "app/_login/page.jsx"
-  ],
+, "app/explore/page.jsx"  ],
   "exclude": [
     "node_modules"
   ]

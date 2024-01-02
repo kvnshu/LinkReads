@@ -21,6 +21,9 @@ export default async function Header() {
       </NavbarBrand>
       {(user) ? (
         <NavbarContent as="div" justify="end">
+          <Link href="/explore/">
+            Explore
+          </Link>
           <Link href={`/user/${user?.id}`}>
             Profile
           </Link>
