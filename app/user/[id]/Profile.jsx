@@ -1,7 +1,7 @@
 'use client';
 import { useState, useEffect } from "react";
 import { createSupabaseFrontendClient } from '@/utils/supabaseBrowser'
-import FollowButton from "./FollowButton"
+import FollowButton from "@/components/FollowButton"
 import SaveItem from "@/components/SaveItem";
 
 export default function Profile({ user, profileId }) {
