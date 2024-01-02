@@ -1,5 +1,5 @@
 'use client'
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { Button } from "@nextui-org/button";
 import { createSupabaseFrontendClient } from '@/utils/supabaseBrowser';
 
@@ -9,10 +9,10 @@ export default function FollowButton({ user, profileId }) {
   const supabase = createSupabaseFrontendClient();
 
   useEffect(() => {
-    async function getIsFollowing() { 
+    async function getIsFollowing() {
       try {
         // fetch if logUser is following user
-        if (!user){
+        if (!user) {
           return
         }
         const { data: followingData, error: followingError } = await supabase
@@ -58,10 +58,10 @@ export default function FollowButton({ user, profileId }) {
             onConflict: 'user_id1, user_id2',
             ignoreDuplicates: 'false'
           })
-          if (error) {
-            throw error;
-          }
+        if (error) {
+          throw error;
         }
+      }
 
       setIsFollowing(prevState => !prevState);
     } catch (error) {
@@ -76,7 +76,11 @@ export default function FollowButton({ user, profileId }) {
     <div>
       {
         loading ? (
-          <></>
+          <Button
+            isDisabled
+            onClick={handleFollowToggle}>
+            {isFollowing ? 'Unfollow' : 'Follow'}
+          </Button>
         ) : (
           <>
             {

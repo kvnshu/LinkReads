@@ -1,14 +1,18 @@
 import './globals.css'
 import { Providers } from "./providers";
 import Script from "next/script"
-
+import Header from "@/components/Header"
+import { createSupabaseServerComponentClient } from '@/utils/supabaseAppRouterServer';
 export const metadata = {
   title: 'LinkReads',
   description: 'Goodreads for the internet.',
 }
 
 
-export default function RootLayout({ children }) {
+export default async function RootLayout({ children }) {
+  const supabase = createSupabaseServerComponentClient()
+  const { data: { user }, error } = await supabase.auth.getUser()
+
   return (
     <html lang="en" className="light">
       <body>
@@ -25,6 +29,9 @@ export default function RootLayout({ children }) {
           </Script>
         </div>
         <Providers>
+          <Header
+            user={user}
+          />
           {children}
         </Providers>
       </body>
