@@ -1,8 +1,21 @@
-explore
-[] TODO: How to get session user in client components?
+app
+[] restructure files
+[] move supabase queries to services directory https://github.com/search?q=repo%3Aharshmangalam%2Fsupabook%20fetchProfileDetails&type=code
+[] https://www.realtimecolors.com/?colors=050315-fbfbfe-27cece-dedcff-433bff&fonts=Poppins-Poppins
+[] how to reduce size of first loads on javascript
+[] cache results?
+[] make things server components?
+[] add names to profile
+[] remove import React from "react";
+[] verify full_name is updated upon login
+
+====
+Reading List
+[] re-enable deleting and adding
 
 Profile Page
-[] improve ui/ux of following and followers (hyperlink profiles, display names)
+[] improve ui/ux of following and followers (hyperlink profiles, display names, card components)
+[] simplify Profile Page: move Profile component into UserProfile
 
 Feed
 [] if empty, "No updates yet."
@@ -11,31 +24,24 @@ Feed
 listItem
 [] create undo popup on click
 
-Dash
-[] prevent horizontal scrolling
-
 search
 [] replace search icon with an add icon
-
-login
-[] utilize google's single-tap flow: https://supabase.com/docs/guides/auth/social-login/auth-google#using-the-oauth-flow-for-web
 
 User
 [] field for twitter
 [] field for github
 
-app
-[] move supabase queries to services directory https://github.com/search?q=repo%3Aharshmangalam%2Fsupabook%20fetchProfileDetails&type=code
-[] https://www.realtimecolors.com/?colors=050315-fbfbfe-27cece-dedcff-433bff&fonts=Poppins-Poppins
-[] how to reduce size of first loads on javascript
+Searchbar
 [] parse input strings (just host + address)
-[] cache results?
-[] make things server components?
-[] add names to profile
-[] restructure files
-[] remove import React from "react";
-[] simplify Profile Page: move Profile component into UserProfile
-[] verify full_name is updated upon login
+
+Dash
+[] prevent horizontal scrolling
+
+explore
+[] TODO: How to get session user in client components?
+
+login
+[] utilize google's single-tap flow: https://supabase.com/docs/guides/auth/social-login/auth-google#using-the-oauth-flow-for-web
 
 Production:
 [] GCP console: update authorized javascript origins
