@@ -1,5 +1,5 @@
 explore
-[] stylize (margins, centering)
+[] TODO: How to get session user in client components?
 
 Profile Page
 [] improve ui/ux of following and followers (hyperlink profiles, display names)

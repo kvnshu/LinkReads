@@ -10,7 +10,6 @@ function Explore() {
   const [loggedInUser, setLoggedInUser] = useState({})
 
   useEffect(() => {
-    // TODO: How to get session user in client components?
     supabase.auth.getUser()
       .then(({ data: { user: logUser } }) => {
         setLoggedInUser(logUser);
@@ -31,13 +30,13 @@ function Explore() {
 return (
   <>
     <main className="h-full flex flex-col items-center">
-      <h1>Explore users</h1>
+      <p className="text-2xl">Explore users</p>
       {
         loading ? (
           <div>loading...</div>
         ) : (
           users.length != 0 ? (
-            <div id="profiles-container" className="w-5/6 flex flex-col gap-2">
+            <div id="profiles-container" className="w-5/6 flex flex-col gap-4 max-w-sm">
               {
                 users.map(u =>
                   <UserCard key={u.id} user={u} logUser={loggedInUser} />
