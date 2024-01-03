@@ -19,7 +19,7 @@ export default function Feed({ session }) {
             user_id,
             read_at,
             profiles (
-              email,
+              full_name,
               followings!followings_user_id2_fkey (
                 user_id1,
                 user_id2
