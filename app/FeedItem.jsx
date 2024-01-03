@@ -1,14 +1,10 @@
 import React from 'react'
 import Link from 'next/link';
-import { formatDistanceToNow, parseISO } from "date-fns";
 import { truncateUrl } from '@/utils/truncateUrl';
 import { Card, CardBody } from '@nextui-org/card'
+import { parseAndHumanizeDate } from "@/utils/parseAndHumanizeDate";
 
 export default function FeedItem({ data }) {
-  function parseAndHumanizeDate(dateString) {
-    const parsedDate = parseISO(dateString);
-    return formatDistanceToNow(parsedDate, { addSuffix: true });
-  }
 
   return (
     <Card className="max-w-5xl">
