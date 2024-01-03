@@ -2,7 +2,7 @@
 import { useState } from "react";
 import { Input } from "@nextui-org/input";
 import Image from "next/image";
-import searchIcon from "@/app/public/search.png"
+import addIcon from "@/app/public/add_FILL0_wght400_GRAD0_opsz24.svg"
 import { createSupabaseFrontendClient } from "@/utils/supabaseBrowser";
 
 export default function SearchBar({ listSaves, setListSaves, user }) {
@@ -93,10 +93,10 @@ export default function SearchBar({ listSaves, setListSaves, user }) {
 function SearchIcon() {
   return (
     <Image
-      src={searchIcon}
+      src={addIcon}
       alt="search"
-      height={16}
-      width={16}
+      height={20}
+      width={20}
     />
   )
 }

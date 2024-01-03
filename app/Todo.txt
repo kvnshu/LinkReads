@@ -27,9 +27,6 @@ Feed
 listItem
 [] create undo popup on click
 
-search
-[] replace search icon with an add icon
-
 FollowButton
 [] fix pre-fetch render view
 [] make more clickable for "follow" state
