@@ -6,7 +6,8 @@ import { Card, CardHeader, CardBody, CardFooter } from "@nextui-org/card";
 import { Link } from '@nextui-org/link';
 
 export default function Feed({ session }) {
-  const [reads, setReads] = useState([])
+  const [reads, setReads] = useState([]);
+  const [loading, setLoading] = useState(true);
   const supabase = createSupabaseFrontendClient()
 
   useEffect(() => {
@@ -40,9 +41,11 @@ export default function Feed({ session }) {
         setReads(data);
       } catch (error) {
         console.log(error)
+      } finally {
+        setLoading(false);
       }
     }
-    getReads()
+    getReads();
   }, [])
 
   return (
@@ -56,14 +59,18 @@ export default function Feed({ session }) {
         </CardHeader>
         <CardBody>
           {
-            reads.length <= 0 ? (
-              <span>No updates yet. <Link href="/explore">Follow readers</Link> to be updated when they finish reading an article!</span>
+            loading ? (
+              <></>
             ) : (
-              <div id="item-container" className="flex flex-col gap-4">
-                {
-                  reads.map((read, i) => <FeedItem key={i} data={read} />)
-                }
-              </div>
+              reads.length <= 0 ? (
+                <span>No updates yet. <Link href="/explore">Follow readers</Link> to be updated when they finish reading an article!</span>
+              ) : (
+                <div id="item-container" className="flex flex-col gap-4">
+                  {
+                    reads.map((read, i) => <FeedItem key={i} data={read} />)
+                  }
+                </div>
+              )
             )
           }
         </CardBody>
