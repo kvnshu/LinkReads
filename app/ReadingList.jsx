@@ -1,11 +1,12 @@
 'use client';
-import React, { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { createSupabaseFrontendClient } from "@/utils/supabaseBrowser";
 import SaveItem from "@/components/SaveItem";
 import { Card, CardHeader, CardBody, CardFooter } from "@nextui-org/card";
 
 export default function ReadingList({ user, listSaves, setListSaves }) {
-  const supabase = createSupabaseFrontendClient()
+  const supabase = createSupabaseFrontendClient();
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     async function loadSaves() {
@@ -29,6 +30,8 @@ export default function ReadingList({ user, listSaves, setListSaves }) {
         setListSaves(data);
       } catch (error) {
         console.log(error)
+      } finally {
+        setLoading(false);
       }
     }
     loadSaves();
@@ -74,22 +77,26 @@ export default function ReadingList({ user, listSaves, setListSaves }) {
         </CardHeader>
         <CardBody>
           {
-            listSaves.length <= 0 ? (
-              <span className="w-full text-center">All links read!🎊</span>
+            loading ? (
+              <></>
             ) : (
-              <div id="reading-list-container" className="flex flex-col gap-4">
-                {
-                  listSaves.map((save) =>
-                    <SaveItem
-                      key={save.id}
-                      user={user.id}
-                      data={save}
-                      deleteSave={deleteSave}
-                      updateIsRead={updateIsRead}
-                    />
-                  )
-                }
-              </div>
+              listSaves.length <= 0 ? (
+                <span className="w-full text-center">All links read!🎊</span>
+              ) : (
+                <div id="reading-list-container" className="flex flex-col gap-4">
+                  {
+                    listSaves.map((save) =>
+                      <SaveItem
+                        key={save.id}
+                        user={user.id}
+                        data={save}
+                        deleteSave={deleteSave}
+                        updateIsRead={updateIsRead}
+                      />
+                    )
+                  }
+                </div>
+              )
             )
           }
         </CardBody>
