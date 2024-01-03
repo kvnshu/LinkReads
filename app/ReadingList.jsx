@@ -67,10 +67,10 @@ export default function ReadingList({ user, listSaves, setListSaves }) {
       <p className="text-center">To Read:</p>
       <div id="reading-list-container" className="flex flex-col gap-4">
         {
-          listSaves.map((save, i) =>
+          listSaves.map((save) =>
             <SaveItem
               key={save.id}
-
+              user={user.id}
               data={save}
               deleteSave={deleteSave}
               updateIsRead={updateIsRead}

@@ -10,9 +10,6 @@ app
 [] verify full_name is updated upon login
 
 ====
-Reading List
-[] re-enable deleting and adding
-
 Profile Page
 [] improve ui/ux of following and followers (hyperlink profiles, display names, card components)
 [] simplify Profile Page: move Profile component into UserProfile
