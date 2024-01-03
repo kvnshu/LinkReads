@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import { createSupabaseFrontendClient } from '@/utils/supabaseBrowser'
 import FollowButton from "@/components/FollowButton"
 import SaveItem from "@/components/SaveItem";
+import UserCard from "@/components/UserCard";
 
 export default function Profile({ user, profileId }) {
   const [loading, setLoading] = useState(true)
@@ -14,15 +15,16 @@ export default function Profile({ user, profileId }) {
   const supabase = createSupabaseFrontendClient();
 
   useEffect(() => {
-    async function getProfile() {
+    async function fetchProfile() {
       try {
-        setLoading(true)
+        setLoading(true);
         // fetch profile data
         const { data: profileData, error: profileError } = await supabase
           .from('profiles')
           .select(`
             id,
-            email
+            email,
+            full_name
           `)
           .eq('id', profileId)
           .single()
@@ -31,48 +33,7 @@ export default function Profile({ user, profileId }) {
         }
         setProfile(profileData)
 
-        // fetch user's saves
-        const { data: profileSavesData, error: profileSavesError } = await supabase
-          .from('saves')
-          .select(`
-            id,
-            user_id,
-            links (
-              url
-            ),
-            read,
-            created_at
-          `)
-          .eq('user_id', profileId)
-          .order('created_at', { ascending: false })
-        if (profileSavesError) {
-          throw profileSavesError
-        }
-        setProfileSaves(profileSavesData)
 
-        // fetch following
-        const { data: followingsData, error: followingsError } = await supabase
-          .from('followings')
-          .select(`
-            user_id2
-          `)
-          .eq('user_id1', profileId)
-        if (followingsError) {
-          throw followingsError
-        }
-        setFollowings(followingsData)
-
-        // fetch followers
-        const { data: followersData, error: followersError } = await supabase
-          .from('followings')
-          .select(`
-            user_id1
-          `)
-          .eq('user_id2', profileId)
-        if (followersError) {
-          throw followersError
-        }
-        setFollowers(followersData)
       } catch (error) {
         console.log('Error loading profile.')
         console.log(error)
@@ -80,7 +41,76 @@ export default function Profile({ user, profileId }) {
         setLoading(false)
       }
     }
-    getProfile()
+    async function fetchSaves() {
+      try {
+        // fetch user's saves
+        setLoading(true);
+        const { data: profileSavesData, error: profileSavesError } = await supabase
+          .from('saves')
+          .select(`
+                  id,
+                  user_id,
+                  links (
+                    url
+                  ),
+                  read,
+                  created_at
+                `)
+          .eq('user_id', profileId)
+          .order('created_at', { ascending: false })
+        if (profileSavesError) {
+          throw profileSavesError
+        }
+        setProfileSaves(profileSavesData)
+      } catch (error) {
+        console.log(error);
+      } finally {
+        setLoading(false);
+      }
+    }
+    async function fetchFollowings() {
+      try {
+        // fetch following
+        const { data: followingsData, error: followingsError } = await supabase
+          .from('followings')
+          .select(`
+            user_id2,
+            profiles!followings_user_id2_fkey (
+              id,
+              full_name
+            )
+          `)
+          .eq('user_id1', profileId)
+        if (followingsError) {
+          throw followingsError
+        }
+
+        // fetch followers
+        setLoading(true);
+        const { data: followersData, error: followersError } = await supabase
+          .from('followings')
+          .select(`
+            user_id1,
+            profiles!followings_user_id1_fkey (
+              id,
+              full_name
+            )
+          `)
+          .eq('user_id2', profileId)
+        if (followersError) {
+          throw followersError
+        }
+        setFollowings(followingsData);
+        setFollowers(followersData);
+      } catch (error) {
+        console.log(error);
+      } finally {
+        setLoading(false);
+      }
+    }
+    fetchProfile();
+    fetchSaves();
+    fetchFollowings();
   }, [])
 
   async function deleteSave(data) {
@@ -110,25 +140,64 @@ export default function Profile({ user, profileId }) {
     }
   }
 
-
   return (
-    <div id="profile-container" className="flex flex-col content-center items-center gap-4">
-      <div id="profile-details" className="w-4/5 text-center">
-        {
-          loading ? (
-            <p>Loading Profile...</p>
-          ) : (
-            <div>
-              <p>{profile.email}</p>
-            </div>
-          )
-        }
-        <FollowButton
-          user={user}
-          profileId={profileId}
-        />
+    <div id="profile-container" className="w-4/5 h-full flex content-center justify-center gap-24">
+      <div className="w-64">
+        <div id="profile-details" className="w-full flex flex-col text-center align-center">
+          {
+            loading | profile ? (
+              <p>Loading Profile...</p>
+            ) : (
+              <p className="font-bold">{profile?.full_name}</p>
+            )
+          }
+          <FollowButton
+            user={user}
+            profileId={profileId}
+          />
+        </div>
+        <div id="following" className="min-h-12 pb-6">
+          <p>Following:</p>
+          {
+            loading ? (
+              <p>loading following...</p>
+            ) : (
+              <div className="flex flex-col gap-4">
+                {
+                  followings.map((data) =>
+                    <UserCard
+                      key={data.profiles.id}
+                      user={data.profiles}
+                      logUser={user}
+                    />
+                  )
+                }
+              </div>
+            )
+          }
+        </div>
+        <div id="followers" className="min-h-12 pb-6">
+          <p>Followers:</p>
+          {
+            loading ? (
+              <p>loading followers...</p>
+            ) : (
+              <div className="flex flex-col gap-4">
+                {
+                  followers.map((data) =>
+                    <UserCard
+                      key={data.profiles.id}
+                      user={data.profiles}
+                      logUser={user}
+                    />
+                  )
+                }
+              </div>
+            )
+          }
+        </div>
       </div>
-      <div id="profile-saves-container" className="flex flex-col gap-4">
+      <div id="saves-container" className="w-96 flex flex-col gap-4">
         {
           loading ? (
             <p>Loading saves...</p>
@@ -145,30 +214,7 @@ export default function Profile({ user, profileId }) {
           )
         }
       </div>
-      <div id="following" className="min-h-12">
-        <p>Following:</p>
-        {
-          loading ? (
-            <p>loading following...</p>
-          ) : (
-            followings.map((data, i) =>
-              <div> {data.user_id2}</div>
-            )
-          )
-        }
-      </div>
-      <div id="followers" className="min-h-12">
-        <p>Followers:</p>
-        {
-          loading ? (
-            <p>loading followers...</p>
-          ) : (
-            followers.map((data, i) =>
-              <div> {data.user_id1}</div>
-            )
-          )
-        }
-      </div>
+
     </div >
   )
 }
