@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+'use client'
+import { useState } from "react";
 import { Input } from "@nextui-org/input";
 import Image from "next/image";
 import searchIcon from "@/app/public/search.png"
@@ -11,9 +12,18 @@ export default function SearchBar({ listSaves, setListSaves, user }) {
   async function handleSubmit(event) {
     event.preventDefault();
     async function addSave() {
+      let url = searchText;
+      try {
+        url = new URL(searchText);
+        url = url.href;
+      } catch (error) {
+        console.log(error); // => TypeError, "Failed to construct URL: Invalid URL"
+        return;
+      }
+      console.log(url);
       // update links table
       const newLink = {
-        url: searchText,
+        url: url,
       }
       const { data: dataLinks, error: errorLinks } = await supabase
         .from('links')
@@ -51,10 +61,10 @@ export default function SearchBar({ listSaves, setListSaves, user }) {
         console.log(`Failed to add save.`)
         throw errorSaves;
       }
-      
+
       const newListSaves = [dataSaves, ...listSaves]
       setListSaves(newListSaves);
-      console.log(`Added ${searchText} to reading list.`);
+      console.log(`Added ${url} to reading list.`);
       setSearchText("");
     }
 
@@ -72,7 +82,7 @@ export default function SearchBar({ listSaves, setListSaves, user }) {
           value={searchText}
           onValueChange={setSearchText}
           startContent={
-            <SearchIcon/>
+            <SearchIcon />
           }
         />
       </form>
@@ -80,7 +90,7 @@ export default function SearchBar({ listSaves, setListSaves, user }) {
   );
 }
 
-function SearchIcon(){
+function SearchIcon() {
   return (
     <Image
       src={searchIcon}
