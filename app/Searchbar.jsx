@@ -72,7 +72,7 @@ export default function SearchBar({ listSaves, setListSaves, user }) {
   }
 
   return (
-    <div className="pt-2 w-[40%]">
+    <div className="pt-2 w-[40%] pb-4">
       <form onSubmit={handleSubmit}>
         <Input
           name="searchbar"

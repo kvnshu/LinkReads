@@ -20,10 +20,6 @@ Profile Page
 [] field for twitter
 [] field for github
 
-Feed
-[] if empty, "No updates yet."
-[] implement following activity?
-
 listItem
 [] create undo popup on click
 
