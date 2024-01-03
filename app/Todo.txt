@@ -8,6 +8,7 @@ app
 [] add names to profile
 [] remove import React from "react";
 [] verify full_name is updated upon login
+[] add main element (with flex styling) to layout
 
 ====
 Reading List
@@ -19,6 +20,8 @@ Reading List
 
 Profile Page
 [] simplify Profile Page: move Profile component into UserProfile
+[] implement edit profile (change name)
+[] add profile picture
 
 Feed
 [] if empty, "No updates yet."
