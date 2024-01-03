@@ -9,10 +9,15 @@ import { truncateUrl } from "@/utils/truncateUrl"
 import { formatDistanceToNow, parseISO } from "date-fns";
 
 export default function SaveItem({ data, deleteSave, updateIsRead, user }) {
-  const [isRead, setIsRead] = useState(data.read)
+  const [isRead, setIsRead] = useState(data.read);
+  const [url, setUrl] = useState({
+    host:'',
+    pathname:''
+  })
   // TODO: is this an anti-pattern?
   useEffect(() => {
-    setIsRead(data.read)
+    setIsRead(data.read);
+    setUrl(new URL(data.links.url));
   }, [])
 
   function parseAndHumanizeDate(dateString) {
@@ -39,8 +44,11 @@ export default function SaveItem({ data, deleteSave, updateIsRead, user }) {
             ) : (null)
           }
           <div className="flex flex-col">
-            <Link href={data.links.url}>
-              {truncateUrl(data.links.url, 36)}
+            <Link
+              isExternal
+              href={url.href}
+            >
+              {truncateUrl(url.host + url.pathname, 36)}
             </Link>
             <p className="text-xs text-slate-400">Created {parseAndHumanizeDate(data.created_at)}</p>
           </div>

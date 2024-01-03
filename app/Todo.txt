@@ -11,17 +11,14 @@ app
 [] add main element (with flex styling) to layout
 
 ====
-Reading List
-[] re-enable deleting and adding
-[] edit name
-[] display profile picture
-[] field for twitter
-[] field for github
-
 Profile Page
 [] simplify Profile Page: move Profile component into UserProfile
 [] implement edit profile (change name)
 [] add profile picture
+[] edit name
+[] display profile picture
+[] field for twitter
+[] field for github
 
 Feed
 [] if empty, "No updates yet."
@@ -32,9 +29,6 @@ listItem
 
 search
 [] replace search icon with an add icon
-
-Searchbar
-[] parse input strings (just host + address)
 
 FollowButton
 [] fix pre-fetch render view
