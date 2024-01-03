@@ -28,9 +28,6 @@ User
 [] field for twitter
 [] field for github
 
-Searchbar
-[] parse input strings (just host + address)
-
 Dash
 [] prevent horizontal scrolling
 
