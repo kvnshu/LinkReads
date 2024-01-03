@@ -8,6 +8,7 @@ import { Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, useDisclosure
 import { Button } from "@nextui-org/button";
 import { Card, CardBody, CardHeader, CardFooter } from "@nextui-org/card";
 import { parseAndHumanizeDate } from "@/utils/parseAndHumanizeDate";
+import { Link } from "@nextui-org/link";
 
 export default function Profile({ user, profileId }) {
   const [loading, setLoading] = useState(true)
@@ -152,10 +153,10 @@ export default function Profile({ user, profileId }) {
       <div className="w-64">
         <Card>
           <CardBody>
-            <div id="profile-details" className="w-full flex flex-row justify-between items-center pb-4">
+            <div id="profile-details" className="w-full flex flex-row justify-between items-center">
               {
                 loading | profile ? (
-                  <p>Loading Profile...</p>
+                  <div className="h-6 w-2/5 rounded-lg bg-default-200"></div>
                 ) : (
                   <span className="font-bold align-bottom">{profile?.full_name}</span>
                 )
@@ -165,9 +166,9 @@ export default function Profile({ user, profileId }) {
                 profileId={profileId}
               />
             </div>
-            <div id="follow-modals" className="flex flex-row gap-2 justify-center">
-              <div id="following" className="pb-6">
-                <Button onPress={onFollowingOpen}>{followings.length} Following</Button>
+            <div id="follow-modals" className="flex flex-row gap-3 pb-2">
+              <div id="following">
+                <Link href="#" size="sm" onPress={onFollowingOpen}>{followings.length} Following</Link>
                 <Modal isOpen={isFollowingOpen} onOpenChange={onFollowingOpenChange}>
                   <ModalContent>
                     {(onFollowingClose) => (
@@ -204,8 +205,8 @@ export default function Profile({ user, profileId }) {
                   </ModalContent>
                 </Modal>
               </div>
-              <div id="followers" className="pb-6">
-                <Button onPress={onFollowersOpen}>{followers.length} Followers</Button>
+              <div id="followers">
+                <Link href="#" size="sm" onPress={onFollowersOpen}>{followers.length} Followers</Link>
                 <Modal isOpen={isFollowersOpen} onOpenChange={onFollowersOpenChange}>
                   <ModalContent>
                     {(onFollowersClose) => (
@@ -241,7 +242,6 @@ export default function Profile({ user, profileId }) {
                     )}
                   </ModalContent>
                 </Modal>
-
               </div>
             </div>
             <p className="min-w-full text-xs text-slate-400 text-center">Joined {parseAndHumanizeDate(profile?.created_at)}</p>
