@@ -8,11 +8,17 @@ app
 [] add names to profile
 [] remove import React from "react";
 [] verify full_name is updated upon login
+[] add main element (with flex styling) to layout
 
 ====
 Profile Page
-[] improve ui/ux of following and followers (hyperlink profiles, display names, card components)
 [] simplify Profile Page: move Profile component into UserProfile
+[] implement edit profile (change name)
+[] add profile picture
+[] edit name
+[] display profile picture
+[] field for twitter
+[] field for github
 
 Feed
 [] if empty, "No updates yet."
@@ -24,9 +30,9 @@ listItem
 search
 [] replace search icon with an add icon
 
-User
-[] field for twitter
-[] field for github
+FollowButton
+[] fix pre-fetch render view
+[] make more clickable for "follow" state
 
 Dash
 [] prevent horizontal scrolling
@@ -39,5 +45,4 @@ login
 
 Production:
 [] GCP console: update authorized javascript origins
-[] Vercel: set NEXT_PUBLIC_OAUTH_CALLBACK_URL to domain.com/auth/callback
 [] Supabase: update provider callback urls

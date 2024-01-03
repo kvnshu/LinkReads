@@ -5,7 +5,7 @@ import FollowButton from "@/components/FollowButton"
 
 export default function UserCard({ logUser, user }) {
   return (
-    <div className="w-96">
+    <div className="">
       <Card>
         <CardBody>
           <div className="flex flex-row justify-between">

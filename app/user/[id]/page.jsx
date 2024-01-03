@@ -7,7 +7,7 @@ export default async function UserProfile({ params }) {
 
   return (
     <>
-      <main className="h-full">
+      <main className="h-96 flex flex-col items-center pt-6">
         <Profile
           user={user}
           profileId={params.id}

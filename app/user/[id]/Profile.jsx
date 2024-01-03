@@ -3,6 +3,11 @@ import { useState, useEffect } from "react";
 import { createSupabaseFrontendClient } from '@/utils/supabaseBrowser'
 import FollowButton from "@/components/FollowButton"
 import SaveItem from "@/components/SaveItem";
+import UserCard from "@/components/UserCard";
+import { Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, useDisclosure } from "@nextui-org/modal";
+import { Button } from "@nextui-org/button";
+import { Card, CardBody, CardHeader, CardFooter } from "@nextui-org/card";
+import { parseAndHumanizeDate } from "@/utils/parseAndHumanizeDate";
 
 export default function Profile({ user, profileId }) {
   const [loading, setLoading] = useState(true)
@@ -10,19 +15,23 @@ export default function Profile({ user, profileId }) {
   const [profileSaves, setProfileSaves] = useState([])
   const [followings, setFollowings] = useState([])
   const [followers, setFollowers] = useState([])
+  const { isOpen: isFollowingOpen, onOpen: onFollowingOpen, onOpenChange: onFollowingOpenChange } = useDisclosure();
+  const { isOpen: isFollowersOpen, onOpen: onFollowersOpen, onOpenChange: onFollowersOpenChange } = useDisclosure();
 
   const supabase = createSupabaseFrontendClient();
 
   useEffect(() => {
-    async function getProfile() {
+    async function fetchProfile() {
       try {
-        setLoading(true)
+        setLoading(true);
         // fetch profile data
         const { data: profileData, error: profileError } = await supabase
           .from('profiles')
           .select(`
             id,
-            email
+            email,
+            full_name,
+            created_at
           `)
           .eq('id', profileId)
           .single()
@@ -31,48 +40,7 @@ export default function Profile({ user, profileId }) {
         }
         setProfile(profileData)
 
-        // fetch user's saves
-        const { data: profileSavesData, error: profileSavesError } = await supabase
-          .from('saves')
-          .select(`
-            id,
-            user_id,
-            links (
-              url
-            ),
-            read,
-            created_at
-          `)
-          .eq('user_id', profileId)
-          .order('created_at', { ascending: false })
-        if (profileSavesError) {
-          throw profileSavesError
-        }
-        setProfileSaves(profileSavesData)
 
-        // fetch following
-        const { data: followingsData, error: followingsError } = await supabase
-          .from('followings')
-          .select(`
-            user_id2
-          `)
-          .eq('user_id1', profileId)
-        if (followingsError) {
-          throw followingsError
-        }
-        setFollowings(followingsData)
-
-        // fetch followers
-        const { data: followersData, error: followersError } = await supabase
-          .from('followings')
-          .select(`
-            user_id1
-          `)
-          .eq('user_id2', profileId)
-        if (followersError) {
-          throw followersError
-        }
-        setFollowers(followersData)
       } catch (error) {
         console.log('Error loading profile.')
         console.log(error)
@@ -80,7 +48,76 @@ export default function Profile({ user, profileId }) {
         setLoading(false)
       }
     }
-    getProfile()
+    async function fetchSaves() {
+      try {
+        // fetch user's saves
+        setLoading(true);
+        const { data: profileSavesData, error: profileSavesError } = await supabase
+          .from('saves')
+          .select(`
+                  id,
+                  user_id,
+                  links (
+                    url
+                  ),
+                  read,
+                  created_at
+                `)
+          .eq('user_id', profileId)
+          .order('created_at', { ascending: false })
+        if (profileSavesError) {
+          throw profileSavesError
+        }
+        setProfileSaves(profileSavesData)
+      } catch (error) {
+        console.log(error);
+      } finally {
+        setLoading(false);
+      }
+    }
+    async function fetchFollowings() {
+      try {
+        // fetch following
+        const { data: followingsData, error: followingsError } = await supabase
+          .from('followings')
+          .select(`
+            user_id2,
+            profiles!followings_user_id2_fkey (
+              id,
+              full_name
+            )
+          `)
+          .eq('user_id1', profileId)
+        if (followingsError) {
+          throw followingsError
+        }
+
+        // fetch followers
+        setLoading(true);
+        const { data: followersData, error: followersError } = await supabase
+          .from('followings')
+          .select(`
+            user_id1,
+            profiles!followings_user_id1_fkey (
+              id,
+              full_name
+            )
+          `)
+          .eq('user_id2', profileId)
+        if (followersError) {
+          throw followersError
+        }
+        setFollowings(followingsData);
+        setFollowers(followersData);
+      } catch (error) {
+        console.log(error);
+      } finally {
+        setLoading(false);
+      }
+    }
+    fetchProfile();
+    fetchSaves();
+    fetchFollowings();
   }, [])
 
   async function deleteSave(data) {
@@ -110,25 +147,108 @@ export default function Profile({ user, profileId }) {
     }
   }
 
-
   return (
-    <div id="profile-container" className="flex flex-col content-center items-center gap-4">
-      <div id="profile-details" className="w-4/5 text-center">
-        {
-          loading ? (
-            <p>Loading Profile...</p>
-          ) : (
-            <div>
-              <p>{profile.email}</p>
+    <div id="profile-container" className="w-4/5 h-full flex content-center justify-center gap-24">
+      <div className="w-64">
+        <Card>
+          <CardBody>
+            <div id="profile-details" className="w-full flex flex-row justify-between items-center pb-4">
+              {
+                loading | profile ? (
+                  <p>Loading Profile...</p>
+                ) : (
+                  <span className="font-bold align-bottom">{profile?.full_name}</span>
+                )
+              }
+              <FollowButton
+                user={user}
+                profileId={profileId}
+              />
             </div>
-          )
-        }
-        <FollowButton
-          user={user}
-          profileId={profileId}
-        />
+            <div id="follow-modals" className="flex flex-row gap-2 justify-center">
+              <div id="following" className="pb-6">
+                <Button onPress={onFollowingOpen}>{followings.length} Following</Button>
+                <Modal isOpen={isFollowingOpen} onOpenChange={onFollowingOpenChange}>
+                  <ModalContent>
+                    {(onFollowingClose) => (
+                      <>
+                        <ModalHeader className="flex flex-col gap-1">
+                          <p>{followings.length} Following</p>
+                        </ModalHeader>
+                        <ModalBody>
+                          {
+                            loading ? (
+                              <p>loading following...</p>
+                            ) : (
+                              <div className="flex flex-col gap-4">
+                                {
+                                  followings.map((data) =>
+                                    <UserCard
+                                      key={data.profiles.id}
+                                      user={data.profiles}
+                                      logUser={user}
+                                    />
+                                  )
+                                }
+                              </div>
+                            )
+                          }
+                        </ModalBody>
+                        <ModalFooter>
+                          <Button color="danger" variant="light" onPress={onFollowingClose}>
+                            Close
+                          </Button>
+                        </ModalFooter>
+                      </>
+                    )}
+                  </ModalContent>
+                </Modal>
+              </div>
+              <div id="followers" className="pb-6">
+                <Button onPress={onFollowersOpen}>{followers.length} Followers</Button>
+                <Modal isOpen={isFollowersOpen} onOpenChange={onFollowersOpenChange}>
+                  <ModalContent>
+                    {(onFollowersClose) => (
+                      <>
+                        <ModalHeader className="flex flex-col gap-1">
+                          <p>{followers.length} Followers</p>
+                        </ModalHeader>
+                        <ModalBody>
+                          {
+                            loading ? (
+                              <p>loading followers...</p>
+                            ) : (
+                              <div className="flex flex-col gap-4">
+                                {
+                                  followers.map((data) =>
+                                    <UserCard
+                                      key={data.profiles.id}
+                                      user={data.profiles}
+                                      logUser={user}
+                                    />
+                                  )
+                                }
+                              </div>
+                            )
+                          }
+                        </ModalBody>
+                        <ModalFooter>
+                          <Button color="danger" variant="light" onPress={onFollowersClose}>
+                            Close
+                          </Button>
+                        </ModalFooter>
+                      </>
+                    )}
+                  </ModalContent>
+                </Modal>
+
+              </div>
+            </div>
+            <p className="min-w-full text-xs text-slate-400 text-center">Joined {parseAndHumanizeDate(profile?.created_at)}</p>
+          </CardBody>
+        </Card>
       </div>
-      <div id="profile-saves-container" className="flex flex-col gap-4">
+      <div id="saves-container" className="w-96 flex flex-col gap-4">
         {
           loading ? (
             <p>Loading saves...</p>
@@ -145,30 +265,7 @@ export default function Profile({ user, profileId }) {
           )
         }
       </div>
-      <div id="following" className="min-h-12">
-        <p>Following:</p>
-        {
-          loading ? (
-            <p>loading following...</p>
-          ) : (
-            followings.map((data, i) =>
-              <div> {data.user_id2}</div>
-            )
-          )
-        }
-      </div>
-      <div id="followers" className="min-h-12">
-        <p>Followers:</p>
-        {
-          loading ? (
-            <p>loading followers...</p>
-          ) : (
-            followers.map((data, i) =>
-              <div> {data.user_id1}</div>
-            )
-          )
-        }
-      </div>
+
     </div >
   )
 }
