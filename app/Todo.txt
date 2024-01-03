@@ -12,6 +12,10 @@ app
 ====
 Reading List
 [] re-enable deleting and adding
+[] edit name
+[] display profile picture
+[] field for twitter
+[] field for github
 
 Profile Page
 [] simplify Profile Page: move Profile component into UserProfile
@@ -25,10 +29,6 @@ listItem
 
 search
 [] replace search icon with an add icon
-
-User
-[] field for twitter
-[] field for github
 
 Searchbar
 [] parse input strings (just host + address)
@@ -44,5 +44,4 @@ login
 
 Production:
 [] GCP console: update authorized javascript origins
-[] Vercel: set NEXT_PUBLIC_OAUTH_CALLBACK_URL to domain.com/auth/callback
 [] Supabase: update provider callback urls
