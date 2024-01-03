@@ -36,6 +36,10 @@ search
 Searchbar
 [] parse input strings (just host + address)
 
+FollowButton
+[] fix pre-fetch render view
+[] make more clickable for "follow" state
+
 Dash
 [] prevent horizontal scrolling
 

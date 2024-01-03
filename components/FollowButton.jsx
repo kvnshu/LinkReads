@@ -77,6 +77,8 @@ export default function FollowButton({ user, profileId }) {
       {
         loading ? (
           <Button
+            size="sm"
+            variant="light"
             isDisabled
             onClick={handleFollowToggle}>
             {isFollowing ? 'Unfollow' : 'Follow'}
@@ -86,6 +88,8 @@ export default function FollowButton({ user, profileId }) {
             {
               user && user?.id !== profileId ? (
                 <Button
+                  size="sm"
+                  variant="light"
                   onClick={handleFollowToggle}>
                   {isFollowing ? 'Unfollow' : 'Follow'}
                 </Button>
