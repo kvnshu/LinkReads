@@ -76,20 +76,15 @@ export default function FollowButton({ user, profileId }) {
     <div>
       {
         loading ? (
-          <Button
-            size="sm"
-            variant="light"
-            isDisabled
-            onClick={handleFollowToggle}>
-            {isFollowing ? 'Unfollow' : 'Follow'}
-          </Button>
+          <></>
         ) : (
           <>
             {
               user && user?.id !== profileId ? (
                 <Button
                   size="sm"
-                  variant="light"
+                  variant={isFollowing ? "light" : 'solid'}
+                  color={isFollowing ? "default" : 'primary'}
                   onClick={handleFollowToggle}>
                   {isFollowing ? 'Unfollow' : 'Follow'}
                 </Button>

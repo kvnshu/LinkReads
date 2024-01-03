@@ -13,8 +13,8 @@ app
 ====
 Profile Page
 [] simplify Profile Page: move Profile component into UserProfile
-[] implement edit profile (change name)
 [] add profile picture
+[] implement edit profile (change name)
 [] edit name
 [] display profile picture
 [] field for twitter
@@ -26,10 +26,6 @@ Feed
 
 listItem
 [] create undo popup on click
-
-FollowButton
-[] fix pre-fetch render view
-[] make more clickable for "follow" state
 
 Dash
 [] prevent horizontal scrolling
