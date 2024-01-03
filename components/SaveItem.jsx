@@ -6,7 +6,7 @@ import { Checkbox } from "@nextui-org/checkbox";
 import Image from "next/image";
 import DeleteIcon from "@/app/public/delete_FILL0_wght400_GRAD0_opsz24.svg"
 import { truncateUrl } from "@/utils/truncateUrl"
-import { formatDistanceToNow, parseISO } from "date-fns";
+import { parseAndHumanizeDate } from '@/utils/parseAndHumanizeDate';
 
 export default function SaveItem({ data, deleteSave, updateIsRead, user }) {
   const [isRead, setIsRead] = useState(data.read);
@@ -19,11 +19,6 @@ export default function SaveItem({ data, deleteSave, updateIsRead, user }) {
     setIsRead(data.read);
     setUrl(new URL(data.links.url));
   }, [])
-
-  function parseAndHumanizeDate(dateString) {
-    const parsedDate = parseISO(dateString);
-    return formatDistanceToNow(parsedDate, { addSuffix: true });
-  }
 
   function handleCheck() {
     updateIsRead(data, isRead)
