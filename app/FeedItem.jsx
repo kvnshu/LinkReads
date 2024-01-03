@@ -1,6 +1,5 @@
 import React from 'react'
 import { Link } from '@nextui-org/link';
-import { formatDistanceToNow, parseISO } from "date-fns";
 import { truncateUrl } from '@/utils/truncateUrl';
 import { Card, CardBody } from '@nextui-org/card'
 import { parseAndHumanizeDate } from "@/utils/parseAndHumanizeDate";
@@ -8,7 +7,7 @@ import { parseAndHumanizeDate } from "@/utils/parseAndHumanizeDate";
 export default function FeedItem({ data }) {
 
   return (
-    <Card className="max-w-5xl">
+    <Card className="max-w-5xl" shadow="sm">
       <CardBody>
         <span>
           <Link
