@@ -1,7 +1,8 @@
 'use client';
 import React, { useEffect } from "react";
 import { createSupabaseFrontendClient } from "@/utils/supabaseBrowser";
-import SaveItem from "@/components/SaveItem"
+import SaveItem from "@/components/SaveItem";
+import { Card, CardHeader, CardBody, CardFooter } from "@nextui-org/card";
 
 export default function ReadingList({ user, listSaves, setListSaves }) {
   const supabase = createSupabaseFrontendClient()
@@ -64,20 +65,38 @@ export default function ReadingList({ user, listSaves, setListSaves }) {
 
   return (
     <div className="w-1/3">
-      <p className="text-center">To Read:</p>
-      <div id="reading-list-container" className="flex flex-col gap-4">
-        {
-          listSaves.map((save) =>
-            <SaveItem
-              key={save.id}
-              user={user.id}
-              data={save}
-              deleteSave={deleteSave}
-              updateIsRead={updateIsRead}
-            />
-          )
-        }
-      </div>
+      <Card
+        shadow="none"
+        className="bg-slate-100"
+      >
+        <CardHeader>
+          <span className="w-full text-center font-bold">To Read</span>
+        </CardHeader>
+        <CardBody>
+          {
+            listSaves.length <= 0 ? (
+              <span className="w-full text-center">All links read!🎊</span>
+            ) : (
+              <div id="reading-list-container" className="flex flex-col gap-4">
+                {
+                  listSaves.map((save) =>
+                    <SaveItem
+                      key={save.id}
+                      user={user.id}
+                      data={save}
+                      deleteSave={deleteSave}
+                      updateIsRead={updateIsRead}
+                    />
+                  )
+                }
+              </div>
+            )
+          }
+        </CardBody>
+        <CardFooter>
+
+        </CardFooter>
+      </Card>
     </div >
   )
 }
