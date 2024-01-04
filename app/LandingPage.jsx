@@ -1,5 +1,3 @@
-import React from "react";
-
 export default function LandingPage() {
   return (
     <div id="hero" className="h-5/6 w-5/6 flex flex-col items-center justify-center align-center">

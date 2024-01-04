@@ -1,4 +1,3 @@
-import React from 'react'
 import { Link } from '@nextui-org/link';
 import { truncateUrl } from '@/utils/truncateUrl';
 import { Card, CardBody } from '@nextui-org/card'

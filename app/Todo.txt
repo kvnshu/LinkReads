@@ -1,11 +1,10 @@
 app
-[] restructure files
 [] move supabase queries to services directory https://github.com/search?q=repo%3Aharshmangalam%2Fsupabook%20fetchProfileDetails&type=code
 [] https://www.realtimecolors.com/?colors=050315-fbfbfe-27cece-dedcff-433bff&fonts=Poppins-Poppins
-[] how to reduce size of first loads on javascript
-[] cache results?
-[] make things server components?
-[] remove import React from "react";
+[] how to improve speed?
+  [] cache results?
+  [] reduce size of first loads on javascript
+  [] make things server components?
 [] verify full_name is updated upon login
 [] add main element (with flex styling) to layout
 [] implement pagination/infinite scrolling
@@ -29,7 +28,3 @@ Searchbar
 
 login
 [] utilize google's single-tap flow: https://supabase.com/docs/guides/auth/social-login/auth-google#using-the-oauth-flow-for-web
-
-Production:
-[] GCP console: update authorized javascript origins
-[] Supabase: update provider callback urls
