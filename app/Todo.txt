@@ -12,19 +12,19 @@ app
 
 ====
 Profile Page
-[] simplify Profile Page: move Profile component into UserProfile
 [] add profile picture
-[] implement edit profile (change name)
-[] edit name
-[] display profile picture
-[] field for twitter
-[] field for github
+[] implement edit profile with modal (change name, profile picture, delete account)
+[] simplify Profile Page: move Profile component into UserProfile
 
 listItem
 [] create undo popup on done/delete
 
 Searchbar
 [] create popup for invalid url structure
+
+Navbar
+[] use profile picture, put logout in dropdown
+[] add home to navbar
 
 login
 [] utilize google's single-tap flow: https://supabase.com/docs/guides/auth/social-login/auth-google#using-the-oauth-flow-for-web
