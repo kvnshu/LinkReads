@@ -63,7 +63,7 @@ export default function Feed({ session }) {
               <></>
             ) : (
               reads.length <= 0 ? (
-                <span>No updates yet. <Link href="/explore">Follow readers</Link> to be updated when they finish reading an article!</span>
+                <span>No updates yet. <Link href="/explore">Follow readers</Link> to be updated when they read an article!</span>
               ) : (
                 <div id="item-container" className="flex flex-col gap-4">
                   {

@@ -7,7 +7,7 @@ export default async function Index() {
   const { data: { session }, error } = await supabase.auth.getSession()
 
   return (
-    <main className="bg-background h-5/6 flex flex-col">
+    <main className="bg-background h-5/6 flex flex-col items-center">
       {
         session ? (
           <Dashboard session={session} />
