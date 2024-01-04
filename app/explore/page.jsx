@@ -2,6 +2,8 @@
 import { useEffect, useState } from "react";
 import { createSupabaseFrontendClient } from "@/utils/supabaseBrowser"
 import UserCard from "@/components/UserCard"
+import { Card, CardHeader, CardBody, CardFooter } from "@nextui-org/card";
+
 
 function Explore() {
   const supabase = createSupabaseFrontendClient();
@@ -27,30 +29,53 @@ function Explore() {
       })
   }, [])
 
-return (
-  <>
+  return (
     <main className="h-full flex flex-col items-center">
-      <p className="text-2xl">Explore users</p>
-      {
-        loading ? (
-          <div>loading...</div>
-        ) : (
-          users.length != 0 ? (
-            <div id="profiles-container" className="w-5/6 flex flex-col gap-4 max-w-sm">
-              {
-                users.map(u =>
-                  <UserCard key={u.id} user={u} logUser={loggedInUser} />
-                )
-              }
-            </div>
-          ) : (
-            <p>Woah! You follow every person on LinkReads 👀</p>
-          )
-        )
-      }
+      <Card
+        shadow="none"
+        className="bg-slate-100 w-96"
+      >
+        <CardHeader>
+          <span className="w-full text-center font-bold">Explore users</span>
+        </CardHeader>
+        <CardBody>
+          {
+            loading ? (
+              <></>
+            ) : (
+              users.length <= 0 ? (
+                <span>No updates yet. <Link href="/explore">Follow readers</Link> to be updated when they finish reading an article!</span>
+              ) : (
+                <div id="users-container" className="flex flex-col gap-4 items-center">
+                  {
+                    loading ? (
+                      <div>loading...</div>
+                    ) : (
+                      users.length != 0 ? (
+                        <div id="profiles-container" className="w-5/6 flex flex-col gap-4 max-w-sm">
+                          {
+                            users.map(u =>
+                              <UserCard key={u.id} user={u} logUser={loggedInUser} />
+                            )
+                          }
+                        </div>
+                      ) : (
+                        <p>Woah! You follow every person on LinkReads 👀</p>
+                      )
+                    )
+                  }
+                </div>
+              )
+            )
+          }
+        </CardBody>
+        <CardFooter>
+
+        </CardFooter>
+      </Card>
+
     </main>
-  </>
-)
+  )
 }
 
 export default Explore
