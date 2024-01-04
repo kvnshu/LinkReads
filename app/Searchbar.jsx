@@ -20,7 +20,6 @@ export default function SearchBar({ listSaves, setListSaves, user }) {
         console.log(error); // => TypeError, "Failed to construct URL: Invalid URL"
         return;
       }
-      console.log(url);
       // update links table
       const newLink = {
         url: url,
