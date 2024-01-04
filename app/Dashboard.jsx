@@ -11,13 +11,13 @@ export default function Dashboard({ session }) {
 
   return (
     <div id="dashboard-container" className="w-screen h-full flex flex-col items-center">
-      <div id="dashboard" className="flex-1 flex flex-col align-center items-center w-4/5 gap-2">
+      <div id="dashboard" className="h-full w-4/5 flex-1 flex flex-col align-center items-center gap-2">
         <Searchbar
           user={user}
           listSaves={listSaves}
           setListSaves={setListSaves}
         />
-        <div className="flex flex-row justify-center justify-items-center gap-8 w-full">
+        <div className="h-5/6 flex flex-row justify-center justify-items-center gap-8 w-full">
           <ReadingList
             user={user}
             listSaves={listSaves}

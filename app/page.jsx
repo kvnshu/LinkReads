@@ -7,7 +7,7 @@ export default async function Index() {
   const { data: { session }, error } = await supabase.auth.getSession()
 
   return (
-    <div className="bg-background min-h-screen flex flex-col">
+    <div className="bg-background h-5/6 flex flex-col">
       <main className="h-full">
         {
           session ? (

@@ -67,43 +67,43 @@ export default function ReadingList({ user, listSaves, setListSaves }) {
   }
 
   return (
-    <div className="w-1/3">
-      <Card
-        shadow="none"
-        className="bg-slate-100"
+    <Card
+      shadow="none"
+      className="w-1/3 bg-slate-100 max-h-5/6"
+    >
+      <CardHeader>
+        <span className="w-full text-center font-bold">To Read</span>
+      </CardHeader>
+      <CardBody
+        className="max-h-full"
       >
-        <CardHeader>
-          <span className="w-full text-center font-bold">To Read</span>
-        </CardHeader>
-        <CardBody>
-          {
-            loading ? (
-              <></>
+        {
+          loading ? (
+            <></>
+          ) : (
+            listSaves.length <= 0 ? (
+              <span className="w-full text-center">All links read!🎊</span>
             ) : (
-              listSaves.length <= 0 ? (
-                <span className="w-full text-center">All links read!🎊</span>
-              ) : (
-                <div id="reading-list-container" className="flex flex-col gap-4">
-                  {
-                    listSaves.map((save) =>
-                      <SaveItem
-                        key={save.id}
-                        user={user.id}
-                        data={save}
-                        deleteSave={deleteSave}
-                        updateIsRead={updateIsRead}
-                      />
-                    )
-                  }
-                </div>
-              )
+              <div id="reading-list-container" className="flex flex-col gap-4">
+                {
+                  listSaves.map((save) =>
+                    <SaveItem
+                      key={save.id}
+                      user={user.id}
+                      data={save}
+                      deleteSave={deleteSave}
+                      updateIsRead={updateIsRead}
+                    />
+                  )
+                }
+              </div>
             )
-          }
-        </CardBody>
-        <CardFooter>
+          )
+        }
+      </CardBody>
+      <CardFooter>
 
-        </CardFooter>
-      </Card>
-    </div >
+      </CardFooter>
+    </Card>
   )
 }
