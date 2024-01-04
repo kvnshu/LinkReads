@@ -5,7 +5,6 @@ app
 [] how to reduce size of first loads on javascript
 [] cache results?
 [] make things server components?
-[] add names to profile
 [] remove import React from "react";
 [] verify full_name is updated upon login
 [] add main element (with flex styling) to layout
@@ -23,11 +22,10 @@ Profile Page
 [] field for github
 
 listItem
-[] create undo popup on click
+[] create undo popup on done/delete
 
-Dash
-[] prevent horizontal scrolling
-[] add loading attribute
+Searchbar
+[] create popup for invalid url structure
 
 login
 [] utilize google's single-tap flow: https://supabase.com/docs/guides/auth/social-login/auth-google#using-the-oauth-flow-for-web
