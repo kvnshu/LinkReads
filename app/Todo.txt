@@ -21,10 +21,14 @@ listItem
 
 Searchbar
 [] create popup for invalid url structure
+[] optimistically update new saves
 
 Navbar
 [] use profile picture, put logout in dropdown
 [] add home to navbar
+
+404 Page
+[] create page
 
 login
 [] utilize google's single-tap flow: https://supabase.com/docs/guides/auth/social-login/auth-google#using-the-oauth-flow-for-web
