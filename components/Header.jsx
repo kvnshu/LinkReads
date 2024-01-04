@@ -17,6 +17,7 @@ export default async function Header() {
   return (
     <Navbar
       position="static"
+      className="pb-6"
     >
       <NavbarBrand>
         <LogoPrimary />

@@ -9,6 +9,8 @@ app
 [] remove import React from "react";
 [] verify full_name is updated upon login
 [] add main element (with flex styling) to layout
+[] implement pagination/infinite scrolling
+[] TODO: How to get session user in client components?
 
 ====
 Profile Page
@@ -26,9 +28,6 @@ listItem
 Dash
 [] prevent horizontal scrolling
 [] add loading attribute
-
-explore
-[] TODO: How to get session user in client components?
 
 login
 [] utilize google's single-tap flow: https://supabase.com/docs/guides/auth/social-login/auth-google#using-the-oauth-flow-for-web

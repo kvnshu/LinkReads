@@ -6,7 +6,7 @@ export default async function UserProfile({ params }) {
   const { data: { user }, error } = await supabase.auth.getUser()
 
   return (
-    <main className="flex flex-col items-center pt-6 h-5/6">
+    <main className="flex flex-col items-center h-5/6">
       <Profile
         user={user}
         profileId={params.id}
