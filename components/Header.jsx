@@ -15,7 +15,9 @@ export default async function Header() {
   const { data: { user }, error } = await supabase.auth.getUser()
 
   return (
-    <Navbar position="static">
+    <Navbar
+      position="static"
+    >
       <NavbarBrand>
         <LogoPrimary />
       </NavbarBrand>

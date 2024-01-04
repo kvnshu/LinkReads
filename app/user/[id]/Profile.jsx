@@ -149,9 +149,11 @@ export default function Profile({ user, profileId }) {
   }
 
   return (
-    <div id="profile-container" className="w-4/5 h-full flex content-center justify-center gap-24">
-      <div className="w-64">
-        <Card>
+    <div id="profile-container" className="w-4/5 h-full flex flex-col sm:flex-row content-center justify-center gap-12">
+      <div className="w-full sm:w-64">
+        <Card 
+          id="profile-info"
+        >
           <CardBody>
             <div id="profile-details" className="w-full flex flex-row justify-between items-center">
               {
@@ -248,24 +250,47 @@ export default function Profile({ user, profileId }) {
           </CardBody>
         </Card>
       </div>
-      <div id="saves-container" className="w-96 flex flex-col gap-4">
-        {
-          loading ? (
-            <p>Loading saves...</p>
-          ) : (
-            profileSaves.map((save, i) =>
-              <SaveItem
-                key={save.id}
-                data={save}
-                deleteSave={deleteSave}
-                updateIsRead={updateIsRead}
-                user={user}
-              />
+      <Card
+        id="saves-container"
+        shadow="none"
+        className="bg-slate-100 w-full sm:w-3/5 max-h-full"
+      >
+        <CardHeader>
+          <span className="w-full text-center font-bold">All links</span>
+        </CardHeader>
+        <CardBody>
+          {
+            loading ? (
+              <></>
+            ) : (
+              profileSaves.length <= 0 ? (
+                <span className="w-full text-center">No links added.</span>
+              ) : (
+                <div id="saves-item-container" className="flex flex-col gap-4">
+                  {
+                    loading ? (
+                      <p>Loading saves...</p>
+                    ) : (
+                      profileSaves.map((save, i) =>
+                        <SaveItem
+                          key={save.id}
+                          data={save}
+                          deleteSave={deleteSave}
+                          updateIsRead={updateIsRead}
+                          user={user}
+                        />
+                      )
+                    )
+                  }
+                </div>
+              )
             )
-          )
-        }
-      </div>
+          }
+        </CardBody>
+        <CardFooter>
 
+        </CardFooter>
+      </Card>
     </div >
   )
 }
