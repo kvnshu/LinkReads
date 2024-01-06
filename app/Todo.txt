@@ -32,3 +32,16 @@ Navbar
 
 login
 [] utilize google's single-tap flow: https://supabase.com/docs/guides/auth/social-login/auth-google#using-the-oauth-flow-for-web
+
+Import/Export
+URL, Date Read  
+
+Get title of page from url
+
+Chrome extension
+[] right click page -> menu -> add page to LinkReads and mark as read
+
+Change page title based on view (explore, profile, home)
+
+saves
+[] ratings, notes, comments
