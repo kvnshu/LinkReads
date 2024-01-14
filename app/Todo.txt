@@ -12,9 +12,10 @@ app
 
 ====
 Profile Page
-[] add profile picture
-[] implement edit profile with modal (change name, profile picture, delete account)
-[] simplify Profile Page: move Profile component into UserProfile
+[] add profile picture (navbar, explore, feed, middleware.js)
+[] implement edit profile with modal (profile picture, delete account)
+[] refactor component structure ([Page, Profile Card (Profile Details)(Followers)(Following), Save View])
+Set max height of following/followers modals
 
 listItem
 [] create undo popup on done/delete
@@ -40,8 +41,17 @@ Get title of page from url
 
 Chrome extension
 [] right click page -> menu -> add page to LinkReads and mark as read
+[] snooze for time
 
 Change page title based on view (explore, profile, home)
 
 saves
 [] ratings, notes, comments
+
+LinkReads
+[] average ratings
+[] comments (user, date)
+
+Landing Page
+[] imporve copy
+[] create big image cards that show dashboard and link view (e.g. https://www.notion.so/product)

@@ -9,16 +9,16 @@ import { Button } from "@nextui-org/button";
 import { Card, CardBody, CardHeader, CardFooter } from "@nextui-org/card";
 import { parseAndHumanizeDate } from "@/utils/parseAndHumanizeDate";
 import { Link } from "@nextui-org/link";
+import EditProfileModal from "@/app/user/[id]/EditProfileModal";
 
 export default function Profile({ user, profileId }) {
-  const [loading, setLoading] = useState(true)
-  const [profile, setProfile] = useState(null)
-  const [profileSaves, setProfileSaves] = useState([])
-  const [followings, setFollowings] = useState([])
-  const [followers, setFollowers] = useState([])
+  const [loading, setLoading] = useState(true);
+  const [profile, setProfile] = useState(null);
+  const [profileSaves, setProfileSaves] = useState([]);
+  const [followings, setFollowings] = useState([]);
+  const [followers, setFollowers] = useState([]);
   const { isOpen: isFollowingOpen, onOpen: onFollowingOpen, onOpenChange: onFollowingOpenChange } = useDisclosure();
   const { isOpen: isFollowersOpen, onOpen: onFollowersOpen, onOpenChange: onFollowersOpenChange } = useDisclosure();
-
   const supabase = createSupabaseFrontendClient();
 
   useEffect(() => {
@@ -40,8 +40,6 @@ export default function Profile({ user, profileId }) {
           throw profileError
         }
         setProfile(profileData)
-
-
       } catch (error) {
         console.log('Error loading profile.')
         console.log(error)
@@ -151,7 +149,7 @@ export default function Profile({ user, profileId }) {
   return (
     <div id="profile-container" className="w-4/5 h-full flex flex-col sm:flex-row content-center justify-center gap-12">
       <div className="w-full sm:w-64">
-        <Card 
+        <Card
           id="profile-info"
         >
           <CardBody>
@@ -163,10 +161,21 @@ export default function Profile({ user, profileId }) {
                   <span className="font-bold align-bottom">{profile?.full_name}</span>
                 )
               }
-              <FollowButton
-                user={user}
-                profileId={profileId}
-              />
+              {
+                user?.id === profileId ? (
+                  <>
+                    <EditProfileModal
+                      profile={profile}
+                      setProfile={setProfile}
+                    />
+                  </>
+                ) : (
+                  <FollowButton
+                    user={user}
+                    profileId={profileId}
+                  />
+                )
+              }
             </div>
             <div id="follow-modals" className="flex flex-row gap-3 pb-2">
               <div id="following">
