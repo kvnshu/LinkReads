@@ -12,17 +12,27 @@ export async function GET(request: Request) {
 
     // update profiles database 
     const { data: { session }, error: sessionError } = await supabase.auth.getSession()
-    const user = session?.user
+    const isNewUser = session?.user?.last_sign_in_at ? true : false;
 
-    // TODO: to optimize, implement conditional logic to check if full_name is already added off of user.last_sign_in_at
-    const { error: profileError } = await supabase
-      .from('profiles')
-      .update({ full_name: user?.user_metadata?.full_name })
-      .eq('id', user?.id)
+    if (isNewUser) {
+      const user = session?.user;
+      const { error: profileError } = await supabase
+        .from('profiles')
+        .update({
+          full_name: user?.user_metadata?.full_name,
+          avatar_url: user?.user_metadata?.avatar_url
+        })
+        .eq('id', user?.id)
 
-    if (!authError && !profileError) {
+      if (!authError && !profileError) {
+        return NextResponse.redirect(`${origin}${next}`)
+      }
+    }
+
+    if (!authError) {
       return NextResponse.redirect(`${origin}${next}`)
     }
+
   }
 
   // return the user to an error page with instructions
