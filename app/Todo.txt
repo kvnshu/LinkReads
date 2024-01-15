@@ -11,6 +11,17 @@ app
 [] TODO: How to get session user in client components?
 
 ====
+Profile picture
+when logging in:
+get user's user_metadata.avatar_url and user's full_name
+get user's last_sign_in_at to check if isNewUser
+if isNewUser, make supabase query to update both
+if not isNewUser, skip
+
+Add to followers and following modals
+Add to navbar
+Add to Feed
+
 Profile Page
 [] add profile picture (navbar, explore, feed, middleware.js)
 [] implement edit profile with modal (profile picture, delete account)
