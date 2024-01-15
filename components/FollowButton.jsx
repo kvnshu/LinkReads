@@ -75,24 +75,17 @@ export default function FollowButton({ user, profileId }) {
   return (
     <div>
       {
-        loading ? (
-          <></>
+        user && user?.id !== profileId ? (
+          <Button
+            className={isFollowing ? "bg-transparent text-foreground border-default-200" : ""}
+            size="sm"
+            variant={isFollowing ? "bordered" : 'solid'}
+            color="primary"
+            onClick={handleFollowToggle}>
+            {isFollowing ? 'Unfollow' : 'Follow'}
+          </Button>
         ) : (
-          <>
-            {
-              user && user?.id !== profileId ? (
-                <Button
-                  size="sm"
-                  variant={isFollowing ? "light" : 'solid'}
-                  color={isFollowing ? "default" : 'primary'}
-                  onClick={handleFollowToggle}>
-                  {isFollowing ? 'Unfollow' : 'Follow'}
-                </Button>
-              ) : (
-                <></>
-              )
-            }
-          </>
+          <></>
         )
       }
     </div>
