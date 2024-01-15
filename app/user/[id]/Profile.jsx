@@ -10,6 +10,7 @@ import { Card, CardBody, CardHeader, CardFooter } from "@nextui-org/card";
 import { parseAndHumanizeDate } from "@/utils/parseAndHumanizeDate";
 import { Link } from "@nextui-org/link";
 import EditProfileModal from "@/app/user/[id]/EditProfileModal";
+import { Avatar } from "@nextui-org/avatar";
 
 export default function Profile({ user, profileId }) {
   const [loading, setLoading] = useState(true);
@@ -32,7 +33,8 @@ export default function Profile({ user, profileId }) {
             id,
             email,
             full_name,
-            created_at
+            created_at,
+            avatar_url
           `)
           .eq('id', profileId)
           .single()
@@ -151,16 +153,30 @@ export default function Profile({ user, profileId }) {
       <div className="w-full sm:w-64">
         <Card
           id="profile-info"
+          className="max-w-[340px] px-2 py-1"
         >
-          <CardBody>
-            <div id="profile-details" className="w-full flex flex-row justify-between items-center">
-              {
-                loading | profile ? (
-                  <div className="h-6 w-2/5 rounded-lg bg-default-200"></div>
-                ) : (
-                  <span className="font-bold align-bottom">{profile?.full_name}</span>
-                )
-              }
+          <CardHeader
+            className=""
+          >
+            <div className="w-full flex justify-between items-center">
+              <div className="flex gap-3.5 items-center">
+                <Avatar
+                  className="flex-none"
+                  showFallback
+                  src={profile?.avatar_url}
+                  size="md"
+                  radius="full"
+                />
+                <div className="flex flex-col gap-1 items-start justify-center">
+                  {
+                    loading | profile ? (
+                      <div className="h-6 w-2/5 rounded-lg bg-default-200"></div>
+                    ) : (
+                      <span className="text-small font-semibold leading-none text-default-600">{profile?.full_name}</span>
+                    )
+                  }
+                </div>
+              </div>
               {
                 user?.id === profileId ? (
                   <>
@@ -177,6 +193,9 @@ export default function Profile({ user, profileId }) {
                 )
               }
             </div>
+
+          </CardHeader>
+          <CardBody className="px-3 pt-0 text-small text-default-400">
             <div id="follow-modals" className="flex flex-row gap-3 pb-2">
               <div id="following">
                 <Link href="#" size="sm" onPress={onFollowingOpen}>{followings.length} Following</Link>
