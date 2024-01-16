@@ -18,7 +18,6 @@ get user's last_sign_in_at to check if isNewUser
 if isNewUser, make supabase query to update both
 if not isNewUser, skip
 
-Add to navbar
 Add to Feed
 
 Profile Page
@@ -39,7 +38,10 @@ Navbar
 [] add home to navbar
 
 404 Page
-[] create page
+[] create page 
+
+User DNE Page
+[] handle for when /[id] DNE
 
 login
 [] utilize google's single-tap flow: https://supabase.com/docs/guides/auth/social-login/auth-google#using-the-oauth-flow-for-web
@@ -64,7 +66,7 @@ LinkReads
 
 Landing Page
 [] imporve copy
-[] create big image cards that show dashboard and link view (e.g. https://www.notion.so/productL
+[] create big image cards that show dashboard and link view (e.g. https://www.notion.so/productL)
 
 how to handle 
 

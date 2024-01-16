@@ -4,8 +4,8 @@ import { createSupabaseServerComponentClient } from "@/utils/supabaseAppRouterSe
 
 export default async function Index() {
   const supabase = createSupabaseServerComponentClient();
-  const { data: { session }, error } = await supabase.auth.getSession()
-
+  const { data: { session }, error } = await supabase.auth.getSession();
+  
   return (
     <main className="bg-background h-5/6 flex flex-col items-center">
       {

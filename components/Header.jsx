@@ -1,4 +1,3 @@
-import LogoutButton from './LogoutButton'
 import GoogleLoginButton from '@/components/GoogleLoginButton'
 import {
   Navbar,
@@ -8,11 +7,12 @@ import {
 } from "@nextui-org/navbar";
 import { Link } from '@nextui-org/link';
 import LogoPrimary from './LogoPrimary';
-import { createSupabaseServerComponentClient } from '@/utils/supabaseAppRouterServer'
+import { createSupabaseServerComponentClient } from '@/utils/supabaseAppRouterServer';
+import HeaderAvatarDropDown from '@/components/HeaderAvatarDropdown';
 
 export default async function Header() {
-  const supabase = createSupabaseServerComponentClient()
-  const { data: { user }, error } = await supabase.auth.getUser()
+  const supabase = createSupabaseServerComponentClient();
+  const { data: { user }, error } = await supabase.auth.getUser();
 
   return (
     <Navbar
@@ -22,23 +22,26 @@ export default async function Header() {
       <NavbarBrand>
         <LogoPrimary />
       </NavbarBrand>
-      {(user) ? (
-        <NavbarContent as="div" justify="end">
-          <Link href="/explore/">
-            Explore
-          </Link>
-          <Link href={`/user/${user?.id}`}>
-            Profile
-          </Link>
-          <LogoutButton />
-        </NavbarContent>
-      ) : (
-        <NavbarContent justify="end">
-          <NavbarItem>
-            <GoogleLoginButton />
-          </NavbarItem>
-        </NavbarContent >
-      )}
+      {
+        (user) ? (
+          <NavbarContent as="div" justify="end">
+            <Link href="/">
+              Home
+            </Link>
+            <Link href="/explore/">
+              Explore
+            </Link>
+            <HeaderAvatarDropDown />
+          </NavbarContent>
+        ) : (
+          <NavbarContent justify="end">
+            <NavbarItem>
+              <GoogleLoginButton />
+            </NavbarItem>
+          </NavbarContent >
+        )
+      }
     </Navbar >
   )
 }
+
