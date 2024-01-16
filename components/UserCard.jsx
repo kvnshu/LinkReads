@@ -2,6 +2,7 @@
 import { Link } from "@nextui-org/link"
 import { Card, CardBody } from "@nextui-org/card"
 import FollowButton from "@/components/FollowButton"
+import { Avatar } from "@nextui-org/avatar"
 
 export default function UserCard({ logUser, user }) {
   return (
@@ -9,7 +10,19 @@ export default function UserCard({ logUser, user }) {
       <Card>
         <CardBody>
           <div className="flex flex-row justify-between">
-            <Link href={`/user/${user.id}`}>{user.full_name}</Link>
+
+            <Link href={`/user/${user.id}`}>
+              <div className="flex gap-3.5 items-center">
+                <Avatar
+                  className="flex-none"
+                  showFallback
+                  src={user?.avatar_url}
+                  size="md"
+                  radius="full"
+                />
+                {user.full_name}
+              </div>
+            </Link>
             <FollowButton
               user={logUser}
               profileId={user.id}

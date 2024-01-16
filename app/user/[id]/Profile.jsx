@@ -85,7 +85,8 @@ export default function Profile({ user, profileId }) {
             user_id2,
             profiles!followings_user_id2_fkey (
               id,
-              full_name
+              full_name,
+              avatar_url
             )
           `)
           .eq('user_id1', profileId)
@@ -101,7 +102,8 @@ export default function Profile({ user, profileId }) {
             user_id1,
             profiles!followings_user_id1_fkey (
               id,
-              full_name
+              full_name,
+              avatar_url
             )
           `)
           .eq('user_id2', profileId)
