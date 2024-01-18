@@ -9,6 +9,7 @@ app
 [] add main element (with flex styling) to layout
 [] implement pagination/infinite scrolling
 [] TODO: How to get session user in client components?
+[] Email notifications about friends' activities
 
 ====
 Profile picture
@@ -17,13 +18,13 @@ get user's user_metadata.avatar_url and user's full_name
 get user's last_sign_in_at to check if isNewUser
 if isNewUser, make supabase query to update both
 if not isNewUser, skip
-
 Add to Feed
 
 Profile Page
-[] add profile picture (navbar, explore, feed, middleware.js)
-[] implement edit profile with modal (profile picture, delete account)
 [] refactor component structure ([Page, Profile Card (Profile Details)(Followers)(Following), Save View])
+[] implement edit profile with modal (profile picture, delete account)
+- https://www.youtube.com/watch?v=HvOvdD2nX1k
+[] add profile picture (navbar, explore, feed, middleware.js)
 Set max height of following/followers modals
 
 listItem
@@ -34,8 +35,8 @@ Searchbar
 [] optimistically update new saves
 
 Navbar
-[] use profile picture, put logout in dropdown
-[] add home to navbar
+[] create logo for darkmode
+[] live update avatar when pfp is changed in 'edit profile' modal
 
 404 Page
 [] create page 
@@ -73,5 +74,5 @@ how to handle
 feed
 [] show your own activity
 
-Email notifications about activities
-[] 
+List items
+[] show creaetd or read conditionally
