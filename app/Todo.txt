@@ -12,20 +12,12 @@ app
 [] Email notifications about friends' activities
 
 ====
-Profile picture
-when logging in:
-get user's user_metadata.avatar_url and user's full_name
-get user's last_sign_in_at to check if isNewUser
-if isNewUser, make supabase query to update both
-if not isNewUser, skip
-Add to Feed
+Feed
+[] add avatar
 
 Profile Page
 [] refactor component structure ([Page, Profile Card (Profile Details)(Followers)(Following), Save View])
-[] implement edit profile with modal (profile picture, delete account)
-- https://www.youtube.com/watch?v=HvOvdD2nX1k
-[] add profile picture (navbar, explore, feed, middleware.js)
-Set max height of following/followers modals
+[] Set max height of following/followers modals
 
 listItem
 [] create undo popup on done/delete
