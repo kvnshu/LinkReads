@@ -221,6 +221,7 @@ export default function Profile({ user, profileId }) {
                                       key={data.profiles.id}
                                       user={data.profiles}
                                       logUser={user}
+                                      loading={loading}
                                     />
                                   )
                                 }
@@ -259,6 +260,7 @@ export default function Profile({ user, profileId }) {
                                       key={data.profiles.id}
                                       user={data.profiles}
                                       logUser={user}
+                                      loading={loading}
                                     />
                                   )
                                 }
