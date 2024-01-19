@@ -6,35 +6,38 @@ export async function GET(request) {
   const code = searchParams.get('code')
   // if "next" is in param, use it as the redirect URL
   const next = searchParams.get('next') ?? '/'
-  if (code) {
+
+  try {
+    if (!code) {
+      throw new Error("Code not found.");
+    }
     const supabase = createSupabaseAppServerClient();
     const { error: authError } = await supabase.auth.exchangeCodeForSession(code)
-
-    // update profiles database 
+    if (authError) {
+      throw authError;
+    }
     const { data: { session }, error: sessionError } = await supabase.auth.getSession();
-    const isNewUser = session?.user?.last_sign_in_at ? true : false;
+    if (sessionError){
+      throw sessionError;
+    }
+    const user = session.user;
+    const isNewUser = user.last_sign_in_at ? false : true;
 
     if (isNewUser) {
-      const user = session?.user;
-      const { error: profileError } = await supabase
+      const updateProfileObj = {};
+      updateProfileObj.full_name = user.user_metadata.full_name;
+      const { error: profileUpdateError } = await supabase
         .from('profiles')
-        .update({
-          full_name: user?.user_metadata?.full_name,
-          avatar_url: user?.user_metadata?.avatar_url
-        })
-        .eq('id', user?.id)
-
-      if (!authError && !profileError) {
-        return NextResponse.redirect(`${origin}${next}`)
+        .update(updateProfileObj)
+        .eq('id', user.id)
+      if (profileUpdateError) {
+        throw profileUpdateError;
       }
+      console.log('Updated profile information.')
     }
-
-    if (!authError) {
-      return NextResponse.redirect(`${origin}${next}`)
-    }
-
+  } catch (error) {
+    console.log(error);
+    return NextResponse.redirect(`${origin}/auth/auth-code-error`)
   }
-
-  // return the user to an error page with instructions
-  return NextResponse.redirect(`${origin}/auth/auth-code-error`)
+  return NextResponse.redirect(`${origin}${next}`)
 }
