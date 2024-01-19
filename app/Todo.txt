@@ -1,26 +1,29 @@
 app
+[] reimplement image replacement (instead of upserting, delete and upload)
+[] Change page title based on view (explore, profile, home)
+[] remove side scrolling
 [] move supabase queries to services directory https://github.com/search?q=repo%3Aharshmangalam%2Fsupabook%20fetchProfileDetails&type=code
 [] https://www.realtimecolors.com/?colors=050315-fbfbfe-27cece-dedcff-433bff&fonts=Poppins-Poppins
 [] how to improve speed?
   [] cache results?
   [] reduce size of first loads on javascript
   [] make things server components?
-[] verify full_name is updated upon login
 [] add main element (with flex styling) to layout
 [] implement pagination/infinite scrolling
 [] TODO: How to get session user in client components?
 [] Email notifications about friends' activities
-
 ====
 Feed
+[] hyperlink url
 [] add avatar
 
 Profile Page
-[] refactor component structure ([Page, Profile Card (Profile Details)(Followers)(Following), Save View])
 [] Set max height of following/followers modals
+[] refactor component structure ([Page, Profile Card (Profile Details)(Followers)(Following), Save View])
 
 listItem
 [] create undo popup on done/delete
+[] show created or read conditionally
 
 Searchbar
 [] create popup for invalid url structure
@@ -40,7 +43,7 @@ login
 [] utilize google's single-tap flow: https://supabase.com/docs/guides/auth/social-login/auth-google#using-the-oauth-flow-for-web
 
 Import/Export
-URL, Date Read  
+URL, Date Read
 
 Get title of page from url
 
@@ -48,23 +51,12 @@ Chrome extension
 [] right click page -> menu -> add page to LinkReads and mark as read
 [] snooze for time
 
-Change page title based on view (explore, profile, home)
-
 saves
 [] ratings, notes, comments
-
-LinkReads
-[] average ratings
-[] comments (user, date)
 
 Landing Page
 [] imporve copy
 [] create big image cards that show dashboard and link view (e.g. https://www.notion.so/productL)
 
-how to handle 
-
 feed
 [] show your own activity
-
-List items
-[] show creaetd or read conditionally
