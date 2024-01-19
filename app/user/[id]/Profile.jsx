@@ -165,7 +165,7 @@ export default function Profile({ user, profileId }) {
                 <Avatar
                   className="flex-none"
                   showFallback
-                  src={profile?.avatar_url}
+                  src={loading ? "" : profile?.avatar_url}
                   size="md"
                   radius="full"
                 />
