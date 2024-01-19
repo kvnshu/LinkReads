@@ -9,16 +9,17 @@ import { Button } from "@nextui-org/button";
 import { Card, CardBody, CardHeader, CardFooter } from "@nextui-org/card";
 import { parseAndHumanizeDate } from "@/utils/parseAndHumanizeDate";
 import { Link } from "@nextui-org/link";
+import EditProfileModal from "@/app/user/[id]/EditProfileModal";
+import { Avatar } from "@nextui-org/avatar";
 
 export default function Profile({ user, profileId }) {
-  const [loading, setLoading] = useState(true)
-  const [profile, setProfile] = useState(null)
-  const [profileSaves, setProfileSaves] = useState([])
-  const [followings, setFollowings] = useState([])
-  const [followers, setFollowers] = useState([])
+  const [loading, setLoading] = useState(true);
+  const [profile, setProfile] = useState(null);
+  const [profileSaves, setProfileSaves] = useState([]);
+  const [followings, setFollowings] = useState([]);
+  const [followers, setFollowers] = useState([]);
   const { isOpen: isFollowingOpen, onOpen: onFollowingOpen, onOpenChange: onFollowingOpenChange } = useDisclosure();
   const { isOpen: isFollowersOpen, onOpen: onFollowersOpen, onOpenChange: onFollowersOpenChange } = useDisclosure();
-
   const supabase = createSupabaseFrontendClient();
 
   useEffect(() => {
@@ -32,7 +33,8 @@ export default function Profile({ user, profileId }) {
             id,
             email,
             full_name,
-            created_at
+            created_at,
+            avatar_url
           `)
           .eq('id', profileId)
           .single()
@@ -40,8 +42,6 @@ export default function Profile({ user, profileId }) {
           throw profileError
         }
         setProfile(profileData)
-
-
       } catch (error) {
         console.log('Error loading profile.')
         console.log(error)
@@ -85,7 +85,8 @@ export default function Profile({ user, profileId }) {
             user_id2,
             profiles!followings_user_id2_fkey (
               id,
-              full_name
+              full_name,
+              avatar_url
             )
           `)
           .eq('user_id1', profileId)
@@ -101,7 +102,8 @@ export default function Profile({ user, profileId }) {
             user_id1,
             profiles!followings_user_id1_fkey (
               id,
-              full_name
+              full_name,
+              avatar_url
             )
           `)
           .eq('user_id2', profileId)
@@ -151,23 +153,52 @@ export default function Profile({ user, profileId }) {
   return (
     <div id="profile-container" className="w-4/5 h-full flex flex-col sm:flex-row content-center justify-center gap-12">
       <div className="w-full sm:w-64">
-        <Card 
+        <Card
           id="profile-info"
+          className="max-w-[340px] px-2 py-1"
         >
-          <CardBody>
-            <div id="profile-details" className="w-full flex flex-row justify-between items-center">
+          <CardHeader
+            className=""
+          >
+            <div className="w-full flex justify-between items-center">
+              <div className="flex gap-3.5 items-center">
+                <Avatar
+                  showFallback
+                  name={loading ? "" : profile?.full_name.split(' ').map(word => word.substring(0, 1)).join('')}
+                  className="flex-none"
+                  src={loading ? "" : profile?.avatar_url}
+                  size="md"
+                  radius="full"
+                />
+                <div className="flex flex-col gap-1 items-start justify-center">
+                  {
+                    loading | profile ? (
+                      <div className="h-6 w-2/5 rounded-lg bg-default-200"></div>
+                    ) : (
+                      <span className="text-small font-semibold leading-none text-default-600">{profile?.full_name}</span>
+                    )
+                  }
+                </div>
+              </div>
               {
-                loading | profile ? (
-                  <div className="h-6 w-2/5 rounded-lg bg-default-200"></div>
+                user?.id === profileId ? (
+                  <>
+                    <EditProfileModal
+                      profile={profile}
+                      setProfile={setProfile}
+                    />
+                  </>
                 ) : (
-                  <span className="font-bold align-bottom">{profile?.full_name}</span>
+                  <FollowButton
+                    user={user}
+                    profileId={profileId}
+                  />
                 )
               }
-              <FollowButton
-                user={user}
-                profileId={profileId}
-              />
             </div>
+
+          </CardHeader>
+          <CardBody className="px-3 pt-0 text-small text-default-400">
             <div id="follow-modals" className="flex flex-row gap-3 pb-2">
               <div id="following">
                 <Link href="#" size="sm" onPress={onFollowingOpen}>{followings.length} Following</Link>
@@ -190,6 +221,7 @@ export default function Profile({ user, profileId }) {
                                       key={data.profiles.id}
                                       user={data.profiles}
                                       logUser={user}
+                                      loading={loading}
                                     />
                                   )
                                 }
@@ -228,6 +260,7 @@ export default function Profile({ user, profileId }) {
                                       key={data.profiles.id}
                                       user={data.profiles}
                                       logUser={user}
+                                      loading={loading}
                                     />
                                   )
                                 }

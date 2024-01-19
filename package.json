@@ -6,12 +6,12 @@
     "start": "next start"
   },
   "dependencies": {
-    "@nextui-org/react": "^2.1.13",
+    "@nextui-org/react": "^2.2.9",
     "@supabase/ssr": "^0.0.10",
     "autoprefixer": "10.4.15",
     "cookies-next": "^4.1.0",
     "date-fns": "^2.30.0",
-    "framer-motion": "^10.16.4",
+    "framer-motion": "^10.18.0",
     "next": "latest",
     "package.json": "^2.0.1",
     "postcss": "8.4.29",

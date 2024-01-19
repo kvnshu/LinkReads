@@ -38,7 +38,7 @@
     "app/page.jsx",
     "middleware.js",
     "utils/supabaseRouteHandler.js",
-    "app/auth/callback/route.ts",
+    "app/auth/callback/route.js",
     "app/auth/sign-in/route.js",
     "app/auth/sign-out/route.js",
     "app/auth/sign-up/route.js",

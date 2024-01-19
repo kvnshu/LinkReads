@@ -9,12 +9,15 @@ app
 [] add main element (with flex styling) to layout
 [] implement pagination/infinite scrolling
 [] TODO: How to get session user in client components?
+[] Email notifications about friends' activities
 
 ====
+Feed
+[] add avatar
+
 Profile Page
-[] add profile picture
-[] implement edit profile with modal (change name, profile picture, delete account)
-[] simplify Profile Page: move Profile component into UserProfile
+[] refactor component structure ([Page, Profile Card (Profile Details)(Followers)(Following), Save View])
+[] Set max height of following/followers modals
 
 listItem
 [] create undo popup on done/delete
@@ -24,11 +27,14 @@ Searchbar
 [] optimistically update new saves
 
 Navbar
-[] use profile picture, put logout in dropdown
-[] add home to navbar
+[] create logo for darkmode
+[] live update avatar when pfp is changed in 'edit profile' modal
 
 404 Page
-[] create page
+[] create page 
+
+User DNE Page
+[] handle for when /[id] DNE
 
 login
 [] utilize google's single-tap flow: https://supabase.com/docs/guides/auth/social-login/auth-google#using-the-oauth-flow-for-web
@@ -40,8 +46,25 @@ Get title of page from url
 
 Chrome extension
 [] right click page -> menu -> add page to LinkReads and mark as read
+[] snooze for time
 
 Change page title based on view (explore, profile, home)
 
 saves
 [] ratings, notes, comments
+
+LinkReads
+[] average ratings
+[] comments (user, date)
+
+Landing Page
+[] imporve copy
+[] create big image cards that show dashboard and link view (e.g. https://www.notion.so/productL)
+
+how to handle 
+
+feed
+[] show your own activity
+
+List items
+[] show creaetd or read conditionally
