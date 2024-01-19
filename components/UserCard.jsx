@@ -16,7 +16,7 @@ export default function UserCard({ logUser, user }) {
                 <Avatar
                   className="flex-none"
                   showFallback
-                  src={user?.avatar_url}
+                  src={user?.avatar_filename}
                   size="md"
                   radius="full"
                 />

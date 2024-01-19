@@ -34,7 +34,7 @@ export default function Profile({ user, profileId }) {
             email,
             full_name,
             created_at,
-            avatar_url
+            avatar_filename
           `)
           .eq('id', profileId)
           .single()
@@ -86,7 +86,7 @@ export default function Profile({ user, profileId }) {
             profiles!followings_user_id2_fkey (
               id,
               full_name,
-              avatar_url
+              avatar_filename
             )
           `)
           .eq('user_id1', profileId)
@@ -103,7 +103,7 @@ export default function Profile({ user, profileId }) {
             profiles!followings_user_id1_fkey (
               id,
               full_name,
-              avatar_url
+              avatar_filename
             )
           `)
           .eq('user_id2', profileId)
@@ -163,9 +163,10 @@ export default function Profile({ user, profileId }) {
             <div className="w-full flex justify-between items-center">
               <div className="flex gap-3.5 items-center">
                 <Avatar
-                  className="flex-none"
                   showFallback
-                  src={loading ? "" : profile?.avatar_url}
+                  name={loading ? "" : profile?.full_name.split(' ').map(word => word.substring(0, 1)).join('')}
+                  className="flex-none"
+                  src={loading ? "" : profile?.avatar_filename}
                   size="md"
                   radius="full"
                 />

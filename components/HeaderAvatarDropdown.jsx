@@ -23,7 +23,8 @@ function HeaderAvatarMenu() {
           .select(`
             id,
             email,
-            avatar_url
+            full_name,
+            avatar_filename
             `)
           .eq('id', user.id)
           .single()
@@ -48,11 +49,10 @@ function HeaderAvatarMenu() {
         <Avatar
           as="button"
           showFallback
+          name={loading ? "" : profile?.full_name.split(' ').map(word => word.substring(0, 1)).join('')}
           className="transition-transform"
-          color="secondary"
           size="sm"
-          src={loading ? "" : profile?.avatar_url}
-          radius="full"
+          src={loading ? "" : profile?.avatar_filename}
         />
       </DropdownTrigger>
       <DropdownMenu aria-label="Profile Actions" variant="flat">
