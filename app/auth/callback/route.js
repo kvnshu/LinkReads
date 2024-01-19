@@ -26,6 +26,7 @@ export async function GET(request) {
     if (isNewUser) {
       const updateProfileObj = {};
       updateProfileObj.full_name = user.user_metadata.full_name;
+      updateProfileObj.avatar_url = user.user_metadata.avatar_url;
       const { error: profileUpdateError } = await supabase
         .from('profiles')
         .update(updateProfileObj)
