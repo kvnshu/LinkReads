@@ -35,7 +35,7 @@ export default function EditProfile({ profile, setProfile }) {
       setLoading(true);
       let updateObj = {}
       if (avatarFile) {
-        console.log('Changing avatar', {avatarFile});
+        // console.log('Changing avatar', { avatarFile });
         const avatarFilename = `${profile.id}/avatar`;
         // upsert into storage
         const { data: storageData, error: storageError } = await supabase
@@ -47,8 +47,13 @@ export default function EditProfile({ profile, setProfile }) {
         if (storageError) {
           throw storageError;
         }
-        console.log('Uploaded image to storage.', { storageData });
-        updateObj.avatar_filename = avatarFilename;
+        // console.log('Uploaded image to storage.', { storageData });
+        const { data } = supabase
+          .storage
+          .from('avatars')
+          .getPublicUrl(avatarFilename);
+        const avatarUrl = data.publicUrl;
+        updateObj.avatar_url = avatarUrl;
       }
       if (formJson.name !== profile.full_name) {
         console.log('Changing name:', formJson.name);
