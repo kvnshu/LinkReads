@@ -24,7 +24,7 @@ function HeaderAvatarMenu() {
             id,
             email,
             full_name,
-            avatar_filename
+            avatar_url
             `)
           .eq('id', user.id)
           .single()
@@ -52,7 +52,7 @@ function HeaderAvatarMenu() {
           name={loading ? "" : profile?.full_name.split(' ').map(word => word.substring(0, 1)).join('')}
           className="transition-transform"
           size="sm"
-          src={loading ? "" : profile?.avatar_filename}
+          src={loading ? "" : profile?.avatar_url}
         />
       </DropdownTrigger>
       <DropdownMenu aria-label="Profile Actions" variant="flat">

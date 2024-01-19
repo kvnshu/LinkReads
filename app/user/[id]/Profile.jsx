@@ -34,7 +34,7 @@ export default function Profile({ user, profileId }) {
             email,
             full_name,
             created_at,
-            avatar_filename
+            avatar_url
           `)
           .eq('id', profileId)
           .single()
@@ -86,7 +86,7 @@ export default function Profile({ user, profileId }) {
             profiles!followings_user_id2_fkey (
               id,
               full_name,
-              avatar_filename
+              avatar_url
             )
           `)
           .eq('user_id1', profileId)
@@ -103,7 +103,7 @@ export default function Profile({ user, profileId }) {
             profiles!followings_user_id1_fkey (
               id,
               full_name,
-              avatar_filename
+              avatar_url
             )
           `)
           .eq('user_id2', profileId)
@@ -166,7 +166,7 @@ export default function Profile({ user, profileId }) {
                   showFallback
                   name={loading ? "" : profile?.full_name.split(' ').map(word => word.substring(0, 1)).join('')}
                   className="flex-none"
-                  src={loading ? "" : profile?.avatar_filename}
+                  src={loading ? "" : profile?.avatar_url}
                   size="md"
                   radius="full"
                 />

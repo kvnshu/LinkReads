@@ -98,7 +98,7 @@ export default function EditProfile({ profile, setProfile }) {
                       showFallback
                       name={loading ? "" : profile?.full_name.split(' ').map(word => word.substring(0, 1)).join('')}
                       className="flex-none"
-                      src={avatarFile ? URL.createObjectURL(avatarFile) : profile?.avatar_filename}
+                      src={avatarFile ? URL.createObjectURL(avatarFile) : profile?.avatar_url}
                       size="lg"
                       radius="full"
                     />
