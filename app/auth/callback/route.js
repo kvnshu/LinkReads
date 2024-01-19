@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server'
 import { createSupabaseAppServerClient } from '@/utils/supabaseAppRouterServer'
 
-export async function GET(request: Request) {
+export async function GET(request) {
   const { searchParams, origin } = new URL(request.url)
   const code = searchParams.get('code')
   // if "next" is in param, use it as the redirect URL
@@ -11,7 +11,7 @@ export async function GET(request: Request) {
     const { error: authError } = await supabase.auth.exchangeCodeForSession(code)
 
     // update profiles database 
-    const { data: { session }, error: sessionError } = await supabase.auth.getSession()
+    const { data: { session }, error: sessionError } = await supabase.auth.getSession();
     const isNewUser = session?.user?.last_sign_in_at ? true : false;
 
     if (isNewUser) {
