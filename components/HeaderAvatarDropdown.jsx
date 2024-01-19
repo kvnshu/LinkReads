@@ -47,13 +47,15 @@ function HeaderAvatarMenu() {
       <DropdownTrigger>
         <Avatar
           as="button"
+          showFallback
           className="transition-transform"
           color="secondary"
           size="sm"
           src={loading ? "" : profile?.avatar_url}
+          radius="full"
         />
       </DropdownTrigger>
-      <DropdownMenu aria-label="Profile Actions" variant="flat" onAction={key => handleLogout(key)}>
+      <DropdownMenu aria-label="Profile Actions" variant="flat">
         <DropdownItem key="profile" href={`/user/${profile?.id}`}>
           View Profile
         </DropdownItem>
