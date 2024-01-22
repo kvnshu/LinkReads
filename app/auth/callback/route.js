@@ -11,31 +11,31 @@ export async function GET(request) {
     if (!code) {
       throw new Error("Code not found.");
     }
+
     const supabase = createSupabaseAppServerClient();
     const { error: authError } = await supabase.auth.exchangeCodeForSession(code)
     if (authError) {
       throw authError;
     }
     const { data: { session }, error: sessionError } = await supabase.auth.getSession();
-    if (sessionError){
+    if (sessionError) {
       throw sessionError;
     }
     const user = session.user;
-    const isNewUser = user.last_sign_in_at ? false : true;
+    const updateProfileObj = {};
+    updateProfileObj.full_name = user.user_metadata.full_name;
+    updateProfileObj.avatar_url = user.user_metadata.avatar_url;
+    const { error: profileUpdateError } = await supabase
+      .from('profiles')
+      .update(updateProfileObj)
+      .eq('id', user.id)
+      .is('full_name', null)
 
-    if (isNewUser) {
-      const updateProfileObj = {};
-      updateProfileObj.full_name = user.user_metadata.full_name;
-      updateProfileObj.avatar_url = user.user_metadata.avatar_url;
-      const { error: profileUpdateError } = await supabase
-        .from('profiles')
-        .update(updateProfileObj)
-        .eq('id', user.id)
-      if (profileUpdateError) {
-        throw profileUpdateError;
-      }
-      console.log('Updated profile information.')
+    if (profileUpdateError) {
+      throw profileUpdateError;
     }
+    console.log('Updated profile information:', { updateProfileObj });
+
   } catch (error) {
     console.log(error);
     return NextResponse.redirect(`${origin}/auth/auth-code-error`)
