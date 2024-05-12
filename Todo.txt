@@ -1,16 +1,15 @@
 app
+[] Change page title based on view (explore, profile, home)
+[] implement pagination/infinite scrolling for feed
+[] cache data fetches
 [] fix bug where dashboard isn't landing page when not logged in
 [] reimplement image replacement (instead of upserting, delete and upload)
-[] Change page title based on view (explore, profile, home)
-[] remove side scrolling
 [] move supabase queries to services directory https://github.com/search?q=repo%3Aharshmangalam%2Fsupabook%20fetchProfileDetails&type=code
 [] https://www.realtimecolors.com/?colors=050315-fbfbfe-27cece-dedcff-433bff&fonts=Poppins-Poppins
 [] how to improve speed?
-  [] cache results?
   [] reduce size of first loads on javascript
   [] make things server components?
 [] add main element (with flex styling) to layout
-[] implement pagination/infinite scrolling
 [] TODO: How to get session user in client components?
 [] Email notifications about friends' activities
 [] why isn't avatar image being fetched?
@@ -20,8 +19,7 @@ Feed
 [] add avatar
 
 Profile Page
-[] Set max height of following/followers modals
-[] refactor component structure ([Page, Profile Card (Profile Details)(Followers)(Following), Save View])
+[] refactor component structure into files ([Page, Profile Card (Profile Details)(Followers)(Following), Save View])
 
 listItem
 [] create undo popup on done/delete
@@ -32,7 +30,6 @@ Searchbar
 [] optimistically update new saves
 
 Navbar
-[] create logo for darkmode
 [] live update avatar when pfp is changed in 'edit profile' modal
 
 404 Page

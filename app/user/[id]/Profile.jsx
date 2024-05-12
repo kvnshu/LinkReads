@@ -201,7 +201,11 @@ export default function Profile({ user, profileId }) {
             <div id="follow-modals" className="flex flex-row gap-3 pb-2">
               <div id="following">
                 <Link href="#" size="sm" onPress={onFollowingOpen}>{followings.length} Following</Link>
-                <Modal isOpen={isFollowingOpen} onOpenChange={onFollowingOpenChange}>
+                <Modal
+                  isOpen={isFollowingOpen}
+                  onOpenChange={onFollowingOpenChange}
+                  scrollBehavior={"inside"}
+                >
                   <ModalContent>
                     {(onFollowingClose) => (
                       <>
@@ -240,7 +244,11 @@ export default function Profile({ user, profileId }) {
               </div>
               <div id="followers">
                 <Link href="#" size="sm" onPress={onFollowersOpen}>{followers.length} Followers</Link>
-                <Modal isOpen={isFollowersOpen} onOpenChange={onFollowersOpenChange}>
+                <Modal
+                  isOpen={isFollowersOpen}
+                  onOpenChange={onFollowersOpenChange}
+                  scrollBehavior={"inside"}
+                >
                   <ModalContent>
                     {(onFollowersClose) => (
                       <>
