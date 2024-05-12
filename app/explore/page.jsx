@@ -33,7 +33,7 @@ function Explore() {
     <main className="h-full flex flex-col items-center">
       <Card
         shadow="none"
-        className="bg-slate-100 w-96"
+        className="w-96"
       >
         <CardHeader>
           <span className="w-full text-center font-bold">Explore users</span>

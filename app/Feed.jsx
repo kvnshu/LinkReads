@@ -52,7 +52,6 @@ export default function Feed({ session }) {
     <div className='w-1/3'>
       <Card
         shadow="none"
-        className="bg-slate-100"
       >
         <CardHeader>
           <span className="w-full text-center font-bold">Feed</span>

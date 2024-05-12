@@ -15,7 +15,7 @@ export default async function RootLayout({ children }) {
 
   return (
     <html lang="en" className="light">
-      <body className="h-screen w-screen">
+      <body className="h-screen w-screen dark text-foreground bg-background">
         <div className="analytics">
           <Script src="https://www.googletagmanager.com/gtag/js?id=G-TPXV40DFYJ" />
           <Script id="google-analytics">

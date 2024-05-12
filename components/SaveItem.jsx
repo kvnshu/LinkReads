@@ -26,7 +26,7 @@ export default function SaveItem({ data, deleteSave, updateIsRead, user }) {
   }
 
   return (
-    <Card shadow="sm">
+    <Card shadow="sm" className="bg-content2">
       <CardBody className='flex flex-row justify-between gap-2'>
         <div className="flex">
           {

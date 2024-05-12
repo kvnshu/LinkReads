@@ -6,7 +6,7 @@ import { parseAndHumanizeDate } from "@/utils/parseAndHumanizeDate";
 export default function FeedItem({ data }) {
 
   return (
-    <Card className="max-w-5xl" shadow="sm">
+    <Card className="max-w-5xl bg-content2" shadow="sm">
       <CardBody>
         <span>
           <Link

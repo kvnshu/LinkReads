@@ -7,9 +7,9 @@ import { Avatar } from "@nextui-org/avatar"
 export default function UserCard({ logUser, user, loading }) {
   return (
     <div className="">
-      <Card>
+      <Card className="bg-content2">
         <CardBody>
-          <div className="flex flex-row justify-between">
+          <div className="flex flex-row items-center justify-between">
 
             <Link href={`/user/${user.id}`}>
               <div className="flex gap-3.5 items-center">

@@ -69,7 +69,7 @@ export default function ReadingList({ user, listSaves, setListSaves }) {
   return (
     <Card
       shadow="none"
-      className="w-1/3 bg-slate-100 max-h-5/6"
+      className="w-1/3 max-h-5/6"
     >
       <CardHeader>
         <span className="w-full text-center font-bold">To Read</span>

@@ -286,7 +286,7 @@ export default function Profile({ user, profileId }) {
       <Card
         id="saves-container"
         shadow="none"
-        className="bg-slate-100 w-full sm:w-3/5 max-h-full"
+        className="w-full sm:w-3/5 max-h-full"
       >
         <CardHeader>
           <span className="w-full text-center font-bold">All links</span>
