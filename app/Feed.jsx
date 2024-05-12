@@ -49,34 +49,35 @@ export default function Feed({ session }) {
   }, [])
 
   return (
-    <div className='w-1/3'>
-      <Card
-        shadow="none"
+    <Card
+      shadow="none"
+      className='w-1/3 max-h-5/6'
+    >
+      <CardHeader>
+        <span className="w-full text-center font-bold">Feed</span>
+      </CardHeader>
+      <CardBody
+        className="max-h-full"
       >
-        <CardHeader>
-          <span className="w-full text-center font-bold">Feed</span>
-        </CardHeader>
-        <CardBody>
-          {
-            loading ? (
-              <></>
+        {
+          loading ? (
+            <></>
+          ) : (
+            reads.length <= 0 ? (
+              <span>No updates yet. <Link href="/explore">Follow readers</Link> to be updated when they read an article!</span>
             ) : (
-              reads.length <= 0 ? (
-                <span>No updates yet. <Link href="/explore">Follow readers</Link> to be updated when they read an article!</span>
-              ) : (
-                <div id="item-container" className="flex flex-col gap-4">
-                  {
-                    reads.map((read, i) => <FeedItem key={i} data={read} />)
-                  }
-                </div>
-              )
+              <div id="item-container" className="flex flex-col gap-4">
+                {
+                  reads.map((read, i) => <FeedItem key={i} data={read} />)
+                }
+              </div>
             )
-          }
-        </CardBody>
-        <CardFooter>
+          )
+        }
+      </CardBody>
+      <CardFooter>
 
-        </CardFooter>
-      </Card>
-    </div>
+      </CardFooter>
+    </Card>
   )
 }
