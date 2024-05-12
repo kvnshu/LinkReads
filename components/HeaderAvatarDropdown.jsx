@@ -49,7 +49,7 @@ function HeaderAvatarMenu() {
         <Avatar
           as="button"
           showFallback
-          name={loading ? "" : profile?.full_name.split(' ').map(word => word.substring(0, 1)).join('')}
+          name={loading ? "" : profile?.full_name?.split(' ').map(word => word.substring(0, 1)).join('')}
           className="transition-transform"
           size="sm"
           src={loading ? "" : profile?.avatar_url}

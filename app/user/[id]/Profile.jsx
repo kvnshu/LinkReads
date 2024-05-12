@@ -158,13 +158,12 @@ export default function Profile({ user, profileId }) {
           className="max-w-[340px] px-2 py-1"
         >
           <CardHeader
-            className=""
           >
             <div className="w-full flex justify-between items-center">
               <div className="flex gap-3.5 items-center">
                 <Avatar
                   showFallback
-                  name={loading ? "" : profile?.full_name.split(' ').map(word => word.substring(0, 1)).join('')}
+                  name={loading ? "" : profile?.full_name?.split(' ').map(word => word.substring(0, 1)).join('')}
                   className="flex-none"
                   src={loading ? "" : profile?.avatar_url}
                   size="md"
