@@ -15,7 +15,6 @@ app
 [] why isn't avatar image being fetched?
 ====
 Feed
-[] hyperlink url
 [] add avatar
 
 Profile Page

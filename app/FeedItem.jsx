@@ -14,7 +14,11 @@ export default function FeedItem({ data }) {
           >
             {data.profiles.full_name}
           </Link> finished reading</span>
-        <span className="font-semibold">{truncateUrl(data.links.url, 36)}</span>
+        <Link
+          href={data.links.url}
+        >
+          <span className="font-semibold">{truncateUrl(data.links.url, 36)}</span>
+        </Link>
         <span className="text-xs text-slate-400">{parseAndHumanizeDate(data.read_at)}</span>
       </CardBody>
     </Card>
