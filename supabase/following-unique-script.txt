@@ -1,0 +1,2 @@
+alter table followings
+  add CONSTRAINT unique_pair_constraint UNIQUE (user_id1, user_id2)

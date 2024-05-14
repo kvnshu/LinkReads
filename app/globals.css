@@ -1,3 +1,8 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+[data-overlay-container=true] {
+  height: 100%;
+  width: 100%;
+}

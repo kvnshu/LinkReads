@@ -1,6 +1,0 @@
-[] implement "completed" feature for notes
-- update schema
-- add filter in noteContainer
-- add checkbox in Note component
-[] save mongoose session for efficiency?
-[] fix routing in user routing to be domain-independent (in getNotes(), remove localhost)
