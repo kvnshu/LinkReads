@@ -3,11 +3,12 @@ import { Providers } from "./providers";
 import Script from "next/script"
 import Header from "@/components/Header"
 import { createSupabaseServerComponentClient } from '@/utils/supabaseAppRouterServer';
+
 export const metadata = {
   title: 'LinkReads',
   description: 'Goodreads for the internet.',
+  creator: 'Kevin Xu',
 }
-
 
 export default async function RootLayout({ children }) {
   const supabase = createSupabaseServerComponentClient()
