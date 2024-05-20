@@ -11,7 +11,7 @@ export default function Feed({ session }) {
   const [from, setFrom] = useState(0);
   const [hasMore, setHasMore] = useState(true);
   const supabase = createSupabaseFrontendClient();
-  const pageSize = 5;
+  const pageSize = 8;
 
   async function fetchReads() {
     if (reads.length >= 100) {
@@ -60,7 +60,6 @@ export default function Feed({ session }) {
   }
 
   useEffect(() => {
-    console.log("useEffect");
     fetchReads();
   }, [])
 
@@ -94,7 +93,7 @@ export default function Feed({ session }) {
           scrollableTarget="feed-container"
         >
           {
-            <div id="item-container" className="flex flex-col gap-4">
+            <div className="flex flex-col gap-4">
               {
                 reads.map((read, i) => <FeedItem key={i} data={read} />)
               }
