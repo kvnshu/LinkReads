@@ -7,18 +7,20 @@ import Image from "next/image";
 import DeleteIcon from "@/app/public/delete_FILL0_wght400_GRAD0_opsz24.svg"
 import { truncateUrl } from "@/utils/truncateUrl"
 import { parseAndHumanizeDate } from '@/utils/parseAndHumanizeDate';
+import { Chip } from "@nextui-org/chip";
 
-export default function SaveItem({ data, deleteSave, updateIsRead, user }) {
+function SaveItem({ data, deleteSave, updateIsRead, user }) {
   const [isRead, setIsRead] = useState(data.read);
   const [url, setUrl] = useState({
-    host:'',
-    pathname:''
+    host: '',
+    pathname: ''
   })
+
   // TODO: is this an anti-pattern?
   useEffect(() => {
     setIsRead(data.read);
     setUrl(new URL(data.links.url));
-  }, [])
+  }, [data])
 
   function handleCheck() {
     updateIsRead(data, isRead)
@@ -39,12 +41,15 @@ export default function SaveItem({ data, deleteSave, updateIsRead, user }) {
             ) : (null)
           }
           <div className="flex flex-col">
-            <Link
-              isExternal
-              href={url.href}
-            >
-              {truncateUrl(url.host + url.pathname, 36)}
-            </Link>
+            <div className="flex flex-row justify-between items-center gap-2">
+              <Link
+                isExternal
+                href={url.href}
+              >
+                {data.links.page_title ? truncateUrl(`${data.links.page_title}`, 40) : truncateUrl(url.host + url.pathname, 40)}
+              </Link>
+              <Chip size="sm">{url.host}</Chip>
+            </div>
             <p className="text-xs text-slate-400">Created {parseAndHumanizeDate(data.created_at)}</p>
           </div>
         </div>
@@ -61,5 +66,6 @@ export default function SaveItem({ data, deleteSave, updateIsRead, user }) {
       </CardBody>
     </Card>
   )
-}
+};
 
+export default SaveItem;

@@ -16,7 +16,8 @@ export default function ReadingList({ user, listSaves, setListSaves }) {
           .select(`
             id,
             links (
-              url
+              url,
+              page_title
             ),
             created_at
           `)
@@ -38,7 +39,6 @@ export default function ReadingList({ user, listSaves, setListSaves }) {
   }, [])
 
   async function deleteSave(data) {
-    console.log(`Deleting ${data.links.url} from reading list.`)
     const newListSaves = listSaves.filter((save) => save.id !== data.id)
     setListSaves(newListSaves)
     const { error } = await supabase
@@ -51,7 +51,6 @@ export default function ReadingList({ user, listSaves, setListSaves }) {
   }
 
   async function updateIsRead(data, isRead) {
-    console.log(`Setting save ${data.links.url} to ${!isRead}`)
     const newListSaves = listSaves.filter((save) => save.id !== data.id)
     setListSaves(newListSaves)
     const { error } = await supabase

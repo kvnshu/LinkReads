@@ -34,7 +34,6 @@ export async function GET(request) {
     if (profileUpdateError) {
       throw profileUpdateError;
     }
-    console.log('Updated profile information:', { updateProfileObj });
 
   } catch (error) {
     console.log(error);
