@@ -1,6 +1,7 @@
 app
 [] implement pagination/infinite scrolling for feed
 [] cache data fetches
+[] improve text overflow handling (https://stackoverflow.com/questions/31928710/text-overflow-ellipsis-on-dynamic-width-element)
 [] fix bug where dashboard isn't landing page when not logged in
 [] reimplement image replacement (instead of upserting, delete and upload)
 [] move supabase queries to services directory https://github.com/search?q=repo%3Aharshmangalam%2Fsupabook%20fetchProfileDetails&type=code
@@ -14,12 +15,16 @@ app
 ====
 Feed
 [] add avatar
+[] center text for empty feed
 
 Profile Page
 [] refactor component structure into files ([Page, Profile Card (Profile Details)(Followers)(Following), Save View])
 
+ReadingList
+[] limit rendering of elements 
+- https://react.dev/reference/react/memo: "Keep in mind that memo is completely useless if the props passed to your component are always different, such as if you pass an object or a plain function defined during rendering."
+
 listItem
-[] generate rich previews of links (title, time to read, favicon)
 [] create undo popup on done/delete
 [] show created or read conditionally
 
@@ -47,7 +52,9 @@ Chrome extension
 [] snooze for time
 
 saves
-[] ratings, notes, comments
+[] add ratings
+[] add notes
+[] add comments
 
 Landing Page
 [] imporve copy
@@ -55,3 +62,11 @@ Landing Page
 
 feed
 [] show your own activity
+
+DELETE LATER:
+submit url
+parse url
+upsert links table (just the url)
+insert saves table (returning dataSaves)
+call fetchTitle(dataSaves)
+update setListSaves

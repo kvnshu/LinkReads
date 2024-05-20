@@ -65,7 +65,6 @@ export default function FollowButton({ user, profileId }) {
 
       setIsFollowing(prevState => !prevState);
     } catch (error) {
-      console.log('Error following/unfollowing profile.')
       console.log(error)
     } finally {
       setLoading(false);
