@@ -8,19 +8,18 @@ import DeleteIcon from "@/app/public/delete_FILL0_wght400_GRAD0_opsz24.svg"
 import { truncateUrl } from "@/utils/truncateUrl"
 import { parseAndHumanizeDate } from '@/utils/parseAndHumanizeDate';
 
-export default function SaveItem({ data, deleteSave, updateIsRead, user }) {
+function SaveItem({ data, deleteSave, updateIsRead, user }) {
   const [isRead, setIsRead] = useState(data.read);
   const [url, setUrl] = useState({
     host: '',
     pathname: ''
   })
-  const [pageTitle, setPageTitle] = useState("");
+
   // TODO: is this an anti-pattern?
   useEffect(() => {
     setIsRead(data.read);
     setUrl(new URL(data.links.url));
-    setPageTitle(data.links.page_title);
-  }, [])
+  }, [data])
 
   function handleCheck() {
     updateIsRead(data, isRead)
@@ -45,7 +44,7 @@ export default function SaveItem({ data, deleteSave, updateIsRead, user }) {
               isExternal
               href={url.href}
             >
-              {truncateUrl(pageTitle ? `${pageTitle} (${url.host})`  : url.host + url.pathname, 60)}
+              {truncateUrl(data.links.page_title ? `${data.links.page_title} || ${url.host}` : url.host + url.pathname, 60)}
             </Link>
             <p className="text-xs text-slate-400">Created {parseAndHumanizeDate(data.created_at)}</p>
           </div>
@@ -63,5 +62,6 @@ export default function SaveItem({ data, deleteSave, updateIsRead, user }) {
       </CardBody>
     </Card>
   )
-}
+};
 
+export default SaveItem;

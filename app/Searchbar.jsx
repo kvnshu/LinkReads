@@ -4,7 +4,7 @@ import { Input } from "@nextui-org/input";
 import Image from "next/image";
 import addIcon from "@/app/public/add_FILL0_wght400_GRAD0_opsz24.svg"
 import { createSupabaseFrontendClient } from "@/utils/supabaseBrowser";
-import { fetchOpengraph } from "@/utils/fetchOpengraph";
+import { fetchPageMetadata } from "@/utils/fetchPageMetadata";
 
 export default function SearchBar({ listSaves, setListSaves, user }) {
   const [searchText, setSearchText] = useState("");
@@ -24,14 +24,8 @@ export default function SearchBar({ listSaves, setListSaves, user }) {
         return;
       }
 
-      const fetchData = await fetchOpengraph(url);
-      const page_title = fetchData['og:title'];
-
-      // update links table
-      const newLink = {
-        url: url,
-        page_title: page_title
-      }
+      // upsert links table
+      const newLink = { url: url.host + url.pathname }
       const { data: dataLinks, error: errorLinks } = await supabase
         .from('links')
         .upsert(newLink, {
@@ -72,8 +66,16 @@ export default function SearchBar({ listSaves, setListSaves, user }) {
 
       const newListSaves = [dataSaves, ...listSaves]
       setListSaves(newListSaves);
-      console.log(`Added ${url} to reading list.`);
       setSearchText("");
+
+      if (!dataSaves.links.page_title) {
+        fetchPageMetadata(dataSaves)
+          .then((pageTitle) => {
+            dataSaves.links.page_title = pageTitle;
+            setListSaves([...newListSaves]);
+          })
+          .catch((e) => { console.log(e.message) });
+      }
     }
 
     addSave();
