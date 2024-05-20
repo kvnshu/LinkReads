@@ -7,6 +7,7 @@ import Image from "next/image";
 import DeleteIcon from "@/app/public/delete_FILL0_wght400_GRAD0_opsz24.svg"
 import { truncateUrl } from "@/utils/truncateUrl"
 import { parseAndHumanizeDate } from '@/utils/parseAndHumanizeDate';
+import { Chip } from "@nextui-org/chip";
 
 function SaveItem({ data, deleteSave, updateIsRead, user }) {
   const [isRead, setIsRead] = useState(data.read);
@@ -40,12 +41,15 @@ function SaveItem({ data, deleteSave, updateIsRead, user }) {
             ) : (null)
           }
           <div className="flex flex-col">
-            <Link
-              isExternal
-              href={url.href}
-            >
-              {truncateUrl(data.links.page_title ? `${data.links.page_title} || ${url.host}` : url.host + url.pathname, 60)}
-            </Link>
+            <div className="flex flex-row justify-between items-center gap-2">
+              <Link
+                isExternal
+                href={url.href}
+              >
+                {data.links.page_title ? truncateUrl(`${data.links.page_title}`, 40) : truncateUrl(url.host + url.pathname, 40)}
+              </Link>
+              <Chip size="sm">{url.host}</Chip>
+            </div>
             <p className="text-xs text-slate-400">Created {parseAndHumanizeDate(data.created_at)}</p>
           </div>
         </div>
