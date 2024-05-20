@@ -11,13 +11,15 @@ import { parseAndHumanizeDate } from '@/utils/parseAndHumanizeDate';
 export default function SaveItem({ data, deleteSave, updateIsRead, user }) {
   const [isRead, setIsRead] = useState(data.read);
   const [url, setUrl] = useState({
-    host:'',
-    pathname:''
+    host: '',
+    pathname: ''
   })
+  const [pageTitle, setPageTitle] = useState("");
   // TODO: is this an anti-pattern?
   useEffect(() => {
     setIsRead(data.read);
     setUrl(new URL(data.links.url));
+    setPageTitle(data.links.page_title);
   }, [])
 
   function handleCheck() {
@@ -43,7 +45,7 @@ export default function SaveItem({ data, deleteSave, updateIsRead, user }) {
               isExternal
               href={url.href}
             >
-              {truncateUrl(url.host + url.pathname, 36)}
+              {truncateUrl(pageTitle ? `${pageTitle} (${url.host})`  : url.host + url.pathname, 60)}
             </Link>
             <p className="text-xs text-slate-400">Created {parseAndHumanizeDate(data.created_at)}</p>
           </div>

@@ -16,7 +16,8 @@ export default function ReadingList({ user, listSaves, setListSaves }) {
           .select(`
             id,
             links (
-              url
+              url,
+              page_title
             ),
             created_at
           `)
