@@ -17,7 +17,8 @@ export default function Feed({ session }) {
           .from('saves')
           .select(`
             links (
-              url
+              url,
+              page_title
             ),
             user_id,
             read_at,
