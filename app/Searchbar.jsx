@@ -4,6 +4,7 @@ import { Input } from "@nextui-org/input";
 import Image from "next/image";
 import addIcon from "@/app/public/add_FILL0_wght400_GRAD0_opsz24.svg"
 import { createSupabaseFrontendClient } from "@/utils/supabaseBrowser";
+import { fetchOpengraph } from "@/utils/fetchOpengraph";
 
 export default function SearchBar({ listSaves, setListSaves, user }) {
   const [searchText, setSearchText] = useState("");
@@ -11,6 +12,8 @@ export default function SearchBar({ listSaves, setListSaves, user }) {
 
   async function handleSubmit(event) {
     event.preventDefault();
+    // fetch page title
+
     async function addSave() {
       let url = searchText;
       try {
@@ -20,9 +23,14 @@ export default function SearchBar({ listSaves, setListSaves, user }) {
         console.log(error); // => TypeError, "Failed to construct URL: Invalid URL"
         return;
       }
+
+      const fetchData = await fetchOpengraph(url);
+      const page_title = fetchData['og:title'];
+
       // update links table
       const newLink = {
         url: url,
+        page_title: page_title
       }
       const { data: dataLinks, error: errorLinks } = await supabase
         .from('links')
@@ -49,7 +57,8 @@ export default function SearchBar({ listSaves, setListSaves, user }) {
           id,
           links (
             url,
-            created_at
+            created_at,
+            page_title
           ),
           created_at
         `)

@@ -11,6 +11,7 @@
     "autoprefixer": "10.4.15",
     "cookies-next": "^4.1.0",
     "date-fns": "^2.30.0",
+    "fetch-opengraph": "^1.0.36",
     "framer-motion": "^10.18.0",
     "next": "latest",
     "package.json": "^2.0.1",
