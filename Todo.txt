@@ -1,6 +1,4 @@
 app
-[] clean up parsing of page title
-[] remove from url everything after path
 [] implement pagination/infinite scrolling for feed
 [] cache data fetches
 [] fix bug where dashboard isn't landing page when not logged in
@@ -17,6 +15,7 @@ app
 Feed
 [] add avatar
 [] center text for empty feed
+
 Profile Page
 [] refactor component structure into files ([Page, Profile Card (Profile Details)(Followers)(Following), Save View])
 

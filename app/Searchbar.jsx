@@ -17,15 +17,16 @@ export default function SearchBar({ listSaves, setListSaves, user }) {
     async function addSave() {
       let url = searchText;
       try {
-        url = new URL(searchText);
-        url = url.href;
+        const urlObj = new URL(searchText);
+        console.log({ urlObj });
+        url = urlObj.origin + urlObj.pathname;
       } catch (error) {
         console.log(error); // => TypeError, "Failed to construct URL: Invalid URL"
         return;
       }
 
       // upsert links table
-      const newLink = { url: url.host + url.pathname }
+      const newLink = { url }
       const { data: dataLinks, error: errorLinks } = await supabase
         .from('links')
         .upsert(newLink, {
