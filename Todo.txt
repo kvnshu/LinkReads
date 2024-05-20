@@ -1,6 +1,7 @@
 app
 [] implement pagination/infinite scrolling for feed
 [] cache data fetches
+[] improve text overflow handling (https://stackoverflow.com/questions/31928710/text-overflow-ellipsis-on-dynamic-width-element)
 [] fix bug where dashboard isn't landing page when not logged in
 [] reimplement image replacement (instead of upserting, delete and upload)
 [] move supabase queries to services directory https://github.com/search?q=repo%3Aharshmangalam%2Fsupabook%20fetchProfileDetails&type=code
