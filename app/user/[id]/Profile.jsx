@@ -94,7 +94,7 @@ export default function Profile({ user, profileId }) {
 
     fetchProfile();
     fetchFollowings();
-  }, [])
+  }, []);
 
   return (
     <div id="profile-container" className="w-4/5 h-full flex flex-col sm:flex-row content-center justify-center gap-12">
@@ -240,6 +240,6 @@ export default function Profile({ user, profileId }) {
         user={user}
         profileId={profileId}
       />
-    </div >
+    </div>
   )
 }

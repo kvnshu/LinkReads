@@ -109,9 +109,9 @@ function SavesViewer({ user, profileId }) {
             }
             scrollableTarget="saves-container"
           >
-            <div id="saves-item-container" className="flex flex-col gap-4">
+            <div className="flex flex-col gap-4">
               {
-                profileSaves.map((save, i) =>
+                profileSaves.map((save) =>
                   <SaveItem
                     key={save.id}
                     data={save}
@@ -125,7 +125,6 @@ function SavesViewer({ user, profileId }) {
           </InfiniteScroll>
         </CardBody>
         <CardFooter>
-
         </CardFooter>
       </Card>
     </>
