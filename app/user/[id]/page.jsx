@@ -17,21 +17,20 @@ export default async function UserProfile({ params }) {
   )
 }
 
-/**
- * 
- * @returns 
- * 
- * Generates dynamic metadata for user page
- */
 export async function generateMetadata({ params }) {
 
   // read route params then fetch data
   const supabase = createSupabaseServerComponentClient();
-  const { data: { user }, error } = await supabase.auth.getUser()
+  const { data, error } = await supabase
+      .from('profiles')
+      .select('full_name')
+      .eq('id', params.id)
+      .limit(1)
+      .single()
 
   // using user's auth full name. Could be using field in profiles table
   return {
-    title: `LinkReads | ${user.user_metadata.name}`,
+    title: `LinkReads | ${data.full_name  }`,
     description: 'Goodreads for the internet.',
     creator: 'Kevin Xu',
   };
