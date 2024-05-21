@@ -1,4 +1,5 @@
 app
+[] add page titles in profile where possible
 [] implement pagination/infinite scrolling for feed
 [] cache data fetches
 [] improve text overflow handling (https://stackoverflow.com/questions/31928710/text-overflow-ellipsis-on-dynamic-width-element)
@@ -19,7 +20,6 @@ Feed
 
 Profile Page
 [] refactor component structure into files ([Page, Profile Card (Profile Details)(Followers)(Following), Save View])
-
 ReadingList
 [] limit rendering of elements 
 - https://react.dev/reference/react/memo: "Keep in mind that memo is completely useless if the props passed to your component are always different, such as if you pass an object or a plain function defined during rendering."

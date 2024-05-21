@@ -3,39 +3,47 @@ import { useEffect, useState } from "react";
 import { createSupabaseFrontendClient } from "@/utils/supabaseBrowser";
 import SaveItem from "@/components/SaveItem";
 import { Card, CardHeader, CardBody, CardFooter } from "@nextui-org/card";
+import InfiniteScroll from 'react-infinite-scroll-component';
 
 export default function ReadingList({ user, listSaves, setListSaves }) {
   const supabase = createSupabaseFrontendClient();
-  const [loading, setLoading] = useState(true);
+  const [from, setFrom] = useState(0);
+  const [hasMore, setHasMore] = useState(true);
+  const pageSize = 8;
+
+  async function fetchSaves() {
+    try {
+      const { data, error } = await supabase
+        .from('saves')
+        .select(`
+          id,
+          links (
+            url,
+            page_title
+          ),
+          created_at
+        `)
+        .eq('user_id', user?.id)
+        .eq('read', false)
+        .order('created_at', { ascending: false })
+        .range(from, from + pageSize);
+
+      if (error) {
+        throw error
+      }
+      setListSaves(listSaves.concat(data));
+      if (data.length < pageSize) {
+        setHasMore(false);
+      }
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setFrom(from + pageSize);
+    }
+  }
 
   useEffect(() => {
-    async function loadSaves() {
-      try {
-        const { data, error } = await supabase
-          .from('saves')
-          .select(`
-            id,
-            links (
-              url,
-              page_title
-            ),
-            created_at
-          `)
-          .eq('user_id', user?.id)
-          .eq('read', false)
-          .order('created_at', { ascending: false })
-
-        if (error) {
-          throw error
-        }
-        setListSaves(data);
-      } catch (error) {
-        console.log(error)
-      } finally {
-        setLoading(false);
-      }
-    }
-    loadSaves();
+    fetchSaves();
   }, [])
 
   async function deleteSave(data) {
@@ -74,35 +82,45 @@ export default function ReadingList({ user, listSaves, setListSaves }) {
         <span className="w-full text-center font-bold">To Read</span>
       </CardHeader>
       <CardBody
+        id="saves-container"
         className="max-h-full"
       >
-        {
-          loading ? (
-            <></>
-          ) : (
-            listSaves.length <= 0 ? (
-              <span className="w-full text-center">All links read!🎊</span>
-            ) : (
-              <div id="reading-list-container" className="flex flex-col gap-4">
-                {
-                  listSaves.map((save) =>
-                    <SaveItem
-                      key={save.id}
-                      user={user.id}
-                      data={save}
-                      deleteSave={deleteSave}
-                      updateIsRead={updateIsRead}
-                    />
-                  )
-                }
-              </div>
-            )
-          )
-        }
+        <InfiniteScroll
+          dataLength={listSaves.length}
+          next={fetchSaves}
+          hasMore={hasMore}
+          loader={
+            <div className="flex justify-center items-center">
+              <span>Loading...</span>
+            </div>
+          }
+          endMessage={
+            <div className="flex flex-col justify-center items-center text-center">
+              <span className="w-full text-center">
+                All links read!🎊
+              </span>
+            </div>
+          }
+          scrollableTarget="saves-container"
+        >
+          <div className="flex flex-col gap-4">
+            {
+              listSaves.map((save) =>
+                <SaveItem
+                  key={save.id}
+                  user={user.id}
+                  data={save}
+                  deleteSave={deleteSave}
+                  updateIsRead={updateIsRead}
+                />
+              )
+            }
+          </div>
+        </InfiniteScroll>
       </CardBody>
       <CardFooter>
 
       </CardFooter>
-    </Card>
+    </Card >
   )
 }
