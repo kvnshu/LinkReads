@@ -2,18 +2,19 @@ import { useState, useEffect } from "react";
 import { createSupabaseFrontendClient } from '@/utils/supabaseBrowser'
 import { Card, CardBody, CardHeader, CardFooter } from "@nextui-org/card";
 import SaveItem from "@/components/SaveItem";
+import InfiniteScroll from 'react-infinite-scroll-component';
 
 function SavesViewer({ user, profileId }) {
-  const [loading, setLoading] = useState(true);
   const supabase = createSupabaseFrontendClient();
   const [profileSaves, setProfileSaves] = useState([]);
+  const [from, setFrom] = useState(0);
+  const [hasMore, setHasMore] = useState(true);
+  const pageSize = 12;
 
   async function fetchSaves() {
-
     try {
       // fetch user's saves
-      setLoading(true);
-      const { data: profileSavesData, error: profileSavesError } = await supabase
+      const { data, error } = await supabase
         .from('saves')
         .select(`
                 id,
@@ -26,14 +27,20 @@ function SavesViewer({ user, profileId }) {
               `)
         .eq('user_id', profileId)
         .order('created_at', { ascending: false })
-      if (profileSavesError) {
-        throw profileSavesError
+        .range(from, from + pageSize);
+
+
+      if (error) {
+        throw error;
       }
-      setProfileSaves(profileSavesData)
+      setProfileSaves(profileSaves.concat(data));
+      if (data.length < pageSize) {
+        setHasMore(false);
+      }
     } catch (error) {
       console.log(error);
     } finally {
-      setLoading(false);
+      setFrom(from + pageSize);
     }
   }
 
@@ -71,41 +78,51 @@ function SavesViewer({ user, profileId }) {
   return (
     <>
       <Card
-        id="saves-container"
         shadow="none"
         className="w-full sm:w-3/5 max-h-full"
       >
         <CardHeader>
           <span className="w-full text-center font-bold">All links</span>
         </CardHeader>
-        <CardBody>
-          {
-            loading ? (
-              <></>
-            ) : (
-              profileSaves.length <= 0 ? (
-                <span className="w-full text-center">No links added.</span>
-              ) : (
-                <div id="saves-item-container" className="flex flex-col gap-4">
-                  {
-                    loading ? (
-                      <p>Loading saves...</p>
-                    ) : (
-                      profileSaves.map((save, i) =>
-                        <SaveItem
-                          key={save.id}
-                          data={save}
-                          deleteSave={deleteSave}
-                          updateIsRead={updateIsRead}
-                          user={user}
-                        />
-                      )
-                    )
-                  }
-                </div>
-              )
-            )
-          }
+        <CardBody
+          id="saves-container"
+        >
+          <InfiniteScroll
+            dataLength={profileSaves.length}
+            next={fetchSaves}
+            hasMore={hasMore}
+            loader={
+              <div className="flex justify-center items-center">
+                <span>Loading...</span>
+              </div>
+            }
+            endMessage={
+              <div className="flex flex-col justify-center items-center text-center">
+                {
+                  profileSaves.length == 0 ? (
+                    <span className="w-full text-center">
+                      Add links to read!
+                    </span>
+                  ) : (<></>)
+                }
+              </div>
+            }
+            scrollableTarget="saves-container"
+          >
+            <div id="saves-item-container" className="flex flex-col gap-4">
+              {
+                profileSaves.map((save, i) =>
+                  <SaveItem
+                    key={save.id}
+                    data={save}
+                    deleteSave={deleteSave}
+                    updateIsRead={updateIsRead}
+                    user={user}
+                  />
+                )
+              }
+            </div>
+          </InfiniteScroll>
         </CardBody>
         <CardFooter>
 

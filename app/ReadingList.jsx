@@ -82,7 +82,7 @@ export default function ReadingList({ user, listSaves, setListSaves }) {
         <span className="w-full text-center font-bold">To Read</span>
       </CardHeader>
       <CardBody
-        id="readinglist-container"
+        id="saves-container"
         className="max-h-full"
       >
         <InfiniteScroll
@@ -101,7 +101,7 @@ export default function ReadingList({ user, listSaves, setListSaves }) {
               </span>
             </div>
           }
-          scrollableTarget="readinglist-container"
+          scrollableTarget="saves-container"
         >
           <div className="flex flex-col gap-4">
             {
