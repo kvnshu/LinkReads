@@ -20,7 +20,8 @@ function SavesViewer({ user, profileId }) {
                 id,
                 user_id,
                 links (
-                  url
+                  url,
+                  page_title
                 ),
                 read,
                 created_at

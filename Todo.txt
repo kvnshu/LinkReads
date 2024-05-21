@@ -1,6 +1,4 @@
 app
-[] add page titles in profile where possible
-[] implement pagination/infinite scrolling for feed
 [] cache data fetches
 [] improve text overflow handling (https://stackoverflow.com/questions/31928710/text-overflow-ellipsis-on-dynamic-width-element)
 [] fix bug where dashboard isn't landing page when not logged in
