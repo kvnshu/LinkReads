@@ -93,7 +93,7 @@ export default function SearchBar({ listSaves, setListSaves, user }) {
           value={searchText}
           onValueChange={setSearchText}
           startContent={
-            <SearchIcon />
+            <AddSvgIcon />
           }
         />
       </form>
@@ -101,13 +101,17 @@ export default function SearchBar({ listSaves, setListSaves, user }) {
   );
 }
 
-function SearchIcon() {
+function AddSvgIcon(props) {
   return (
-    <Image
-      src={addIcon}
-      alt="search"
-      height={20}
-      width={20}
-    />
-  )
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="24"
+      height="24"
+      viewBox="0 -960 960 960"
+      fill="#a0c6c6"
+      {...props}
+    >
+      <path d="M440-440H200v-80h240v-240h80v240h240v80H520v240h-80v-240z"></path>
+    </svg>
+  );
 }
