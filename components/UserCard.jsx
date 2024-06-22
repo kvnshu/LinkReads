@@ -16,7 +16,7 @@ export default function UserCard({ logUser, user, loading }) {
                 <Avatar
                   className="flex-none"
                   showFallback
-                  name={loading ? "" : user?.full_name.split(' ').map(word => word.substring(0, 1)).join('')}
+                  name={loading ? "" : user?.full_name?.split(' ').map(word => word.substring(0, 1)).join('')}
                   src={user?.avatar_url}
                   size="md"
                   radius="full"
