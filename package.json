@@ -7,6 +7,7 @@
   },
   "dependencies": {
     "@nextui-org/react": "^2.2.9",
+    "@splinetool/react-spline": "^4.0.0",
     "@supabase/ssr": "^0.0.10",
     "autoprefixer": "10.4.15",
     "cookies-next": "^4.1.0",
