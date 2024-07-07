@@ -24,6 +24,7 @@ function SavesViewer({ user, profileId }) {
                   page_title
                 ),
                 read,
+                read_at,
                 created_at
               `)
         .eq('user_id', profileId)

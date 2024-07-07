@@ -50,7 +50,7 @@ function SaveItem({ data, deleteSave, updateIsRead, user }) {
               </Link>
               <Chip size="sm">{url.host}</Chip>
             </div>
-            <p className="text-xs text-slate-400">Created {parseAndHumanizeDate(data.created_at)}</p>
+            <p className="text-xs text-slate-400">{data.read ? `Read ${parseAndHumanizeDate(data.read_at)}` : `Created ${parseAndHumanizeDate(data.created_at)}`}</p>
           </div>
         </div>
         {
