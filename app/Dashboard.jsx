@@ -1,17 +1,22 @@
-'use client'
+"use client";
 import { useState } from "react";
-import Searchbar from "./Searchbar"
-import ReadingList from "./ReadingList"
-import Feed from "./Feed"
-
+import Searchbar from "./Searchbar";
+import ReadingList from "./ReadingList";
+import Feed from "./Feed";
 
 export default function Dashboard({ session }) {
   const { user } = session;
-  const [listSaves, setListSaves] = useState([])
+  const [listSaves, setListSaves] = useState([]);
 
   return (
-    <div id="dashboard-container" className="w-screen h-full flex flex-col items-center">
-      <div id="dashboard" className="h-full w-4/5 flex-1 flex flex-col align-center items-center gap-2">
+    <div
+      id="dashboard-container"
+      className="w-screen h-full flex flex-col items-center"
+    >
+      <div
+        id="dashboard"
+        className="h-full w-4/5 flex-1 flex flex-col align-center items-center gap-2"
+      >
         <Searchbar
           user={user}
           listSaves={listSaves}
@@ -27,5 +32,5 @@ export default function Dashboard({ session }) {
         </div>
       </div>
     </div>
-  )
+  );
 }

@@ -1,8 +1,8 @@
-'use client'
+"use client";
 import { useState } from "react";
 import { Input } from "@nextui-org/input";
 import Image from "next/image";
-import addIcon from "@/app/public/add_FILL0_wght400_GRAD0_opsz24.svg"
+import addIcon from "@/app/public/add_FILL0_wght400_GRAD0_opsz24.svg";
 import { createSupabaseFrontendClient } from "@/utils/supabaseBrowser";
 import { fetchPageMetadata } from "@/utils/fetchPageMetadata";
 
@@ -26,17 +26,17 @@ export default function SearchBar({ listSaves, setListSaves, user }) {
       }
 
       // upsert links table
-      const newLink = { url }
+      const newLink = { url };
       const { data: dataLinks, error: errorLinks } = await supabase
-        .from('links')
+        .from("links")
         .upsert(newLink, {
           ignoreDuplicates: false,
-          onConflict: 'url'
+          onConflict: "url",
         })
         .select();
 
       if (errorLinks) {
-        console.log('Failed to add link.')
+        console.log("Failed to add link.");
         throw errorLinks;
       }
 
@@ -46,9 +46,10 @@ export default function SearchBar({ listSaves, setListSaves, user }) {
         link_id: dataLinks[0].id,
       };
       const { data: dataSaves, error: errorSaves } = await supabase
-        .from('saves')
+        .from("saves")
         .insert(newSave)
-        .select(`
+        .select(
+          `
           id,
           links (
             url,
@@ -56,16 +57,17 @@ export default function SearchBar({ listSaves, setListSaves, user }) {
             page_title
           ),
           created_at
-        `)
+        `
+        )
         .limit(1)
         .single();
 
       if (errorSaves) {
-        console.log(`Failed to add save.`)
+        console.log(`Failed to add save.`);
         throw errorSaves;
       }
 
-      const newListSaves = [dataSaves, ...listSaves]
+      const newListSaves = [dataSaves, ...listSaves];
       setListSaves(newListSaves);
       setSearchText("");
 
@@ -75,7 +77,9 @@ export default function SearchBar({ listSaves, setListSaves, user }) {
             dataSaves.links.page_title = pageTitle;
             setListSaves([...newListSaves]);
           })
-          .catch((e) => { console.log(e.message) });
+          .catch((e) => {
+            console.log(e.message);
+          });
       }
     }
 
@@ -92,9 +96,7 @@ export default function SearchBar({ listSaves, setListSaves, user }) {
           placeholder="Save a link for later..."
           value={searchText}
           onValueChange={setSearchText}
-          startContent={
-            <AddSvgIcon />
-          }
+          startContent={<AddSvgIcon />}
         />
       </form>
     </div>

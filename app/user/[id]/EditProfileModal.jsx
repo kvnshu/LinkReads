@@ -1,17 +1,28 @@
-'use client'
+"use client";
 import { useEffect, useState } from "react";
-import { Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, useDisclosure } from "@nextui-org/modal";
+import {
+  Modal,
+  ModalContent,
+  ModalHeader,
+  ModalBody,
+  ModalFooter,
+  useDisclosure,
+} from "@nextui-org/modal";
 import { Button } from "@nextui-org/button";
 import { Link } from "@nextui-org/link";
 import { Input } from "@nextui-org/input";
-import { createSupabaseFrontendClient } from '@/utils/supabaseBrowser'
+import { createSupabaseFrontendClient } from "@/utils/supabaseBrowser";
 import { Avatar } from "@nextui-org/avatar";
 
 export default function EditProfile({ profile, setProfile }) {
   const supabase = createSupabaseFrontendClient();
   const [loading, setLoading] = useState(true);
   const [avatarFile, setAvatarFile] = useState();
-  const { isOpen: isEditProfileOpen, onOpen: onEditProfileOpen, onOpenChange: onEditProfileOpenChange } = useDisclosure();
+  const {
+    isOpen: isEditProfileOpen,
+    onOpen: onEditProfileOpen,
+    onOpenChange: onEditProfileOpenChange,
+  } = useDisclosure();
 
   useEffect(() => {
     setLoading(false);
@@ -33,23 +44,22 @@ export default function EditProfile({ profile, setProfile }) {
     // catch new name can't be blank
     try {
       setLoading(true);
-      let updateObj = {}
+      let updateObj = {};
       if (avatarFile) {
         const avatarFilename = `${profile.id}/avatar`;
         // upsert into storage
-        const { data: storageData, error: storageError } = await supabase
-          .storage
-          .from('avatars')
-          .upload(avatarFilename, avatarFile, {
-            upsert: true
-          });
+        const { data: storageData, error: storageError } =
+          await supabase.storage
+            .from("avatars")
+            .upload(avatarFilename, avatarFile, {
+              upsert: true,
+            });
         if (storageError) {
           throw storageError;
         }
         // console.log('Uploaded image to storage.', { storageData });
-        const { data } = supabase
-          .storage
-          .from('avatars')
+        const { data } = supabase.storage
+          .from("avatars")
           .getPublicUrl(avatarFilename);
         const avatarUrl = data.publicUrl;
         updateObj.avatar_url = avatarUrl;
@@ -59,17 +69,17 @@ export default function EditProfile({ profile, setProfile }) {
       }
       if (updateObj) {
         const { data, error } = await supabase
-          .from('profiles')
+          .from("profiles")
           .update(updateObj)
-          .eq('id', profile.id)
-          .select()
+          .eq("id", profile.id)
+          .select();
         if (error) {
-          throw error
+          throw error;
         }
         setProfile({
           ...profile,
-          ...updateObj
-        })
+          ...updateObj,
+        });
       }
     } catch (error) {
       console.log(error);
@@ -97,9 +107,20 @@ export default function EditProfile({ profile, setProfile }) {
                   <div className="flex items-center gap-2">
                     <Avatar
                       showFallback
-                      name={loading ? "" : profile?.full_name.split(' ').map(word => word.substring(0, 1)).join('')}
+                      name={
+                        loading
+                          ? ""
+                          : profile?.full_name
+                              .split(" ")
+                              .map((word) => word.substring(0, 1))
+                              .join("")
+                      }
                       className="flex-none"
-                      src={avatarFile ? URL.createObjectURL(avatarFile) : profile?.avatar_url}
+                      src={
+                        avatarFile
+                          ? URL.createObjectURL(avatarFile)
+                          : profile?.avatar_url
+                      }
                       size="lg"
                       radius="full"
                     />
@@ -130,10 +151,14 @@ export default function EditProfile({ profile, setProfile }) {
                   >
                     Save and Close
                   </Button>
-                  <Button color="danger" variant="light" onPress={() => {
-                    onEditProfileClose();
-                    setAvatarFile(null);
-                  }}>
+                  <Button
+                    color="danger"
+                    variant="light"
+                    onPress={() => {
+                      onEditProfileClose();
+                      setAvatarFile(null);
+                    }}
+                  >
                     Cancel
                   </Button>
                 </ModalFooter>
@@ -141,7 +166,7 @@ export default function EditProfile({ profile, setProfile }) {
             </>
           )}
         </ModalContent>
-      </Modal >
+      </Modal>
     </>
-  )
+  );
 }
