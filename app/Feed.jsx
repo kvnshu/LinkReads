@@ -1,10 +1,10 @@
-'use client'
-import { useEffect, useState } from 'react'
-import { createSupabaseFrontendClient } from '@/utils/supabaseBrowser'
-import FeedItem from './FeedItem'
+"use client";
+import { useEffect, useState } from "react";
+import { createSupabaseFrontendClient } from "@/utils/supabaseBrowser";
+import FeedItem from "./FeedItem";
 import { Card, CardHeader, CardBody, CardFooter } from "@nextui-org/card";
-import { Link } from '@nextui-org/link';
-import InfiniteScroll from 'react-infinite-scroll-component';
+import { Link } from "@nextui-org/link";
+import InfiniteScroll from "react-infinite-scroll-component";
 
 export default function Feed({ session }) {
   const [reads, setReads] = useState([]);
@@ -21,8 +21,9 @@ export default function Feed({ session }) {
 
     try {
       const { data, error } = await supabase
-        .from('saves')
-        .select(`
+        .from("saves")
+        .select(
+          `
           id,
           links (
             url,
@@ -37,16 +38,17 @@ export default function Feed({ session }) {
               user_id2
             )
           )
-        `)
-        .not('profiles', 'is', null)
-        .not('profiles.followings', 'is', null)
-        .eq('profiles.followings.user_id1', session.user.id)
-        .eq('read', true)
-        .order('read_at', { ascending: false })
+        `
+        )
+        .not("profiles", "is", null)
+        .not("profiles.followings", "is", null)
+        .eq("profiles.followings.user_id1", session.user.id)
+        .eq("read", true)
+        .order("read_at", { ascending: false })
         .range(from, from + pageSize);
 
       if (error) {
-        throw error
+        throw error;
       }
       setReads(reads.concat(data));
       if (data.length < pageSize) {
@@ -61,20 +63,14 @@ export default function Feed({ session }) {
 
   useEffect(() => {
     fetchReads();
-  }, [])
+  }, []);
 
   return (
-    <Card
-      shadow="none"
-      className='w-1/3 max-h-5/6'
-    >
+    <Card shadow="none" className="w-1/3 max-h-5/6">
       <CardHeader>
         <span className="w-full text-center font-bold">Feed</span>
       </CardHeader>
-      <CardBody
-        id="feed-container"
-        className="max-h-full"
-      >
+      <CardBody id="feed-container" className="max-h-full">
         <InfiniteScroll
           dataLength={reads.length} //This is important field to render the next data
           next={fetchReads}
@@ -87,24 +83,24 @@ export default function Feed({ session }) {
           endMessage={
             <div className="flex flex-col justify-center items-center text-center">
               <span>No more updates, for now...</span>
-              <span><Link href="/explore">Follow readers</Link> to be updated when they read an article!</span>
+              <span>
+                <Link href="/explore">Follow readers</Link> to be updated when
+                they read an article!
+              </span>
             </div>
           }
           scrollableTarget="feed-container"
         >
           {
             <div className="flex flex-col gap-4">
-              {
-                reads.map((read, i) => <FeedItem key={i} data={read} />)
-              }
+              {reads.map((read, i) => (
+                <FeedItem key={i} data={read} />
+              ))}
             </div>
           }
         </InfiniteScroll>
-
       </CardBody>
-      <CardFooter>
-
-      </CardFooter>
+      <CardFooter></CardFooter>
     </Card>
-  )
+  );
 }

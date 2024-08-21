@@ -1,9 +1,9 @@
-'use client';
+"use client";
 import { useEffect, useState } from "react";
 import { createSupabaseFrontendClient } from "@/utils/supabaseBrowser";
 import SaveItem from "@/components/SaveItem";
 import { Card, CardHeader, CardBody, CardFooter } from "@nextui-org/card";
-import InfiniteScroll from 'react-infinite-scroll-component';
+import InfiniteScroll from "react-infinite-scroll-component";
 
 export default function ReadingList({ user, listSaves, setListSaves }) {
   const supabase = createSupabaseFrontendClient();
@@ -14,22 +14,24 @@ export default function ReadingList({ user, listSaves, setListSaves }) {
   async function fetchSaves() {
     try {
       const { data, error } = await supabase
-        .from('saves')
-        .select(`
+        .from("saves")
+        .select(
+          `
           id,
           links (
             url,
             page_title
           ),
           created_at
-        `)
-        .eq('user_id', user?.id)
-        .eq('read', false)
-        .order('created_at', { ascending: false })
+        `
+        )
+        .eq("user_id", user?.id)
+        .eq("read", false)
+        .order("created_at", { ascending: false })
         .range(from, from + pageSize);
 
       if (error) {
-        throw error
+        throw error;
       }
       setListSaves(listSaves.concat(data));
       if (data.length < pageSize) {
@@ -44,47 +46,38 @@ export default function ReadingList({ user, listSaves, setListSaves }) {
 
   useEffect(() => {
     fetchSaves();
-  }, [])
+  }, []);
 
   async function deleteSave(data) {
-    const newListSaves = listSaves.filter((save) => save.id !== data.id)
-    setListSaves(newListSaves)
-    const { error } = await supabase
-      .from('saves')
-      .delete()
-      .eq('id', data.id)
+    const newListSaves = listSaves.filter((save) => save.id !== data.id);
+    setListSaves(newListSaves);
+    const { error } = await supabase.from("saves").delete().eq("id", data.id);
     if (error) {
       console.log(error);
     }
   }
 
   async function updateIsRead(data, isRead) {
-    const newListSaves = listSaves.filter((save) => save.id !== data.id)
-    setListSaves(newListSaves)
+    const newListSaves = listSaves.filter((save) => save.id !== data.id);
+    setListSaves(newListSaves);
     const { error } = await supabase
-      .from('saves')
+      .from("saves")
       .update({
         read: !isRead,
-        read_at: isRead ? null : new Date().toISOString()
+        read_at: isRead ? null : new Date().toISOString(),
       })
-      .eq('id', data.id)
+      .eq("id", data.id);
     if (error) {
       console.log(error);
     }
   }
 
   return (
-    <Card
-      shadow="none"
-      className="w-1/3 max-h-5/6"
-    >
+    <Card shadow="none" className="w-1/3 max-h-5/6">
       <CardHeader>
         <span className="w-full text-center font-bold">To Read</span>
       </CardHeader>
-      <CardBody
-        id="saves-container"
-        className="max-h-full"
-      >
+      <CardBody id="saves-container" className="max-h-full">
         <InfiniteScroll
           dataLength={listSaves.length}
           next={fetchSaves}
@@ -96,31 +89,25 @@ export default function ReadingList({ user, listSaves, setListSaves }) {
           }
           endMessage={
             <div className="flex flex-col justify-center items-center text-center">
-              <span className="w-full text-center">
-                All links read!🎊
-              </span>
+              <span className="w-full text-center">All links read!🎊</span>
             </div>
           }
           scrollableTarget="saves-container"
         >
           <div className="flex flex-col gap-4">
-            {
-              listSaves.map((save) =>
-                <SaveItem
-                  key={save.id}
-                  user={user.id}
-                  data={save}
-                  deleteSave={deleteSave}
-                  updateIsRead={updateIsRead}
-                />
-              )
-            }
+            {listSaves.map((save) => (
+              <SaveItem
+                key={save.id}
+                user={user.id}
+                data={save}
+                deleteSave={deleteSave}
+                updateIsRead={updateIsRead}
+              />
+            ))}
           </div>
         </InfiniteScroll>
       </CardBody>
-      <CardFooter>
-
-      </CardFooter>
-    </Card >
-  )
+      <CardFooter></CardFooter>
+    </Card>
+  );
 }

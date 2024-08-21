@@ -1,7 +1,7 @@
-'use client'
-import { useState, useEffect } from 'react';
+"use client";
+import { useState, useEffect } from "react";
 import { Button } from "@nextui-org/button";
-import { createSupabaseFrontendClient } from '@/utils/supabaseBrowser';
+import { createSupabaseFrontendClient } from "@/utils/supabaseBrowser";
 
 export default function FollowButton({ user, profileId }) {
   const [loading, setLoading] = useState(true);
@@ -13,81 +13,84 @@ export default function FollowButton({ user, profileId }) {
       try {
         // fetch if logUser is following user
         if (!user) {
-          return
+          return;
         }
         const { data: followingData, error: followingError } = await supabase
-          .from('followings')
+          .from("followings")
           .select()
-          .eq('user_id1', user.id)
-          .eq('user_id2', profileId)
-          .maybeSingle()
+          .eq("user_id1", user.id)
+          .eq("user_id2", profileId)
+          .maybeSingle();
 
         if (followingError) {
-          throw followingError
+          throw followingError;
         }
-        setIsFollowing(followingData != null)
+        setIsFollowing(followingData != null);
       } catch (error) {
-        console.log('Error loading isFollowing.')
-        console.log(error)
+        console.log("Error loading isFollowing.");
+        console.log(error);
       } finally {
-        setLoading(false)
+        setLoading(false);
       }
     }
-    getIsFollowing()
-  })
+    getIsFollowing();
+  });
 
   async function handleFollowToggle() {
     try {
       setLoading(true);
       if (isFollowing) {
         const { data, error } = await supabase
-          .from('followings')
+          .from("followings")
           .delete()
-          .eq('user_id1', user.id)
-          .eq('user_id2', profileId)
+          .eq("user_id1", user.id)
+          .eq("user_id2", profileId);
         if (error) {
           throw error;
         }
       } else {
-        const { error } = await supabase
-          .from('followings')
-          .upsert({
+        const { error } = await supabase.from("followings").upsert(
+          {
             user_id1: user.id,
-            user_id2: profileId
-          }, {
-            onConflict: 'user_id1, user_id2',
-            ignoreDuplicates: 'false'
-          })
+            user_id2: profileId,
+          },
+          {
+            onConflict: "user_id1, user_id2",
+            ignoreDuplicates: "false",
+          }
+        );
         if (error) {
           throw error;
         }
       }
 
-      setIsFollowing(prevState => !prevState);
+      setIsFollowing((prevState) => !prevState);
     } catch (error) {
-      console.log(error)
+      console.log(error);
     } finally {
       setLoading(false);
     }
-  };
+  }
 
   return (
     <div>
-      {
-        user && user?.id !== profileId ? (
-          <Button
-            className={isFollowing ? "bg-transparent text-foreground border-default-200" : ""}
-            size="sm"
-            variant={isFollowing ? "bordered" : 'solid'}
-            color="primary"
-            onClick={handleFollowToggle}>
-            {isFollowing ? 'Unfollow' : 'Follow'}
-          </Button>
-        ) : (
-          <></>
-        )
-      }
+      {user && user?.id !== profileId ? (
+        <Button
+          className={
+            isFollowing
+              ? "bg-transparent text-foreground border-default-200"
+              : ""
+          }
+          size="sm"
+          variant={isFollowing ? "bordered" : "solid"}
+          color="primary"
+          onClick={handleFollowToggle}
+        >
+          {isFollowing ? "Unfollow" : "Follow"}
+        </Button>
+      ) : (
+        <></>
+      )}
     </div>
-  )
+  );
 }
-
