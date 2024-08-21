@@ -11,6 +11,7 @@ import { Link } from "@nextui-org/link";
 import EditProfileModal from "@/app/user/[id]/EditProfileModal";
 import { Avatar } from "@nextui-org/avatar";
 import SavesViewer from "@/app/user/[id]/SavesViewer";
+import ActivtyGraph from "@/app/user/[id]/ActivityGraph"
 
 export default function Profile({ user, profileId }) {
   const [loading, setLoading] = useState(true);
@@ -235,6 +236,7 @@ export default function Profile({ user, profileId }) {
             <p className="min-w-full text-xs text-slate-400 text-center">Joined {parseAndHumanizeDate(profile?.created_at)}</p>
           </CardBody>
         </Card>
+        <ActivtyGraph profileId={profileId} />
       </div>
       <SavesViewer
         user={user}
